@@ -1,0 +1,573 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		71D9DEF928A02DBD00D22910 /* OctoBlastApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DEF828A02DBD00D22910 /* OctoBlastApp.swift */; };
+		71D9DEFB28A02DBD00D22910 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DEFA28A02DBD00D22910 /* ContentView.swift */; };
+		71D9DEFD28A02DBE00D22910 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D9DEFC28A02DBE00D22910 /* Assets.xcassets */; };
+		71D9DF0028A02DBE00D22910 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D9DEFF28A02DBE00D22910 /* Preview Assets.xcassets */; };
+		71D9DF0B28A02DBE00D22910 /* OctoBlastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF0A28A02DBE00D22910 /* OctoBlastTests.swift */; };
+		71D9DF1528A02DBE00D22910 /* OctoBlastUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF1428A02DBE00D22910 /* OctoBlastUITests.swift */; };
+		71D9DF1728A02DBE00D22910 /* OctoBlastUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF1628A02DBE00D22910 /* OctoBlastUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		71D9DF0728A02DBE00D22910 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 71D9DEED28A02DBD00D22910 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 71D9DEF428A02DBD00D22910;
+			remoteInfo = OctoBlast;
+		};
+		71D9DF1128A02DBE00D22910 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 71D9DEED28A02DBD00D22910 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 71D9DEF428A02DBD00D22910;
+			remoteInfo = OctoBlast;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		71D9DEF528A02DBD00D22910 /* OctoBlast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OctoBlast.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		71D9DEF828A02DBD00D22910 /* OctoBlastApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctoBlastApp.swift; sourceTree = "<group>"; };
+		71D9DEFA28A02DBD00D22910 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		71D9DEFC28A02DBE00D22910 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		71D9DEFF28A02DBE00D22910 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		71D9DF0128A02DBE00D22910 /* OctoBlast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OctoBlast.entitlements; sourceTree = "<group>"; };
+		71D9DF0628A02DBE00D22910 /* OctoBlastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OctoBlastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		71D9DF0A28A02DBE00D22910 /* OctoBlastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctoBlastTests.swift; sourceTree = "<group>"; };
+		71D9DF1028A02DBE00D22910 /* OctoBlastUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OctoBlastUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		71D9DF1428A02DBE00D22910 /* OctoBlastUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctoBlastUITests.swift; sourceTree = "<group>"; };
+		71D9DF1628A02DBE00D22910 /* OctoBlastUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctoBlastUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		71D9DEF228A02DBD00D22910 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71D9DF0328A02DBE00D22910 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71D9DF0D28A02DBE00D22910 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		71D9DEEC28A02DBD00D22910 = {
+			isa = PBXGroup;
+			children = (
+				71D9DEF728A02DBD00D22910 /* OctoBlast */,
+				71D9DF0928A02DBE00D22910 /* OctoBlastTests */,
+				71D9DF1328A02DBE00D22910 /* OctoBlastUITests */,
+				71D9DEF628A02DBD00D22910 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		71D9DEF628A02DBD00D22910 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				71D9DEF528A02DBD00D22910 /* OctoBlast.app */,
+				71D9DF0628A02DBE00D22910 /* OctoBlastTests.xctest */,
+				71D9DF1028A02DBE00D22910 /* OctoBlastUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		71D9DEF728A02DBD00D22910 /* OctoBlast */ = {
+			isa = PBXGroup;
+			children = (
+				71D9DEF828A02DBD00D22910 /* OctoBlastApp.swift */,
+				71D9DEFA28A02DBD00D22910 /* ContentView.swift */,
+				71D9DEFC28A02DBE00D22910 /* Assets.xcassets */,
+				71D9DF0128A02DBE00D22910 /* OctoBlast.entitlements */,
+				71D9DEFE28A02DBE00D22910 /* Preview Content */,
+			);
+			path = OctoBlast;
+			sourceTree = "<group>";
+		};
+		71D9DEFE28A02DBE00D22910 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				71D9DEFF28A02DBE00D22910 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		71D9DF0928A02DBE00D22910 /* OctoBlastTests */ = {
+			isa = PBXGroup;
+			children = (
+				71D9DF0A28A02DBE00D22910 /* OctoBlastTests.swift */,
+			);
+			path = OctoBlastTests;
+			sourceTree = "<group>";
+		};
+		71D9DF1328A02DBE00D22910 /* OctoBlastUITests */ = {
+			isa = PBXGroup;
+			children = (
+				71D9DF1428A02DBE00D22910 /* OctoBlastUITests.swift */,
+				71D9DF1628A02DBE00D22910 /* OctoBlastUITestsLaunchTests.swift */,
+			);
+			path = OctoBlastUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		71D9DEF428A02DBD00D22910 /* OctoBlast */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71D9DF1A28A02DBE00D22910 /* Build configuration list for PBXNativeTarget "OctoBlast" */;
+			buildPhases = (
+				71D9DEF128A02DBD00D22910 /* Sources */,
+				71D9DEF228A02DBD00D22910 /* Frameworks */,
+				71D9DEF328A02DBD00D22910 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OctoBlast;
+			productName = OctoBlast;
+			productReference = 71D9DEF528A02DBD00D22910 /* OctoBlast.app */;
+			productType = "com.apple.product-type.application";
+		};
+		71D9DF0528A02DBE00D22910 /* OctoBlastTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71D9DF1D28A02DBE00D22910 /* Build configuration list for PBXNativeTarget "OctoBlastTests" */;
+			buildPhases = (
+				71D9DF0228A02DBE00D22910 /* Sources */,
+				71D9DF0328A02DBE00D22910 /* Frameworks */,
+				71D9DF0428A02DBE00D22910 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				71D9DF0828A02DBE00D22910 /* PBXTargetDependency */,
+			);
+			name = OctoBlastTests;
+			productName = OctoBlastTests;
+			productReference = 71D9DF0628A02DBE00D22910 /* OctoBlastTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		71D9DF0F28A02DBE00D22910 /* OctoBlastUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71D9DF2028A02DBE00D22910 /* Build configuration list for PBXNativeTarget "OctoBlastUITests" */;
+			buildPhases = (
+				71D9DF0C28A02DBE00D22910 /* Sources */,
+				71D9DF0D28A02DBE00D22910 /* Frameworks */,
+				71D9DF0E28A02DBE00D22910 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				71D9DF1228A02DBE00D22910 /* PBXTargetDependency */,
+			);
+			name = OctoBlastUITests;
+			productName = OctoBlastUITests;
+			productReference = 71D9DF1028A02DBE00D22910 /* OctoBlastUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		71D9DEED28A02DBD00D22910 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					71D9DEF428A02DBD00D22910 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					71D9DF0528A02DBE00D22910 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = 71D9DEF428A02DBD00D22910;
+					};
+					71D9DF0F28A02DBE00D22910 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = 71D9DEF428A02DBD00D22910;
+					};
+				};
+			};
+			buildConfigurationList = 71D9DEF028A02DBD00D22910 /* Build configuration list for PBXProject "OctoBlast" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 71D9DEEC28A02DBD00D22910;
+			productRefGroup = 71D9DEF628A02DBD00D22910 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				71D9DEF428A02DBD00D22910 /* OctoBlast */,
+				71D9DF0528A02DBE00D22910 /* OctoBlastTests */,
+				71D9DF0F28A02DBE00D22910 /* OctoBlastUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		71D9DEF328A02DBD00D22910 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71D9DF0028A02DBE00D22910 /* Preview Assets.xcassets in Resources */,
+				71D9DEFD28A02DBE00D22910 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71D9DF0428A02DBE00D22910 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71D9DF0E28A02DBE00D22910 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		71D9DEF128A02DBD00D22910 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71D9DEFB28A02DBD00D22910 /* ContentView.swift in Sources */,
+				71D9DEF928A02DBD00D22910 /* OctoBlastApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71D9DF0228A02DBE00D22910 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71D9DF0B28A02DBE00D22910 /* OctoBlastTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71D9DF0C28A02DBE00D22910 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71D9DF1728A02DBE00D22910 /* OctoBlastUITestsLaunchTests.swift in Sources */,
+				71D9DF1528A02DBE00D22910 /* OctoBlastUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		71D9DF0828A02DBE00D22910 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 71D9DEF428A02DBD00D22910 /* OctoBlast */;
+			targetProxy = 71D9DF0728A02DBE00D22910 /* PBXContainerItemProxy */;
+		};
+		71D9DF1228A02DBE00D22910 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 71D9DEF428A02DBD00D22910 /* OctoBlast */;
+			targetProxy = 71D9DF1128A02DBE00D22910 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		71D9DF1828A02DBE00D22910 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		71D9DF1928A02DBE00D22910 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		71D9DF1B28A02DBE00D22910 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = OctoBlast/OctoBlast.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"OctoBlast/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = codes.jbw.OctoBlast;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		71D9DF1C28A02DBE00D22910 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = OctoBlast/OctoBlast.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"OctoBlast/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = codes.jbw.OctoBlast;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		71D9DF1E28A02DBE00D22910 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = codes.jbw.OctoBlastTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OctoBlast.app/Contents/MacOS/OctoBlast";
+			};
+			name = Debug;
+		};
+		71D9DF1F28A02DBE00D22910 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = codes.jbw.OctoBlastTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/OctoBlast.app/Contents/MacOS/OctoBlast";
+			};
+			name = Release;
+		};
+		71D9DF2128A02DBE00D22910 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = codes.jbw.OctoBlastUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = OctoBlast;
+			};
+			name = Debug;
+		};
+		71D9DF2228A02DBE00D22910 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = codes.jbw.OctoBlastUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = OctoBlast;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		71D9DEF028A02DBD00D22910 /* Build configuration list for PBXProject "OctoBlast" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71D9DF1828A02DBE00D22910 /* Debug */,
+				71D9DF1928A02DBE00D22910 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		71D9DF1A28A02DBE00D22910 /* Build configuration list for PBXNativeTarget "OctoBlast" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71D9DF1B28A02DBE00D22910 /* Debug */,
+				71D9DF1C28A02DBE00D22910 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		71D9DF1D28A02DBE00D22910 /* Build configuration list for PBXNativeTarget "OctoBlastTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71D9DF1E28A02DBE00D22910 /* Debug */,
+				71D9DF1F28A02DBE00D22910 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		71D9DF2028A02DBE00D22910 /* Build configuration list for PBXNativeTarget "OctoBlastUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71D9DF2128A02DBE00D22910 /* Debug */,
+				71D9DF2228A02DBE00D22910 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 71D9DEED28A02DBD00D22910 /* Project object */;
+}
