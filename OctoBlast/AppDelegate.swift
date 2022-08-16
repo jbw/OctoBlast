@@ -71,7 +71,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     private func setIcon(_ count: Int, wink _: Bool = false, shout _: Bool = false) {
-        setIconWhenNotified(count: count)
+        setIconWhenNoNotifications()
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
             if count > 0 {
