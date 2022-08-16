@@ -10,9 +10,6 @@
 		71D9DEF928A02DBD00D22910 /* OctoBlastApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DEF828A02DBD00D22910 /* OctoBlastApp.swift */; };
 		71D9DEFD28A02DBE00D22910 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D9DEFC28A02DBE00D22910 /* Assets.xcassets */; };
 		71D9DF0028A02DBE00D22910 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D9DEFF28A02DBE00D22910 /* Preview Assets.xcassets */; };
-		71D9DF0B28A02DBE00D22910 /* OctoBlastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF0A28A02DBE00D22910 /* OctoBlastTests.swift */; };
-		71D9DF1528A02DBE00D22910 /* OctoBlastUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF1428A02DBE00D22910 /* OctoBlastUITests.swift */; };
-		71D9DF1728A02DBE00D22910 /* OctoBlastUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF1628A02DBE00D22910 /* OctoBlastUITestsLaunchTests.swift */; };
 		71D9DF4628A0432400D22910 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71D9DF4528A0432400D22910 /* OctoKit */; };
 		71D9DF4828A04C5600D22910 /* Preferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF4728A04C5600D22910 /* Preferences.swift */; };
 		71D9DF4C28A05F3600D22910 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 71D9DF4B28A05F3600D22910 /* KeychainSwift */; };
@@ -95,10 +92,7 @@
 		71D9DEFF28A02DBE00D22910 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		71D9DF0128A02DBE00D22910 /* OctoBlast.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OctoBlast.entitlements; sourceTree = "<group>"; };
 		71D9DF0628A02DBE00D22910 /* OctoBlastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OctoBlastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		71D9DF0A28A02DBE00D22910 /* OctoBlastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctoBlastTests.swift; sourceTree = "<group>"; };
 		71D9DF1028A02DBE00D22910 /* OctoBlastUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OctoBlastUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		71D9DF1428A02DBE00D22910 /* OctoBlastUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctoBlastUITests.swift; sourceTree = "<group>"; };
-		71D9DF1628A02DBE00D22910 /* OctoBlastUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctoBlastUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		71D9DF2828A0363500D22910 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		71D9DF2A28A040DC00D22910 /* OctoKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OctoKit.xcodeproj; path = ../GitHub/octokit.swift/OctoKit.xcodeproj; sourceTree = "<group>"; };
 		71D9DF4328A041C200D22910 /* octokit.swift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = octokit.swift; path = ../GitHub/octokit.swift; sourceTree = "<group>"; };
@@ -141,8 +135,6 @@
 			children = (
 				71D9DF4228A041C200D22910 /* Packages */,
 				71D9DEF728A02DBD00D22910 /* OctoBlast */,
-				71D9DF0928A02DBE00D22910 /* OctoBlastTests */,
-				71D9DF1328A02DBE00D22910 /* OctoBlastUITests */,
 				71D9DEF628A02DBD00D22910 /* Products */,
 				71D9DF2928A040DC00D22910 /* Frameworks */,
 			);
@@ -179,23 +171,6 @@
 				71D9DEFF28A02DBE00D22910 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		71D9DF0928A02DBE00D22910 /* OctoBlastTests */ = {
-			isa = PBXGroup;
-			children = (
-				71D9DF0A28A02DBE00D22910 /* OctoBlastTests.swift */,
-			);
-			path = OctoBlastTests;
-			sourceTree = "<group>";
-		};
-		71D9DF1328A02DBE00D22910 /* OctoBlastUITests */ = {
-			isa = PBXGroup;
-			children = (
-				71D9DF1428A02DBE00D22910 /* OctoBlastUITests.swift */,
-				71D9DF1628A02DBE00D22910 /* OctoBlastUITestsLaunchTests.swift */,
-			);
-			path = OctoBlastUITests;
 			sourceTree = "<group>";
 		};
 		71D9DF2928A040DC00D22910 /* Frameworks */ = {
@@ -480,7 +455,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71D9DF0B28A02DBE00D22910 /* OctoBlastTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -488,8 +462,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				71D9DF1728A02DBE00D22910 /* OctoBlastUITestsLaunchTests.swift in Sources */,
-				71D9DF1528A02DBE00D22910 /* OctoBlastUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
