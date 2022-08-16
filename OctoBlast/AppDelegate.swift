@@ -13,7 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     private var loginManager: PersonalAccessToken! = PersonalAccessToken.shared
     private var github: GitHub! = GitHub.shared
     private var notificationCount = 0
-    private var open: NSMenuItem = NSMenuItem(title: "Open (0)", action: #selector(onOpen), keyEquivalent: "O")
+    private var open: NSMenuItem = .init(title: "Open (0)", action: #selector(onOpen), keyEquivalent: "O")
 
     var timer: Timer?
 
@@ -73,7 +73,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     private func setIcon(_ count: Int, wink _: Bool = false, shout _: Bool = false) {
         setIconWhenNoNotifications()
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
             if count > 0 {
                 self.setIconWhenNotified(count: count)
             } else {
@@ -137,7 +137,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     private func setIconWhenNotified(count _: Int) {
         if let button = statusItem.button {
-            let image = NSImage(named: NSImage.Name("StatusIconHighlight"))
+            
+            // use user defined setting
+            let color = UserDefaults.standard.color(forKey: "iconTint")
+
+            let image = NSImage(named: NSImage.Name("StatusIconHighlight"))?.tint(color: NSColor(color))
             image!.size = NSMakeSize(18.0, 18.0)
 
             button.image = image
@@ -146,7 +150,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     private func setIconWhenNoNotifications() {
         if let button = statusItem.button {
-            let image = NSImage(named: NSImage.Name("StatusIconLight"))
+            let image = NSImage(named: NSImage.Name("StatusIconNoNotifications"))
             image!.size = NSMakeSize(18.0, 18.0)
 
             button.image = image
@@ -179,7 +183,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
         refresh()
     }
-    
+
     @objc func onOpen() {
         guard let url = URL(string: "https://github.com/notifications") else { return }
 
@@ -188,11 +192,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     @objc func onShowPreferences() {
         // call when creds saved or add refresh button
-        let preferencesView = PreferencesView()
+        let preferencesView = PreferencesView(refreshStatusIcon: {
+            self.setIcon(self.notificationCount)
+        })
 
         let window = NSWindow(
             contentViewController: NSHostingController(rootView: preferencesView)
         )
+
         window.title = "Preferences"
         window.makeKeyAndOrderFront(nil)
         window.level = .floating

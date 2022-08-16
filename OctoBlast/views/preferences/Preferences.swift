@@ -4,6 +4,7 @@ import SwiftUI
 
 struct PreferencesView: View {
     @State private var isActive: Bool = true
+    var refreshStatusIcon: () -> Void
 
     var body: some View {
         NavigationView {
@@ -20,9 +21,11 @@ struct PreferencesView: View {
 
                 }.disabled(true)
 
-                NavigationLink {} label: {
+                NavigationLink {
+                    AppearanceDetail(refreshStatusIcon: self.refreshStatusIcon)
+                } label: {
                     Label("Appearance", systemImage: "paintpalette")
-                }.disabled(true)
+                }
 
                 NavigationLink {
                     AdvancedDetail()
@@ -90,14 +93,42 @@ struct AdvancedDetail: View {
     }
 }
 
+struct AppearanceDetail: View {
+    var refreshStatusIcon: () -> Void
+
+    @State private var iconColor: Color = UserDefaults.standard.color(forKey: "iconTint")
+
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 16) {
+                ColorPicker("Status icon color: ", selection: $iconColor, supportsOpacity: true)
+                    .onChange(of: iconColor, perform: { newValue in
+                        UserDefaults.standard.setColor(newValue, forKey: "iconTint")
+                        self.refreshStatusIcon()
+
+                    })
+                
+                Button("Reset"){
+                    UserDefaults.standard.setColor(.accentColor, forKey: "iconTint")
+                    iconColor = .accentColor
+                    self.refreshStatusIcon()
+
+                }
+                Spacer()
+            }.padding()
+            Spacer()
+        }.padding()
+    }
+}
+
 struct AboutDetail: View {
     var body: some View {
-        Text("Version: v0.0.1.dev.3")
+        Text("Version: v0.0.1.dev.4")
     }
 }
 
 struct Preferences_Previews: PreviewProvider {
     static var previews: some View {
-        PreferencesView()
+        AppearanceDetail(refreshStatusIcon: {})
     }
 }

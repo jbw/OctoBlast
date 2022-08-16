@@ -17,6 +17,8 @@
 		71D9DF5B28AB9C2400D22910 /* Github.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF5A28AB9C2400D22910 /* Github.swift */; };
 		71D9DF5D28AB9C3400D22910 /* PersonalAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF5C28AB9C3400D22910 /* PersonalAccessToken.swift */; };
 		71D9DF5F28AB9CB900D22910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF5E28AB9CB900D22910 /* AppDelegate.swift */; };
+		71D9DF9028AC3C2D00D22910 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF8F28AC3C2D00D22910 /* Color.swift */; };
+		71D9DF9228AC3C4D00D22910 /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF9128AC3C4D00D22910 /* NSImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,8 @@
 		71D9DF5A28AB9C2400D22910 /* Github.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Github.swift; sourceTree = "<group>"; };
 		71D9DF5C28AB9C3400D22910 /* PersonalAccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalAccessToken.swift; sourceTree = "<group>"; };
 		71D9DF5E28AB9CB900D22910 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		71D9DF8F28AC3C2D00D22910 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		71D9DF9128AC3C4D00D22910 /* NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +226,7 @@
 		71D9DF5728AB9BEA00D22910 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				71D9DF8728AC3C1800D22910 /* extensions */,
 				71D9DF5928AB9BFF00D22910 /* github */,
 				71D9DF5828AB9BF000D22910 /* keychain */,
 			);
@@ -242,6 +247,15 @@
 				71D9DF5A28AB9C2400D22910 /* Github.swift */,
 			);
 			path = github;
+			sourceTree = "<group>";
+		};
+		71D9DF8728AC3C1800D22910 /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				71D9DF8F28AC3C2D00D22910 /* Color.swift */,
+				71D9DF9128AC3C4D00D22910 /* NSImage.swift */,
+			);
+			path = extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -447,7 +461,9 @@
 				71D9DEF928A02DBD00D22910 /* OctoBlastApp.swift in Sources */,
 				71D9DF4828A04C5600D22910 /* Preferences.swift in Sources */,
 				71D9DF5F28AB9CB900D22910 /* AppDelegate.swift in Sources */,
+				71D9DF9228AC3C4D00D22910 /* NSImage.swift in Sources */,
 				71D9DF5D28AB9C3400D22910 /* PersonalAccessToken.swift in Sources */,
+				71D9DF9028AC3C2D00D22910 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
