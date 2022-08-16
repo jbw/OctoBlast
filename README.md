@@ -32,4 +32,4 @@ You can change the color of the status menu icon.
 
 ## Download
 
-https://jbw.codes/OctoBlast/
+https://github.com/jbw/OctoBlast/releases
