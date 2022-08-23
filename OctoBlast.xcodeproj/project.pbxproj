@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		710B557628B57EB80093DFA3 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 710B557528B57EB80093DFA3 /* LaunchAtLogin */; };
 		71D9DEF928A02DBD00D22910 /* OctoBlastApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DEF828A02DBD00D22910 /* OctoBlastApp.swift */; };
 		71D9DEFD28A02DBE00D22910 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D9DEFC28A02DBE00D22910 /* Assets.xcassets */; };
 		71D9DF0028A02DBE00D22910 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D9DEFF28A02DBE00D22910 /* Preview Assets.xcassets */; };
@@ -113,6 +114,7 @@
 			files = (
 				71D9DF4C28A05F3600D22910 /* KeychainSwift in Frameworks */,
 				71D9DF4F28A2F68700D22910 /* Preferences in Frameworks */,
+				710B557628B57EB80093DFA3 /* LaunchAtLogin in Frameworks */,
 				71D9DF4628A0432400D22910 /* OctoKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,6 +270,7 @@
 				71D9DEF128A02DBD00D22910 /* Sources */,
 				71D9DEF228A02DBD00D22910 /* Frameworks */,
 				71D9DEF328A02DBD00D22910 /* Resources */,
+				710B557E28B5815A0093DFA3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -278,6 +281,7 @@
 				71D9DF4528A0432400D22910 /* OctoKit */,
 				71D9DF4B28A05F3600D22910 /* KeychainSwift */,
 				71D9DF4E28A2F68700D22910 /* Preferences */,
+				710B557528B57EB80093DFA3 /* LaunchAtLogin */,
 			);
 			productName = OctoBlast;
 			productReference = 71D9DEF528A02DBD00D22910 /* OctoBlast.app */;
@@ -328,6 +332,7 @@
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
 				LastUpgradeCheck = 1340;
+				ORGANIZATIONNAME = JBW;
 				TargetAttributes = {
 					71D9DEF428A02DBD00D22910 = {
 						CreatedOnToolsVersion = 13.4.1;
@@ -356,6 +361,7 @@
 				71D9DF4928A05EBF00D22910 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				71D9DF4A28A05F3600D22910 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				71D9DF4D28A2F68700D22910 /* XCRemoteSwiftPackageReference "Preferences" */,
+				710B557428B57EB80093DFA3 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 			);
 			productRefGroup = 71D9DEF628A02DBD00D22910 /* Products */;
 			projectDirPath = "";
@@ -451,6 +457,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		710B557E28B5815A0093DFA3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		71D9DEF128A02DBD00D22910 /* Sources */ = {
@@ -630,7 +656,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = codes.jbw.OctoBlast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -658,7 +684,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = codes.jbw.OctoBlast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -776,6 +802,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		710B557428B57EB80093DFA3 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		71D9DF2528A031B300D22910 /* XCRemoteSwiftPackageReference "octokit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nerdishbynature/octokit.swift";
@@ -811,6 +845,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		710B557528B57EB80093DFA3 /* LaunchAtLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 710B557428B57EB80093DFA3 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			productName = LaunchAtLogin;
+		};
 		71D9DF4528A0432400D22910 /* OctoKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = OctoKit;

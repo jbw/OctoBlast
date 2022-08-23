@@ -1,6 +1,8 @@
 import KeychainSwift
 import Preferences
 import SwiftUI
+import LaunchAtLogin
+import OctoKit
 
 struct PreferencesView: View {
     @State private var isActive: Bool = true
@@ -10,23 +12,31 @@ struct PreferencesView: View {
         NavigationView {
             List {
                 NavigationLink(isActive: $isActive) {
+                    GeneralAccess()
+
+                } label: {
+                    Label("General", systemImage: "switch.2")
+                }
+
+                NavigationLink() {
                     AccessDetail()
 
                 } label: {
                     Label("Access", systemImage: "key")
                 }
-
-                NavigationLink {} label: {
-                    Label("Notfications", systemImage: "bell")
-
-                }.disabled(true)
-
+                
                 NavigationLink {
                     AppearanceDetail(refreshStatusIcon: self.refreshStatusIcon)
                 } label: {
                     Label("Appearance", systemImage: "paintpalette")
                 }
+                
+                NavigationLink {} label: {
+                    Label("Notfications", systemImage: "bell")
 
+                }.disabled(true)
+
+            
                 NavigationLink {
                     AdvancedDetail()
 
@@ -50,6 +60,20 @@ struct PreferencesView: View {
 class ViewModel: ObservableObject {
     @Published var buttonState: String = PersonalAccessToken.shared.exists() ? "Remove" : "Save"
     @Published var personalAccessTokenExists: Bool = PersonalAccessToken.shared.exists()
+}
+
+struct GeneralAccess: View {
+    var body: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 16) {
+                Text("Application:")
+                LaunchAtLogin.Toggle { Text("Launch at login") }
+            }.padding()
+            Spacer()
+        }.padding()
+        Spacer()
+    }
+    
 }
 
 struct AccessDetail: View {
