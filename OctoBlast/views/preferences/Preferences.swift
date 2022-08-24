@@ -63,11 +63,19 @@ class ViewModel: ObservableObject {
 }
 
 struct GeneralAccess: View {
+    @StateObject var updaterViewModel = UpdaterViewModel()
+
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
-                Text("Application:")
+                Text("Application")
                 LaunchAtLogin.Toggle { Text("Launch at login") }
+                
+                Text("Check for updates")
+                CheckForUpdatesView(updaterViewModel: updaterViewModel)
+                            
+                        
+                    
             }.padding()
             Spacer()
         }.padding()
