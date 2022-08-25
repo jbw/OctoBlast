@@ -11,13 +11,6 @@ struct PreferencesView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(isActive: $isActive) {
-                    GeneralAccess()
-
-                } label: {
-                    Label("General", systemImage: "switch.2")
-                }
-
                 NavigationLink() {
                     AccessDetail()
 
@@ -62,19 +55,6 @@ class ViewModel: ObservableObject {
     @Published var personalAccessTokenExists: Bool = PersonalAccessToken.shared.exists()
 }
 
-struct GeneralAccess: View {
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 16) {
-                Text("Application:")
-                LaunchAtLogin.Toggle { Text("Launch at login") }
-            }.padding()
-            Spacer()
-        }.padding()
-        Spacer()
-    }
-    
-}
 
 struct AccessDetail: View {
     @ObservedObject var model = ViewModel()
@@ -146,13 +126,35 @@ struct AppearanceDetail: View {
 }
 
 struct AboutDetail: View {
+    @StateObject var updaterViewModel = UpdaterViewModel()
+
     var body: some View {
-        Text("Version: v0.0.1.dev.4")
+
+            VStack(alignment: .center, spacing: 16) {
+                Spacer()
+
+                Text("OctoBlast").font(.system(.title, design: .rounded))
+            
+       
+
+            
+                let buildNumber = Bundle.main.object(forInfoDictionaryKey:"CFBundleVersion") as! String
+                Text("v\(buildNumber)")
+        
+                LaunchAtLogin.Toggle { Text("Launch at login") }
+                
+                CheckForUpdatesView(updaterViewModel: updaterViewModel)
+                            
+           
+             
+            Spacer()
+            }
+    
     }
 }
 
 struct Preferences_Previews: PreviewProvider {
     static var previews: some View {
-        AppearanceDetail(refreshStatusIcon: {})
+        AboutDetail()
     }
 }
