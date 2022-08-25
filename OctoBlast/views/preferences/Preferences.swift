@@ -11,13 +11,6 @@ struct PreferencesView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink(isActive: $isActive) {
-                    GeneralAccess()
-
-                } label: {
-                    Label("General", systemImage: "switch.2")
-                }
-
                 NavigationLink() {
                     AccessDetail()
 
@@ -62,25 +55,6 @@ class ViewModel: ObservableObject {
     @Published var personalAccessTokenExists: Bool = PersonalAccessToken.shared.exists()
 }
 
-struct GeneralAccess: View {
-    @StateObject var updaterViewModel = UpdaterViewModel()
-
-    var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 16) {
-                Text("Application")
-                LaunchAtLogin.Toggle { Text("Launch at login") }
-                
-                Text("Check for updates")
-                CheckForUpdatesView(updaterViewModel: updaterViewModel)
-                            
-            }.padding()
-            Spacer()
-        }.padding()
-        Spacer()
-    }
-    
-}
 
 struct AccessDetail: View {
     @ObservedObject var model = ViewModel()
@@ -152,21 +126,35 @@ struct AppearanceDetail: View {
 }
 
 struct AboutDetail: View {
+    @StateObject var updaterViewModel = UpdaterViewModel()
+
     var body: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 16) {
+
+            VStack(alignment: .center, spacing: 16) {
+                Spacer()
+
+                Text("OctoBlast").font(.system(.title, design: .rounded))
+            
+       
+
+            
                 let buildNumber = Bundle.main.object(forInfoDictionaryKey:"CFBundleVersion") as! String
-                Text("Version: \(buildNumber)")
+                Text("v\(buildNumber)")
         
+                LaunchAtLogin.Toggle { Text("Launch at login") }
+                
+                CheckForUpdatesView(updaterViewModel: updaterViewModel)
+                            
+           
+             
             Spacer()
-        }.padding()
-            Spacer()
-        }.padding()
+            }
+    
     }
 }
 
 struct Preferences_Previews: PreviewProvider {
     static var previews: some View {
-        AppearanceDetail(refreshStatusIcon: {})
+        AboutDetail()
     }
 }
