@@ -155,7 +155,15 @@ struct AppearanceDetail: View {
 
 struct AboutDetail: View {
     var body: some View {
-        Text("Version: v0.0.1.dev.4")
+        HStack {
+            VStack(alignment: .leading, spacing: 16) {
+                let buildNumber = Bundle.main.object(forInfoDictionaryKey:"CFBundleVersion") as! String
+                Text("Version: \(buildNumber)")
+        
+            Spacer()
+        }.padding()
+            Spacer()
+        }.padding()
     }
 }
 
