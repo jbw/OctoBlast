@@ -2,9 +2,23 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key></key>
+	<string></string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key></key>
+			<string></string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+		</dict>
+		<dict/>
+	</array>
 	<key>LSUIElement</key>
 	<true/>
 	<key>SUFeedURL</key>
-	<string>https://jbw.codes/appcast.xml</string>
+	<string>https://octoblast.jbw.codes/appcast.xml</string>
+	<key>SUPublicEDKey</key>
+	<string>H3MmXOXbmmHJquamhYA/93ludq+ZtAlAW/F1xF0dalQ=</string>
 </dict>
 </plist>
