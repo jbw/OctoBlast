@@ -1,8 +1,8 @@
 import KeychainSwift
-import Preferences
-import SwiftUI
 import LaunchAtLogin
 import OctoKit
+import Preferences
+import SwiftUI
 
 struct PreferencesView: View {
     @State private var isActive: Bool = true
@@ -11,25 +11,24 @@ struct PreferencesView: View {
     var body: some View {
         NavigationView {
             List {
-                NavigationLink() {
+                NavigationLink {
                     AccessDetail()
 
                 } label: {
                     Label("Access", systemImage: "key")
                 }
-                
+
                 NavigationLink {
                     AppearanceDetail(refreshStatusIcon: self.refreshStatusIcon)
                 } label: {
                     Label("Appearance", systemImage: "paintpalette")
                 }
-                
+
                 NavigationLink {} label: {
                     Label("Notfications", systemImage: "bell")
 
                 }.disabled(true)
 
-            
                 NavigationLink {
                     AdvancedDetail()
 
@@ -54,7 +53,6 @@ class ViewModel: ObservableObject {
     @Published var buttonState: String = PersonalAccessToken.shared.exists() ? "Remove" : "Save"
     @Published var personalAccessTokenExists: Bool = PersonalAccessToken.shared.exists()
 }
-
 
 struct AccessDetail: View {
     @ObservedObject var model = ViewModel()
@@ -111,12 +109,11 @@ struct AppearanceDetail: View {
                         self.refreshStatusIcon()
 
                     })
-                
-                Button("Reset"){
+
+                Button("Reset") {
                     UserDefaults.standard.setColor(.accentColor, forKey: "iconTint")
                     iconColor = .accentColor
                     self.refreshStatusIcon()
-
                 }
                 Spacer()
             }.padding()
@@ -129,27 +126,20 @@ struct AboutDetail: View {
     @StateObject var updaterViewModel = UpdaterViewModel()
 
     var body: some View {
-
-            VStack(alignment: .center, spacing: 16) {
-                Spacer()
-
-                Text("OctoBlast").font(.system(.title, design: .rounded))
-            
-       
-
-            
-                let buildNumber = Bundle.main.object(forInfoDictionaryKey:"CFBundleVersion") as! String
-                Text("v\(buildNumber)")
-        
-                LaunchAtLogin.Toggle { Text("Launch at login") }
-                
-                CheckForUpdatesView(updaterViewModel: updaterViewModel)
-                            
-           
-             
+        VStack(alignment: .center, spacing: 16) {
             Spacer()
-            }
-    
+
+            Text("OctoBlast").font(.system(.title, design: .rounded))
+
+            let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
+            Text("v\(buildNumber)")
+
+            LaunchAtLogin.Toggle { Text("Launch at login") }
+
+            CheckForUpdatesView(updaterViewModel: updaterViewModel)
+
+            Spacer()
+        }
     }
 }
 
