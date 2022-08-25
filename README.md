@@ -30,6 +30,10 @@ You can change the color of the status menu icon.
   <img src="docs/images/example2.png" />
 </p>
 
+<p align="center">
+  <img src="docs/images/prefs-about.png" />
+</p>
+
 ## Download
 
 https://github.com/jbw/OctoBlast/releases
