@@ -74,8 +74,6 @@ struct GeneralAccess: View {
                 Text("Check for updates")
                 CheckForUpdatesView(updaterViewModel: updaterViewModel)
                             
-                        
-                    
             }.padding()
             Spacer()
         }.padding()
