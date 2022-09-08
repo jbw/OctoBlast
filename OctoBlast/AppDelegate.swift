@@ -6,16 +6,19 @@
 //
 
 import Foundation
+import OctoKit
 import Sparkle
 import SwiftUI
 import UserNotifications
 
 let UPDATE_NOTIFICATION_IDENTIFIER = "UpdateCheck"
+
 class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate, SPUUpdaterDelegate, SPUStandardUserDriverDelegate {
     @IBOutlet var updaterController: SPUStandardUpdaterController!
 
-    private var loginManager: PersonalAccessToken! = PersonalAccessToken.shared
-    private var github: GitHub! = GitHub.shared
+    private var personalAccessTokenManager: PersonalAccessToken! = PersonalAccessToken.shared
+    private var github: GitHub!
+    private var auth: GithubOAuth! = GithubOAuth.shared
     private var notificationCount = 0
     private var open: NSMenuItem = .init(title: "Open (0)", action: #selector(onOpen), keyEquivalent: "O")
 
@@ -26,9 +29,32 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     func applicationDidFinishLaunching(_: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
-        setupAutoRefresh()
+        // access token
+        let token = personalAccessTokenManager.personalAccessToken
+
+        if token != nil {
+            self.github = GitHub(config: TokenConfiguration(token))
+        }
+
         setupMenu()
+        setupAutoRefresh()
         refresh()
+    }
+
+    func application(_: NSApplication, open urls: [URL]) {
+        auth.handleOAuthCallback(url: urls[0], completion: { tokenConfig, _ in
+            let token: String = tokenConfig.accessToken!
+            if let decodedData = Data(base64Encoded: token) {
+                let decodedString = String(data: decodedData, encoding: .utf8)!
+                self.personalAccessTokenManager.personalAccessToken = decodedString
+                self.github = GitHub(config: tokenConfig)
+                self.refresh()
+            }
+        })
+    }
+
+    func application(_: NSApplication, openFile _: String) -> Bool {
+        return false
     }
 
     // Request for permissions to publish notifications for update alerts
@@ -91,7 +117,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         if response.notification.request.identifier == UPDATE_NOTIFICATION_IDENTIFIER, response.actionIdentifier == UNNotificationDefaultActionIdentifier {
-            // If the notificaton is clicked on, make sure we bring the update in focus
+            // If the notification is clicked on, make sure we bring the update in focus
             // If the app is terminated while the notification is clicked on,
             // this will launch the application and perform a new update check.
             // This can be more likely to occur if the notification alert style is Alert rather than Banner
@@ -130,11 +156,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         // set initial icon
         setIcon(0)
 
-        let login = NSMenuItem(title: "Preferences...", action: #selector(onShowPreferences), keyEquivalent: ",")
+        let prefs = NSMenuItem(title: "Preferences...", action: #selector(onShowPreferences), keyEquivalent: ",")
         let check = NSMenuItem(title: "Check", action: #selector(onRefresh), keyEquivalent: "R")
         let exit = NSMenuItem(title: "Quit", action: #selector(onExit), keyEquivalent: "Q")
 
-        menu.addItem(login)
+        menu.addItem(prefs)
         menu.addItem(check)
         menu.addItem(open)
         menu.addItem(NSMenuItem.separator())
@@ -231,16 +257,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     private func refresh() {
-        let token = loginManager.personalAccessToken
-
-        if token != nil {
-            github.fetch(token!) { _ in
+        if github != nil {
+            github.fetch { _ in
                 let newNotifications = self.notificationCount != self.github.myNotifications.count
                 self.notificationCount = self.github.myNotifications.count
                 self.open.title = "Open (\(self.notificationCount))"
 
                 DispatchQueue.main.async {
-                    // if new unreads since last check show different icon
+                    // if new unread notifications since last check show different icon
                     self.setIcon(self.notificationCount, wink: newNotifications, shout: true)
                 }
             }
@@ -253,7 +277,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     @objc func onRefresh() {
         fadeOutInMenubarIcon()
-
         refresh()
     }
 

@@ -93,6 +93,7 @@
 
 /* Begin PBXFileReference section */
 		710B558328B586C20093DFA3 /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
+		712FE64128CA7F1D008B43AE /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		71D9DEF528A02DBD00D22910 /* OctoBlast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OctoBlast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D9DEF828A02DBD00D22910 /* OctoBlastApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctoBlastApp.swift; sourceTree = "<group>"; };
 		71D9DEFC28A02DBE00D22910 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -179,6 +180,7 @@
 				71D9DF0128A02DBE00D22910 /* OctoBlast.entitlements */,
 				71D9DEFE28A02DBE00D22910 /* Preview Content */,
 				71D9DF5E28AB9CB900D22910 /* AppDelegate.swift */,
+				712FE64128CA7F1D008B43AE /* Secrets.xcconfig */,
 			);
 			path = OctoBlast;
 			sourceTree = "<group>";
@@ -535,6 +537,7 @@
 /* Begin XCBuildConfiguration section */
 		71D9DF1828A02DBE00D22910 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 712FE64128CA7F1D008B43AE /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -595,6 +598,7 @@
 		};
 		71D9DF1928A02DBE00D22910 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 712FE64128CA7F1D008B43AE /* Secrets.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;

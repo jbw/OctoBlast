@@ -4,14 +4,16 @@ import OctoKit
 import Preferences
 import SwiftUI
 
+
 struct PreferencesView: View {
     @State private var isActive: Bool = true
     var refreshStatusIcon: () -> Void
 
+
     var body: some View {
         NavigationView {
             List {
-                NavigationLink {
+                NavigationLink (isActive: $isActive) {
                     AccessDetail()
 
                 } label: {
@@ -56,25 +58,30 @@ class ViewModel: ObservableObject {
 
 struct AccessDetail: View {
     @ObservedObject var model = ViewModel()
+    private var github: GithubOAuth! = GithubOAuth.shared
 
-    private var loginManager: PersonalAccessToken! = PersonalAccessToken.shared
+    private var personalAccessToken: PersonalAccessToken! = PersonalAccessToken.shared
 
-    @State private var personalAccessToken: String = PersonalAccessToken.shared.personalAccessToken ?? ""
+    @State private var personalAccessTokenString: String = PersonalAccessToken.shared.personalAccessToken ?? ""
 
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
-                SecureField("Github personal access token", text: $personalAccessToken).disabled(self.model.personalAccessTokenExists).padding(.trailing, 100.0)
+                Text("Add your personal access token from Github")
+                    .font(.title)
+                    .padding(.trailing, 100.0)
+
+                SecureField("Copy token here", text: $personalAccessTokenString).disabled(self.model.personalAccessTokenExists).padding(.trailing, 100.0)
 
                 Button {
                     // Toggle
                     if PersonalAccessToken.shared.exists() {
-                        loginManager.remove()
+                        personalAccessToken.remove()
                         self.model.buttonState = "Save"
                         self.model.personalAccessTokenExists = false
 
                     } else {
-                        loginManager.personalAccessToken = personalAccessToken
+                        personalAccessToken.personalAccessToken = personalAccessTokenString
                         self.model.buttonState = "Remove"
                         self.model.personalAccessTokenExists = true
                     }
@@ -82,6 +89,17 @@ struct AccessDetail: View {
                 } label: {
                     Text(self.model.buttonState)
                 }
+                
+                Text("Login via Github")
+                    .font(.title)
+                    .padding(.trailing, 100.0)
+                Button {
+                    let url = github.oAuth()
+                    NSWorkspace.shared.open(url)
+                } label: {
+                    Text("Login")
+                }
+                
                 Spacer()
             }.padding()
             Spacer()
