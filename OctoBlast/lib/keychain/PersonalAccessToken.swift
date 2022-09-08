@@ -28,7 +28,11 @@ class AuthAccessToken {
     }
 
     func exists() -> Bool {
-        return authAccessToken != nil
+        if (authAccessToken ?? "").isEmpty {
+            return false
+        }
+        
+        return true
     }
 
     func remove() {

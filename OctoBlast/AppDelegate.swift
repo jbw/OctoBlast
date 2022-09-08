@@ -254,7 +254,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
         if token != nil {
             github = GitHub(config: TokenConfiguration(token))
-        
+
             github.fetch { _ in
                 let newNotifications = self.notificationCount != self.github.myNotifications.count
                 self.notificationCount = self.github.myNotifications.count
@@ -266,7 +266,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                 }
             }
         }
-        
     }
 
     private func exitApp() {
