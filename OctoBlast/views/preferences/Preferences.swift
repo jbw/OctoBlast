@@ -70,7 +70,7 @@ struct AccessDetail: View {
     @State private var personalAccessTokenString: String = AuthAccessToken.shared.getToken().token ?? ""
 
     init() {
-        isUsingOAuth() ?useOAuthToken() : useAccessToken()
+        isUsingOAuth() ? useOAuthToken() : useAccessToken()
     }
 
     func isUsingOAuth() -> Bool {
@@ -82,8 +82,11 @@ struct AccessDetail: View {
     }
 
     func useOAuthToken() {
-        let url = github.oAuth()
-        NSWorkspace.shared.open(url)
+        // already logged in
+        if(!model.tokenExists){
+            let url = github.oAuth()
+            NSWorkspace.shared.open(url)
+        }
 
         model.tokenExists = true
         model.currentTokenType = TokenType.OAuth
