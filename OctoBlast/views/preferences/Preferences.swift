@@ -52,21 +52,30 @@ struct PreferencesView: View {
 }
 
 class ViewModel: ObservableObject {
-    @Published var buttonState: String = PersonalAccessToken.shared.exists() ? "Remove" : "Save"
-    @Published var personalAccessTokenExists: Bool = PersonalAccessToken.shared.exists()
+    @Published var buttonState: String = AuthAccessToken.shared.exists() ? "Remove" : "Save"
+    @Published var personalAccessTokenExists: Bool = AuthAccessToken.shared.exists()
+    @Published var oauthButtonLabel: String = AuthAccessToken.shared.getToken().type == TokenType.OAuth ? "Logout" : "Login"
+    @Published var tokenType: TokenType = AuthAccessToken.shared.getToken().type
 }
 
 struct AccessDetail: View {
+    
     @ObservedObject var model = ViewModel()
+    
     private var github: GithubOAuth! = GithubOAuth.shared
+    private var personalAccessToken: AuthAccessToken! = AuthAccessToken.shared
 
-    private var personalAccessToken: PersonalAccessToken! = PersonalAccessToken.shared
-
-    @State private var personalAccessTokenString: String = PersonalAccessToken.shared.personalAccessToken ?? ""
+    @State private var personalAccessTokenString: String = AuthAccessToken.shared.getToken().token ?? ""
 
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
+                
+                if(self.model.personalAccessTokenExists){
+                    Text(self.model.tokenType == TokenType.OAuth ? "You're authenticated using oAuth" : "You're authenticated using Personal Access Token")
+                        .padding(.trailing, 100.0)
+                }
+                
                 Text("Add your personal access token from Github")
                     .font(.title)
                     .padding(.trailing, 100.0)
@@ -75,15 +84,18 @@ struct AccessDetail: View {
 
                 Button {
                     // Toggle
-                    if PersonalAccessToken.shared.exists() {
+                    if AuthAccessToken.shared.exists() {
                         personalAccessToken.remove()
+                        self.personalAccessTokenString = ""
                         self.model.buttonState = "Save"
                         self.model.personalAccessTokenExists = false
 
                     } else {
-                        personalAccessToken.personalAccessToken = personalAccessTokenString
+                        personalAccessToken.setPersonalAccessToken(token: personalAccessTokenString)
                         self.model.buttonState = "Remove"
                         self.model.personalAccessTokenExists = true
+                        self.model.tokenType = TokenType.PersonalAccessToken
+
                     }
 
                 } label: {
@@ -93,11 +105,31 @@ struct AccessDetail: View {
                 Text("Login via Github")
                     .font(.title)
                     .padding(.trailing, 100.0)
+                
                 Button {
-                    let url = github.oAuth()
-                    NSWorkspace.shared.open(url)
+                    
+                    // already have a oauth token
+                    if(AuthAccessToken.shared.exists()){
+                         if( AuthAccessToken.shared.getToken().type == TokenType.OAuth){
+                            personalAccessToken.remove()
+                            self.model.personalAccessTokenExists = false
+                            self.model.oauthButtonLabel = "Login"
+                      
+                         }
+                    
+                    } else {
+                        // setup a new oauth token
+                        let url = github.oAuth()
+                        NSWorkspace.shared.open(url)
+                        self.model.oauthButtonLabel = "Logout"
+                        self.model.personalAccessTokenExists = true
+
+
+                   
+
+                    }
                 } label: {
-                    Text("Login")
+                    Text(self.model.oauthButtonLabel)
                 }
                 
                 Spacer()

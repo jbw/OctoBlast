@@ -16,7 +16,7 @@ let UPDATE_NOTIFICATION_IDENTIFIER = "UpdateCheck"
 class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate, SPUUpdaterDelegate, SPUStandardUserDriverDelegate {
     @IBOutlet var updaterController: SPUStandardUpdaterController!
 
-    private var personalAccessTokenManager: PersonalAccessToken! = PersonalAccessToken.shared
+    private var personalAccessTokenManager: AuthAccessToken! = AuthAccessToken.shared
     private var github: GitHub!
     private var auth: GithubOAuth! = GithubOAuth.shared
     private var notificationCount = 0
@@ -29,13 +29,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     func applicationDidFinishLaunching(_: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
-        // access token
-        let token = personalAccessTokenManager.personalAccessToken
-
-        if token != nil {
-            self.github = GitHub(config: TokenConfiguration(token))
-        }
-
         setupMenu()
         setupAutoRefresh()
         refresh()
@@ -46,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             let token: String = tokenConfig.accessToken!
             if let decodedData = Data(base64Encoded: token) {
                 let decodedString = String(data: decodedData, encoding: .utf8)!
-                self.personalAccessTokenManager.personalAccessToken = decodedString
+                self.personalAccessTokenManager.setOAuthAccessToken(token: decodedString)
                 self.github = GitHub(config: tokenConfig)
                 self.refresh()
             }
@@ -257,7 +250,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     private func refresh() {
-        if github != nil {
+        let token = personalAccessTokenManager.getToken().token
+
+        if token != nil {
+            github = GitHub(config: TokenConfiguration(token))
+        
             github.fetch { _ in
                 let newNotifications = self.notificationCount != self.github.myNotifications.count
                 self.notificationCount = self.github.myNotifications.count
@@ -269,6 +266,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                 }
             }
         }
+        
     }
 
     private func exitApp() {

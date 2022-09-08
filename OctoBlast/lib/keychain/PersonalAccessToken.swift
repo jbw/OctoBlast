@@ -7,12 +7,20 @@
 
 import KeychainSwift
 
-class PersonalAccessToken {
-    static let shared = PersonalAccessToken()
+enum TokenType: String {
+    case OAuth = "oauth"
+    case PersonalAccessToken = "pat"
+    case Undefined = "undefined"
+}
+
+class AuthAccessToken {
+    static let shared = AuthAccessToken()
 
     private let keychain: KeychainSwift!
 
     private var key = "OctoBlastGithubAccessKey"
+
+    private var separator = "|"
 
     init() {
         keychain = KeychainSwift()
@@ -20,14 +28,46 @@ class PersonalAccessToken {
     }
 
     func exists() -> Bool {
-        return personalAccessToken != nil
+        return authAccessToken != nil
     }
 
     func remove() {
         keychain.delete(key)
     }
 
-    var personalAccessToken: String? {
+    func setPersonalAccessToken(token: String)
+    {
+        authAccessToken = TokenType.PersonalAccessToken.rawValue + self.separator + token
+    }
+    
+    func setOAuthAccessToken(token: String){
+        authAccessToken = TokenType.OAuth.rawValue + self.separator + token
+    }
+    
+    func getToken() -> ( token: String?, type: TokenType){
+        let token = self.authAccessToken
+        
+        if(token == nil)
+        {
+            return (nil, TokenType.Undefined)
+        }
+      
+        let split = token!.components(separatedBy: self.separator)
+        
+        if (split.count == 1) {
+            return (split[0], TokenType.Undefined)
+        }
+        
+
+        let head = split[0]
+        let body = split[1]
+        let type = TokenType(rawValue: head)!
+        
+        return (body, type)
+    
+    }
+    
+    private var authAccessToken: String? {
         get {
             return keychain.get(key)
         }
