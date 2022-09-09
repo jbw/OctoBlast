@@ -1,0 +1,10 @@
+{
+    "indentation": {
+        "spaces": 4
+    },
+    "indentSwitchCaseLabels": true,
+    "lineBreakBeforeControlFlowKeywords": true,
+    "lineBreakBeforeEachArgument": true,
+    "lineLength": 100,
+    "maximumBlankLines": 1
+}

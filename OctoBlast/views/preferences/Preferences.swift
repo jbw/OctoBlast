@@ -29,7 +29,7 @@ struct PreferencesView: View {
                     Label("Notifications", systemImage: "bell")
 
                 }
-                        .disabled(true)
+                .disabled(true)
 
                 NavigationLink {
                     AdvancedDetail()
@@ -37,7 +37,7 @@ struct PreferencesView: View {
                 } label: {
                     Label("Advanced", systemImage: "gear")
                 }
-                        .disabled(true)
+                .disabled(true)
 
                 NavigationLink {
                     AboutDetail()
@@ -46,20 +46,25 @@ struct PreferencesView: View {
                 }
 
             }
-                    .listStyle(.sidebar)
+            .listStyle(.sidebar)
 
             Text("No selection")
         }
-                .frame(width: 820, height: 600, alignment: Alignment.top)
+        .frame(width: 820, height: 600, alignment: Alignment.top)
     }
 }
 
 class ViewModel: ObservableObject {
-    @Published var personalAccessTokenButtonDisabled: Bool = AuthAccessToken.shared.getToken().type == TokenType.OAuth
-    @Published var oAuthButtonDisabled: Bool = AuthAccessToken.shared.getToken().type == TokenType.PersonalAccessToken
+    @Published var personalAccessTokenButtonDisabled: Bool =
+        AuthAccessToken.shared.getToken().type == TokenType.OAuth
+    @Published var oAuthButtonDisabled: Bool =
+        AuthAccessToken.shared.getToken().type == TokenType.PersonalAccessToken
 
-    @Published var personalAccessTokenLabel: String = AuthAccessToken.shared.exists() && AuthAccessToken.shared.getToken().type != TokenType.OAuth ? "Remove" : "Save"
-    @Published var oAuthButtonLabel: String = AuthAccessToken.shared.getToken().type == TokenType.OAuth ? "Logout" : "Login"
+    @Published var personalAccessTokenLabel: String =
+        AuthAccessToken.shared.exists() && AuthAccessToken.shared.getToken().type != TokenType.OAuth
+        ? "Remove" : "Save"
+    @Published var oAuthButtonLabel: String =
+        AuthAccessToken.shared.getToken().type == TokenType.OAuth ? "Logout" : "Login"
 
     @Published var tokenExists: Bool = AuthAccessToken.shared.exists()
 
@@ -170,16 +175,27 @@ struct AccessDetail: View {
             VStack(alignment: .leading, spacing: 16) {
                 // current login method status
                 if self.model.tokenExists {
-                    Text(isUsingOAuth() ? "You're authenticated using oAuth" : "You're authenticated using Personal Access Token")
-                            .padding(.trailing, 100.0).foregroundColor(.secondary).font(.callout)
-                } else {
+                    Text(
+                        isUsingOAuth()
+                            ? "You're authenticated using oAuth"
+                            : "You're authenticated using Personal Access Token"
+                    )
+                    .padding(.trailing, 100.0).foregroundColor(.secondary).font(.callout)
+                }
+                else {
                     Text("You are not authenticated. Choose an method:")
-                            .padding(.trailing, 100.0)
+                        .padding(.trailing, 100.0)
                 }
 
                 // Personal Token method
-                GroupBox(label: Text("Add your personal access token from GitHub").foregroundColor(.secondary)) {
-                    SecureField("Copy token here", text: $personalAccessTokenString).disabled(self.model.tokenExists).padding(.trailing, 100.0).padding(.top, 2)
+                GroupBox(
+                    label: Text("Add your personal access token from GitHub").foregroundColor(
+                        .secondary
+                    )
+                ) {
+                    SecureField("Copy token here", text: $personalAccessTokenString).disabled(
+                        self.model.tokenExists
+                    ).padding(.trailing, 100.0).padding(.top, 2)
 
                     Button {
                         isUsingPersonalAuthToken() ? removeToken() : useAccessToken()
@@ -189,8 +205,8 @@ struct AccessDetail: View {
                         Text(self.model.personalAccessTokenLabel)
                     }
                 }
-                        .groupBoxStyle(CardGroupBoxStyle())
-                        .disabled(self.model.personalAccessTokenButtonDisabled)
+                .groupBoxStyle(CardGroupBoxStyle())
+                .disabled(self.model.personalAccessTokenButtonDisabled)
 
                 // OAuth method
                 GroupBox(label: Text("Login via GitHub").foregroundColor(.secondary)) {
@@ -202,16 +218,16 @@ struct AccessDetail: View {
                         Text(self.model.oAuthButtonLabel)
                     }
                 }
-                        .groupBoxStyle(CardGroupBoxStyle())
-                        .disabled(self.model.oAuthButtonDisabled)
+                .groupBoxStyle(CardGroupBoxStyle())
+                .disabled(self.model.oAuthButtonDisabled)
 
                 Spacer()
 
             }
-                    .padding()
+            .padding()
             Spacer()
         }
-                .padding()
+        .padding()
     }
 }
 
@@ -221,11 +237,11 @@ struct CardGroupBoxStyle: GroupBoxStyle {
             configuration.label
             configuration.content.frame(width: 575, height: 30, alignment: .leading)
         }
-                .padding()
-                .overlay(
-                        RoundedRectangle(cornerRadius: 3)
-                                .stroke(.separator, lineWidth: 1.1)
-                )
+        .padding()
+        .overlay(
+            RoundedRectangle(cornerRadius: 3)
+                .stroke(.separator, lineWidth: 1.1)
+        )
     }
 }
 
@@ -253,11 +269,14 @@ struct AppearanceDetail: View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
                 ColorPicker("Status icon color: ", selection: $iconColor, supportsOpacity: true)
-                        .onChange(of: iconColor, perform: { newValue in
+                    .onChange(
+                        of: iconColor,
+                        perform: { newValue in
                             UserDefaults.standard.setColor(newValue, forKey: "iconTint")
                             self.refreshStatusIcon()
 
-                        })
+                        }
+                    )
 
                 Button("Reset") {
                     UserDefaults.standard.setColor(.accentColor, forKey: "iconTint")
@@ -266,10 +285,10 @@ struct AppearanceDetail: View {
                 }
                 Spacer()
             }
-                    .padding()
+            .padding()
             Spacer()
         }
-                .padding()
+        .padding()
     }
 }
 
