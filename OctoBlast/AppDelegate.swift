@@ -16,13 +16,12 @@ let UPDATE_NOTIFICATION_IDENTIFIER = "UpdateCheck"
 class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate, SPUUpdaterDelegate, SPUStandardUserDriverDelegate {
     @IBOutlet var updaterController: SPUStandardUpdaterController!
 
-    private var personalAccessTokenManager: AuthAccessToken! = AuthAccessToken.shared
-    private var github: GitHub!
+    private var authAccessToken: AuthAccessToken! = AuthAccessToken.shared
     private var auth: GithubOAuth! = GithubOAuth.shared
-    private var notificationCount = 0
+
     private var open: NSMenuItem = .init(title: "Open (0)", action: #selector(onOpen), keyEquivalent: "O")
 
-    var timer: Timer?
+    private var timer: Timer?
 
     private var statusItem: NSStatusItem!
 
@@ -34,16 +33,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         refresh()
     }
 
+    // Handle oAuth callback
     func application(_: NSApplication, open urls: [URL]) {
         auth.handleOAuthCallback(url: urls[0], completion: { tokenConfig, _ in
-            let token: String = tokenConfig.accessToken!
-            if let decodedData = Data(base64Encoded: token) {
-                let decodedString = String(data: decodedData, encoding: .utf8)!
-                self.personalAccessTokenManager.setOAuthAccessToken(token: decodedString)
-                self.github = GitHub(config: tokenConfig)
 
-                self.refresh()
+            // Store token in KeyChain decoded
+            // Token gets base64 encoded again when TokenConfiguration is initialised
+            // So to prevent double encoding we decode and store that
+            let token: String = tokenConfig.accessToken!
+            if let decoded = Data(base64Encoded: token) {
+                let token = String(data: decoded, encoding: .utf8)!
+                self.authAccessToken.setOAuthAccessToken(token: token)
             }
+
+            self.refresh()
         })
     }
 
@@ -148,7 +151,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         let menu = NSMenu()
 
         // set initial icon
-        setIcon(0)
+        setIcon(count: 0)
 
         let prefs = NSMenuItem(title: "Preferences...", action: #selector(onShowPreferences), keyEquivalent: ",")
         let check = NSMenuItem(title: "Check", action: #selector(onRefresh), keyEquivalent: "R")
@@ -164,12 +167,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         statusItem.length = NSStatusItem.squareLength
     }
 
-    private func setIcon(_ count: Int, wink _: Bool = false, shout _: Bool = false) {
+    private func setIcon(count: Int) {
         setIconWhenNoNotifications()
 
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if count > 0 {
-                self.setIconWhenNotified(count: count)
+                self.setIconWhenNotified()
             } else {
                 self.setIconWhenNoNotifications()
             }
@@ -202,36 +205,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
     }
 
-    func waveMenubarIcon() {
+    private func setIconWhenNotified() {
         if let button = statusItem.button {
-            let animation = CABasicAnimation(keyPath: "transform.rotation.z")
-            animation.fromValue = -0.1
-            animation.toValue = 0.15
-            animation.duration = 1
-            animation.speed = 2.1
-            animation.repeatCount = 2
-            animation.autoreverses = true
-            button.layer?.anchorPoint = NSPoint(x: 0.5, y: 1)
-            button.layer?.add(animation, forKey: "rotate")
-        }
-    }
-
-    private func setIconWhenWinking() {
-        if let button = statusItem.button {
-            let colors: [NSColor] = [.white]
-
-            var iconStyle = NSImage.SymbolConfiguration(paletteColors: colors)
-
-            iconStyle = iconStyle.applying(.init(textStyle: .title3))
-
-            button.image = NSImage(systemSymbolName: "hand.wave", accessibilityDescription: nil)!.withSymbolConfiguration(iconStyle)!
-            waveMenubarIcon()
-        }
-    }
-
-    private func setIconWhenNotified(count _: Int) {
-        if let button = statusItem.button {
-            // use user defined setting
+            // Grab user defined setting
             let color = UserDefaults.standard.color(forKey: "iconTint")
 
             let image = NSImage(named: NSImage.Name("StatusIconHighlight"))?.tint(color: NSColor(color))
@@ -251,32 +227,36 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     private func refresh() {
-        let token = personalAccessTokenManager.getToken().token
+        let token = authAccessToken.getToken().token
 
-        if token != nil {
-            github = GitHub(config: TokenConfiguration(token))
+        if token == nil {
+            setIcon(count: 0)
+        }
 
-            github.fetch { _, statusCode in
+        let githubAPI = GitHub(config: TokenConfiguration(token))
 
-                switch statusCode {
-                case 200:
+        githubAPI.fetch { _, statusCode in
 
-                    let newNotifications = self.notificationCount != self.github.myNotifications.count
-                    self.notificationCount = self.github.myNotifications.count
-                    self.open.title = "Open (\(self.notificationCount))"
+            switch statusCode {
+            case 200:
 
-                    DispatchQueue.main.async {
-                        // if new unread notifications since last check show different icon
-                        self.setIcon(self.notificationCount, wink: newNotifications, shout: true)
-                    }
+                let count = githubAPI.myNotifications.count
 
-                case 401:
-                    self.personalAccessTokenManager.remove()
-                default:
-                    print(statusCode)
+                DispatchQueue.main.async {
+                    self.setNotificationCount(count: count)
+                    self.setIcon(count: count)
                 }
+
+            case 401:
+                self.authAccessToken.remove()
+            default:
+                print(statusCode)
             }
         }
+    }
+
+    private func setNotificationCount(count: Int) {
+        open.title = "Open (\(count))"
     }
 
     private func exitApp() {
@@ -295,9 +275,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     @objc func onShowPreferences() {
-        // call when creds saved or add refresh button
         let preferencesView = PreferencesView(refreshStatusIcon: {
-            self.setIcon(self.notificationCount)
+            // Refresh state when auth settings updated
+            self.refresh()
         })
 
         let window = NSWindow(

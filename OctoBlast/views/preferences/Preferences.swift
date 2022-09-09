@@ -12,7 +12,7 @@ struct PreferencesView: View {
         NavigationView {
             List {
                 NavigationLink(isActive: $isActive) {
-                    AccessDetail()
+                    AccessDetail(refreshStatusIcon: self.refreshStatusIcon)
 
                 } label: {
                     Label("Access", systemImage: "key")
@@ -62,6 +62,8 @@ class ViewModel: ObservableObject {
 }
 
 struct AccessDetail: View {
+    var refreshStatusIcon: () -> Void
+
     @ObservedObject var model = ViewModel()
 
     private var github: GithubOAuth! = GithubOAuth.shared
@@ -69,7 +71,9 @@ struct AccessDetail: View {
 
     @State private var personalAccessTokenString: String = ""
 
-    init() {
+    init(refreshStatusIcon: @escaping (() -> Void)) {
+        self.refreshStatusIcon = refreshStatusIcon
+
         isUsingOAuth() ? useOAuthToken(initial: true) : useAccessToken(initial: true)
         if AuthAccessToken.shared.getToken().type == TokenType.PersonalAccessToken {
             personalAccessTokenString = AuthAccessToken.shared.getToken().token ?? ""
@@ -174,6 +178,7 @@ struct AccessDetail: View {
 
                     Button {
                         isUsingPersonalAuthToken() ? removeToken() : useAccessToken()
+                        self.refreshStatusIcon()
 
                     } label: {
                         Text(self.model.personalAccessTokenLabel)
@@ -186,6 +191,7 @@ struct AccessDetail: View {
                 GroupBox(label: Text("Login via GitHub").foregroundColor(.secondary)) {
                     Button {
                         isUsingOAuth() ? removeToken() : useOAuthToken()
+                        self.refreshStatusIcon()
 
                     } label: {
                         Text(self.model.oAuthButtonLabel)
