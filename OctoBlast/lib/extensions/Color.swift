@@ -8,6 +8,7 @@
 import SwiftUI
 
 // https://stackoverflow.com/a/70851523
+
 extension Color {
     /// Explicitly extracted Core Graphics color
     /// for the purpose of reconstruction and persistance.
@@ -24,7 +25,9 @@ extension UserDefaults {
     }
 
     func color(forKey key: String) -> Color {
-        guard let array = object(forKey: key) as? [CGFloat] else { return .accentColor }
+        guard let array = object(forKey: key) as? [CGFloat] else {
+            return .accentColor
+        }
         let color = CGColor(colorSpace: CGColorSpace(name: CGColorSpace.sRGB)!, components: array)!
         return Color(color)
     }
