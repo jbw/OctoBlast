@@ -25,9 +25,7 @@ struct AccessDetail: View {
         }
     }
 
-    func isUsingOAuth() -> Bool {
-        return model.currentTokenType == TokenType.OAuth
-    }
+    func isUsingOAuth() -> Bool { return model.currentTokenType == TokenType.OAuth }
 
     func isUsingPersonalAuthToken() -> Bool {
         return model.currentTokenType == TokenType.PersonalAccessToken
@@ -74,33 +72,21 @@ struct AccessDetail: View {
     }
 
     func oauthButtonDisabled() -> Bool {
-        if !model.tokenExists {
-            return false
-        }
+        if !model.tokenExists { return false }
 
-        if personalAccessToken.getToken().type == TokenType.OAuth {
-            return false
-        }
+        if personalAccessToken.getToken().type == TokenType.OAuth { return false }
 
-        if !model.personalAccessTokenButtonDisabled {
-            return false
-        }
+        if !model.personalAccessTokenButtonDisabled { return false }
 
         return true
     }
 
     func personalAccessTokenButtonDisabled() -> Bool {
-        if !model.tokenExists {
-            return false
-        }
+        if !model.tokenExists { return false }
 
-        if personalAccessToken.getToken().type == TokenType.OAuth {
-            return true
-        }
+        if personalAccessToken.getToken().type == TokenType.OAuth { return true }
 
-        if !oauthButtonDisabled() {
-            return false
-        }
+        if !oauthButtonDisabled() { return false }
 
         return true
     }
@@ -114,12 +100,10 @@ struct AccessDetail: View {
                         isUsingOAuth()
                             ? "You're authenticated using oAuth"
                             : "You're authenticated using Personal Access Token"
-                    )
-                    .padding(.trailing, 100.0).foregroundColor(.secondary).font(.callout)
+                    ).padding(.trailing, 100.0).foregroundColor(.secondary).font(.callout)
                 }
                 else {
-                    Text("You are not authenticated. Choose an method:")
-                        .padding(.trailing, 100.0)
+                    Text("You are not authenticated. Choose an method:").padding(.trailing, 100.0)
                 }
 
                 // Personal Token method
@@ -139,9 +123,9 @@ struct AccessDetail: View {
                     } label: {
                         Text(self.model.personalAccessTokenLabel)
                     }
-                }
-                .groupBoxStyle(CardGroupBoxStyle())
-                .disabled(self.model.personalAccessTokenButtonDisabled)
+                }.groupBoxStyle(CardGroupBoxStyle()).disabled(
+                    self.model.personalAccessTokenButtonDisabled
+                )
 
                 // OAuth method
                 GroupBox(label: Text("Login via GitHub").foregroundColor(.secondary)) {
@@ -152,17 +136,13 @@ struct AccessDetail: View {
                     } label: {
                         Text(self.model.oAuthButtonLabel)
                     }
-                }
-                .groupBoxStyle(CardGroupBoxStyle())
-                .disabled(self.model.oAuthButtonDisabled)
+                }.groupBoxStyle(CardGroupBoxStyle()).disabled(self.model.oAuthButtonDisabled)
 
                 Spacer()
 
-            }
-            .padding()
+            }.padding()
             Spacer()
-        }
-        .padding()
+        }.padding()
     }
 }
 
@@ -188,12 +168,7 @@ struct CardGroupBoxStyle: GroupBoxStyle {
         VStack(alignment: .leading) {
             configuration.label
             configuration.content.frame(width: 575, height: 30, alignment: .leading)
-        }
-        .padding()
-        .overlay(
-            RoundedRectangle(cornerRadius: 3)
-                .stroke(.separator, lineWidth: 1.1)
-        )
+        }.padding().overlay(RoundedRectangle(cornerRadius: 3).stroke(.separator, lineWidth: 1.1))
     }
 }
 

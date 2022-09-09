@@ -7,13 +7,8 @@
 
 import SwiftUI
 
-@main
-struct OctoBlastApp: App {
+@main struct OctoBlastApp: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
-    var body: some Scene {
-        Settings {
-            EmptyView()
-        }
-    }
+    var body: some Scene { Settings { EmptyView() } }
 }

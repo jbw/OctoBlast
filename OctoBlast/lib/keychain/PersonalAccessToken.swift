@@ -28,16 +28,12 @@ class AuthAccessToken {
     }
 
     func exists() -> Bool {
-        if (authAccessToken ?? "").isEmpty {
-            return false
-        }
+        if (authAccessToken ?? "").isEmpty { return false }
 
         return true
     }
 
-    func remove() {
-        keychain.delete(key)
-    }
+    func remove() { keychain.delete(key) }
 
     func setPersonalAccessToken(token: String) {
         authAccessToken = TokenType.PersonalAccessToken.rawValue + separator + token
@@ -50,15 +46,11 @@ class AuthAccessToken {
     func getToken() -> (token: String?, type: TokenType) {
         let token = authAccessToken
 
-        if token == nil {
-            return (nil, TokenType.Undefined)
-        }
+        if token == nil { return (nil, TokenType.Undefined) }
 
         let split = token!.components(separatedBy: separator)
 
-        if split.count == 1 {
-            return (split[0], TokenType.Undefined)
-        }
+        if split.count == 1 { return (split[0], TokenType.Undefined) }
 
         let head = split[0]
         let body = split[1]
@@ -68,13 +60,12 @@ class AuthAccessToken {
     }
 
     private var authAccessToken: String? {
-        get {
-            return keychain.get(key)
-        }
+        get { return keychain.get(key) }
         set {
             if let newValue = newValue {
                 keychain.set(newValue, forKey: key, withAccess: .accessibleAfterFirstUnlock)
-            } else {
+            }
+            else {
                 keychain.delete(key)
             }
         }

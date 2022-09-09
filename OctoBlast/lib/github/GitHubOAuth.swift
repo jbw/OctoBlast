@@ -22,16 +22,19 @@ class GithubOAuth {
         return url!
     }
 
-    public func handleOAuthCallback(url: URL, completion: @escaping (_ config: TokenConfiguration, _ user: User) -> Void) {
-        oAuthConfig!.handleOpenURL(url: url, completion: { tokenConfig in
-            Octokit(tokenConfig).me { response in
-                switch response {
-                case let .success(user):
-                    completion(tokenConfig, user)
-                case let .failure(error):
-                    print("Error: \(error)")
+    public func handleOAuthCallback(
+        url: URL,
+        completion: @escaping (_ config: TokenConfiguration, _ user: User) -> Void
+    ) {
+        oAuthConfig!.handleOpenURL(
+            url: url,
+            completion: { tokenConfig in
+                Octokit(tokenConfig).me { response in
+                    switch response { case let .success(user): completion(tokenConfig, user)
+                        case let .failure(error): print("Error: \(error)")
+                    }
                 }
             }
-        })
+        )
     }
 }

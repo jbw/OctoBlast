@@ -6,8 +6,4 @@
 import Foundation
 import SwiftUI
 
-struct AdvancedDetail: View {
-    var body: some View {
-        Text("")
-    }
-}
+struct AdvancedDetail: View { var body: some View { Text("") } }

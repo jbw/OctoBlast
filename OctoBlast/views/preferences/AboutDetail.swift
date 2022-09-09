@@ -19,9 +19,7 @@ struct AboutDetail: View {
             let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
             Text("v\(buildNumber)")
 
-            LaunchAtLogin.Toggle {
-                Text("Launch at login")
-            }
+            LaunchAtLogin.Toggle { Text("Launch at login") }
 
             CheckForUpdatesView(updaterViewModel: updaterViewModel)
 

@@ -13,13 +13,19 @@ import UserNotifications
 
 let UPDATE_NOTIFICATION_IDENTIFIER = "UpdateCheck"
 
-class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate, SPUUpdaterDelegate, SPUStandardUserDriverDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate,
+    SPUUpdaterDelegate, SPUStandardUserDriverDelegate
+{
     @IBOutlet var updaterController: SPUStandardUpdaterController!
 
     private var authAccessToken: AuthAccessToken! = AuthAccessToken.shared
     private var auth: GithubOAuth! = GithubOAuth.shared
 
-    private var open: NSMenuItem = .init(title: "Open (0)", action: #selector(onOpen), keyEquivalent: "O")
+    private var open: NSMenuItem = .init(
+        title: "Open (0)",
+        action: #selector(onOpen),
+        keyEquivalent: "O"
+    )
 
     private var timer: Timer?
 
@@ -33,31 +39,31 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         refresh()
     }
 
-
     /**
      Handle oAuth callback
      - Parameter urls:
      - Parameter _:
      */
     func application(_: NSApplication, open urls: [URL]) {
-        auth.handleOAuthCallback(url: urls[0], completion: { tokenConfig, _ in
+        auth.handleOAuthCallback(
+            url: urls[0],
+            completion: { tokenConfig, _ in
 
-            // Store token in KeyChain decoded
-            // Token gets base64 encoded again when TokenConfiguration is initialised
-            // So to prevent double encoding we decode and store that
-            let token: String = tokenConfig.accessToken!
-            if let decoded = Data(base64Encoded: token) {
-                let token = String(data: decoded, encoding: .utf8)!
-                self.authAccessToken.setOAuthAccessToken(token: token)
+                // Store token in KeyChain decoded
+                // Token gets base64 encoded again when TokenConfiguration is initialised
+                // So to prevent double encoding we decode and store that
+                let token: String = tokenConfig.accessToken!
+                if let decoded = Data(base64Encoded: token) {
+                    let token = String(data: decoded, encoding: .utf8)!
+                    self.authAccessToken.setOAuthAccessToken(token: token)
+                }
+
+                self.refresh()
             }
-
-            self.refresh()
-        })
+        )
     }
 
-    func application(_: NSApplication, openFile _: String) -> Bool {
-        return false
-    }
+    func application(_: NSApplication, openFile _: String) -> Bool { return false }
 
     // Request for permissions to publish notifications for update alerts
 
@@ -66,18 +72,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     // Sparkle to check for updates automatically. If you need to publish notifications for other reasons,
     // then you may have a more ideal time to request for notification authorization unrelated to update checking.
     func updater(_: SPUUpdater, willScheduleUpdateCheckAfterDelay _: TimeInterval) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) { _, _ in
-            // Examine granted outcome and error if desired...
+        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) {
+            _,
+            _ in  // Examine granted outcome and error if desired...
         }
     }
 
     // Declares that we support gentle scheduled update reminders to Sparkle's standard user driver
 
-    var supportsGentleScheduledUpdateReminders: Bool {
-        return true
-    }
+    var supportsGentleScheduledUpdateReminders: Bool { return true }
 
-    func standardUserDriverWillHandleShowingUpdate(_: Bool, forUpdate update: SUAppcastItem, state: SPUUserUpdateState) {
+    func standardUserDriverWillHandleShowingUpdate(
+        _: Bool,
+        forUpdate update: SUAppcastItem,
+        state: SPUUserUpdateState
+    ) {
         // When an update alert will be presented, place the app in the foreground
         // We will do this for updates the user initiated themselves too for consistency
         // When we later post a notification, the act of clicking a notification will also change the app
@@ -97,7 +106,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                 content.title = "A new update is available"
                 content.body = "Version \(update.displayVersionString) is now available"
 
-                let request = UNNotificationRequest(identifier: UPDATE_NOTIFICATION_IDENTIFIER, content: content, trigger: nil)
+                let request = UNNotificationRequest(
+                    identifier: UPDATE_NOTIFICATION_IDENTIFIER,
+                    content: content,
+                    trigger: nil
+                )
 
                 UNUserNotificationCenter.current().add(request)
             }
@@ -109,7 +122,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         NSApp.dockTile.badgeLabel = ""
 
         // Dismiss active update notifications if the user has given attention to the new update
-        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [UPDATE_NOTIFICATION_IDENTIFIER])
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [
+            UPDATE_NOTIFICATION_IDENTIFIER
+        ])
     }
 
     func standardUserDriverWillFinishUpdateSession() {
@@ -119,8 +134,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         NSApp.setActivationPolicy(.accessory)
     }
 
-    func userNotificationCenter(_: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.notification.request.identifier == UPDATE_NOTIFICATION_IDENTIFIER, response.actionIdentifier == UNNotificationDefaultActionIdentifier {
+    func userNotificationCenter(
+        _: UNUserNotificationCenter,
+        didReceive response: UNNotificationResponse,
+        withCompletionHandler completionHandler: @escaping () -> Void
+    ) {
+        if response.notification.request.identifier == UPDATE_NOTIFICATION_IDENTIFIER,
+            response.actionIdentifier == UNNotificationDefaultActionIdentifier
+        {
             // If the notification is clicked on, make sure we bring the update in focus
             // If the app is terminated while the notification is clicked on,
             // this will launch the application and perform a new update check.
@@ -137,24 +158,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound, .badge]) { _, error in
 
-            if let error = error {
-                print(error)
-            }
+            if let error = error { print(error) }
         }
     }
 
     func setupAutoRefresh() {
-        timer = Timer(timeInterval: 60.0, target: self, selector: #selector(onAutoRefreshAlarm), userInfo: nil, repeats: true)
+        timer = Timer(
+            timeInterval: 60.0,
+            target: self,
+            selector: #selector(onAutoRefreshAlarm),
+            userInfo: nil,
+            repeats: true
+        )
 
-        guard let _ = timer else {
-            return
-        }
+        guard let _ = timer else { return }
         RunLoop.main.add(timer!, forMode: RunLoop.Mode.default)
     }
 
-    @objc func onAutoRefreshAlarm() {
-        refresh()
-    }
+    @objc func onAutoRefreshAlarm() { refresh() }
 
     func setupMenu() {
         let menu = NSMenu()
@@ -162,7 +183,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         // set initial icon
         setIcon(count: 0)
 
-        let prefs = NSMenuItem(title: "Preferences...", action: #selector(onShowPreferences), keyEquivalent: ",")
+        let prefs = NSMenuItem(
+            title: "Preferences...",
+            action: #selector(onShowPreferences),
+            keyEquivalent: ","
+        )
         let check = NSMenuItem(title: "Check", action: #selector(onRefresh), keyEquivalent: "R")
         let exit = NSMenuItem(title: "Quit", action: #selector(onExit), keyEquivalent: "Q")
 
@@ -182,7 +207,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         DispatchQueue.main.asyncAfter(deadline: .now()) {
             if count > 0 {
                 self.setIconWhenNotified()
-            } else {
+            }
+            else {
                 self.setIconWhenNoNotifications()
             }
         }
@@ -193,23 +219,20 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             context.duration = 1
             self.statusItem?.button?.animator().alphaValue = 0
         } completionHandler: {
-            NSAnimationContext.runAnimationGroup { context in
-                context.duration = 1
+            NSAnimationContext.runAnimationGroup { context in context.duration = 1
                 self.statusItem?.button?.animator().alphaValue = 1
             }
         }
     }
 
     func fadeOut() {
-        NSAnimationContext.runAnimationGroup { context in
-            context.duration = 1
+        NSAnimationContext.runAnimationGroup { context in context.duration = 1
             self.statusItem?.button?.animator().alphaValue = 0
         }
     }
 
     func fadeIn() {
-        NSAnimationContext.runAnimationGroup { context in
-            context.duration = 1
+        NSAnimationContext.runAnimationGroup { context in context.duration = 1
             self.statusItem?.button?.animator().alphaValue = 1
         }
     }
@@ -218,7 +241,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         if let button = statusItem.button {
             // Grab user defined color setting
             let color = UserDefaults.standard.color(forKey: "iconTint")
-            let image = NSImage(named: NSImage.Name("StatusIconHighlight"))?.tint(color: NSColor(color))
+            let image = NSImage(named: NSImage.Name("StatusIconHighlight"))?.tint(
+                color: NSColor(color)
+            )
             image!.size = NSMakeSize(18.0, 18.0)
 
             button.image = image
@@ -237,16 +262,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     private func refresh() {
         let token = authAccessToken.getToken().token
 
-        if token == nil {
-            setIcon(count: 0)
-        }
+        if token == nil { setIcon(count: 0) }
 
         let githubAPI = GitHub(config: TokenConfiguration(token))
 
         githubAPI.fetch { _, statusCode in
 
-            switch statusCode {
-            case 200:
+            switch statusCode { case 200:
 
                 let count = githubAPI.myNotifications.count
 
@@ -255,21 +277,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                     self.setIcon(count: count)
                 }
 
-            case 401:
-                self.authAccessToken.remove()
-            default:
-                print(statusCode)
+                case 401: self.authAccessToken.remove()
+                default: print(statusCode)
             }
         }
     }
 
-    private func setNotificationCount(count: Int) {
-        open.title = "Open (\(count))"
-    }
+    private func setNotificationCount(count: Int) { open.title = "Open (\(count))" }
 
-    private func exitApp() {
-        NSApplication.shared.terminate(self)
-    }
+    private func exitApp() { NSApplication.shared.terminate(self) }
 
     @objc func onRefresh() {
         fadeOutInMenubarIcon()
@@ -277,9 +293,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     @objc func onOpen() {
-        guard let url = URL(string: "https://github.com/notifications") else {
-            return
-        }
+        guard let url = URL(string: "https://github.com/notifications") else { return }
 
         NSWorkspace.shared.open(url)
     }
@@ -290,16 +304,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             self.refresh()
         })
 
-        let window = NSWindow(
-                contentViewController: NSHostingController(rootView: preferencesView)
-        )
+        let window = NSWindow(contentViewController: NSHostingController(rootView: preferencesView))
 
         window.title = "Preferences"
         window.makeKeyAndOrderFront(nil)
         window.level = .floating
     }
 
-    @objc func onExit() {
-        exitApp()
-    }
+    @objc func onExit() { exitApp() }
 }

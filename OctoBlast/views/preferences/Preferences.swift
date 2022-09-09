@@ -25,15 +25,13 @@ struct PreferencesView: View {
                 NavigationLink {
                 } label: {
                     Label("Notifications", systemImage: "bell")
-                }
-                .disabled(true)
+                }.disabled(true)
 
                 NavigationLink {
                     AdvancedDetail()
                 } label: {
                     Label("Advanced", systemImage: "gear")
-                }
-                .disabled(true)
+                }.disabled(true)
 
                 NavigationLink {
                     AboutDetail()
@@ -41,17 +39,13 @@ struct PreferencesView: View {
                     Label("About", systemImage: "questionmark")
                 }
 
-            }
-            .listStyle(.sidebar)
+            }.listStyle(.sidebar)
 
             Text("No selection")
-        }
-        .frame(width: 820, height: 600, alignment: Alignment.top)
+        }.frame(width: 820, height: 600, alignment: Alignment.top)
     }
 }
 
 struct Preferences_Previews: PreviewProvider {
-    static var previews: some View {
-        PreferencesView(refreshStatusIcon: {})
-    }
+    static var previews: some View { PreferencesView(refreshStatusIcon: {}) }
 }
