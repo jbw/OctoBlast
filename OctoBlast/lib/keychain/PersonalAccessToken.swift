@@ -31,7 +31,7 @@ class AuthAccessToken {
         if (authAccessToken ?? "").isEmpty {
             return false
         }
-        
+
         return true
     }
 
@@ -39,38 +39,34 @@ class AuthAccessToken {
         keychain.delete(key)
     }
 
-    func setPersonalAccessToken(token: String)
-    {
-        authAccessToken = TokenType.PersonalAccessToken.rawValue + self.separator + token
+    func setPersonalAccessToken(token: String) {
+        authAccessToken = TokenType.PersonalAccessToken.rawValue + separator + token
     }
-    
-    func setOAuthAccessToken(token: String){
-        authAccessToken = TokenType.OAuth.rawValue + self.separator + token
+
+    func setOAuthAccessToken(token: String) {
+        authAccessToken = TokenType.OAuth.rawValue + separator + token
     }
-    
-    func getToken() -> ( token: String?, type: TokenType){
-        let token = self.authAccessToken
-        
-        if(token == nil)
-        {
+
+    func getToken() -> (token: String?, type: TokenType) {
+        let token = authAccessToken
+
+        if token == nil {
             return (nil, TokenType.Undefined)
         }
-      
-        let split = token!.components(separatedBy: self.separator)
-        
-        if (split.count == 1) {
+
+        let split = token!.components(separatedBy: separator)
+
+        if split.count == 1 {
             return (split[0], TokenType.Undefined)
         }
-        
 
         let head = split[0]
         let body = split[1]
         let type = TokenType(rawValue: head)!
-        
+
         return (body, type)
-    
     }
-    
+
     private var authAccessToken: String? {
         get {
             return keychain.get(key)

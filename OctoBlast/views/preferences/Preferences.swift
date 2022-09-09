@@ -53,7 +53,7 @@ class ViewModel: ObservableObject {
     @Published var personalAccessTokenButtonDisabled: Bool = AuthAccessToken.shared.getToken().type == TokenType.OAuth
     @Published var oAuthButtonDisabled: Bool = AuthAccessToken.shared.getToken().type == TokenType.PersonalAccessToken
 
-    @Published var personalAccessTokenLabel: String = AuthAccessToken.shared.getToken().type != TokenType.OAuth ? "Remove" : "Save"
+    @Published var personalAccessTokenLabel: String = AuthAccessToken.shared.exists() && AuthAccessToken.shared.getToken().type != TokenType.OAuth ? "Remove" : "Save"
     @Published var oAuthButtonLabel: String = AuthAccessToken.shared.getToken().type == TokenType.OAuth ? "Logout" : "Login"
 
     @Published var tokenExists: Bool = AuthAccessToken.shared.exists()
@@ -70,7 +70,8 @@ struct AccessDetail: View {
     @State private var personalAccessTokenString: String = AuthAccessToken.shared.getToken().token ?? ""
 
     init() {
-        isUsingOAuth() ? useOAuthToken() : useAccessToken()
+        isUsingOAuth() ? useOAuthToken(initial: true) : useAccessToken(initial: true)
+        personalAccessTokenString = AuthAccessToken.shared.getToken().token ?? "No token"
     }
 
     func isUsingOAuth() -> Bool {
@@ -81,39 +82,36 @@ struct AccessDetail: View {
         return model.currentTokenType == TokenType.PersonalAccessToken
     }
 
-    func useOAuthToken() {
-        // already logged in
-        if(!model.tokenExists){
+    func useOAuthToken(initial: Bool = false) {
+        if !initial {
             let url = github.oAuth()
             NSWorkspace.shared.open(url)
+            model.oAuthButtonLabel = "Logout"
+            model.currentTokenType = TokenType.OAuth
+            model.tokenExists = true
         }
-
-        model.tokenExists = true
-        model.currentTokenType = TokenType.OAuth
-
-        model.oAuthButtonLabel = "Logout"
 
         model.personalAccessTokenButtonDisabled = true
         model.oAuthButtonDisabled = false
     }
 
-    func useAccessToken() {
-        personalAccessToken.setPersonalAccessToken(token: personalAccessTokenString)
-
-        model.tokenExists = true
-        model.currentTokenType = TokenType.PersonalAccessToken
-
-        model.personalAccessTokenLabel = "Remove"
+    func useAccessToken(initial: Bool = false) {
+        if !initial {
+            personalAccessToken.setPersonalAccessToken(token: personalAccessTokenString)
+            model.personalAccessTokenLabel = "Remove"
+            model.currentTokenType = TokenType.PersonalAccessToken
+            model.tokenExists = AuthAccessToken.shared.exists()
+        }
 
         model.personalAccessTokenButtonDisabled = false
-        model.oAuthButtonDisabled = true
+        model.oAuthButtonDisabled = AuthAccessToken.shared.exists()
     }
 
     func removeToken() {
         personalAccessToken.remove()
         personalAccessTokenString = ""
 
-        model.tokenExists = false
+        model.tokenExists = AuthAccessToken.shared.exists()
         model.currentTokenType = TokenType.Undefined
 
         model.personalAccessTokenLabel = "Save"

@@ -41,6 +41,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                 let decodedString = String(data: decodedData, encoding: .utf8)!
                 self.personalAccessTokenManager.setOAuthAccessToken(token: decodedString)
                 self.github = GitHub(config: tokenConfig)
+
                 self.refresh()
             }
         })
@@ -255,14 +256,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         if token != nil {
             github = GitHub(config: TokenConfiguration(token))
 
-            github.fetch { _ in
-                let newNotifications = self.notificationCount != self.github.myNotifications.count
-                self.notificationCount = self.github.myNotifications.count
-                self.open.title = "Open (\(self.notificationCount))"
+            github.fetch { _, statusCode in
 
-                DispatchQueue.main.async {
-                    // if new unread notifications since last check show different icon
-                    self.setIcon(self.notificationCount, wink: newNotifications, shout: true)
+                switch statusCode {
+                case 200:
+
+                    let newNotifications = self.notificationCount != self.github.myNotifications.count
+                    self.notificationCount = self.github.myNotifications.count
+                    self.open.title = "Open (\(self.notificationCount))"
+
+                    DispatchQueue.main.async {
+                        // if new unread notifications since last check show different icon
+                        self.setIcon(self.notificationCount, wink: newNotifications, shout: true)
+                    }
+
+                case 401:
+                    self.personalAccessTokenManager.remove()
+                default:
+                    print(statusCode)
                 }
             }
         }
