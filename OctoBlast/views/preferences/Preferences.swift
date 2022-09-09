@@ -67,11 +67,13 @@ struct AccessDetail: View {
     private var github: GithubOAuth! = GithubOAuth.shared
     private var personalAccessToken: AuthAccessToken! = AuthAccessToken.shared
 
-    @State private var personalAccessTokenString: String = AuthAccessToken.shared.getToken().token ?? ""
+    @State private var personalAccessTokenString: String = ""
 
     init() {
         isUsingOAuth() ? useOAuthToken(initial: true) : useAccessToken(initial: true)
-        personalAccessTokenString = AuthAccessToken.shared.getToken().token ?? "No token"
+        if AuthAccessToken.shared.getToken().type == TokenType.PersonalAccessToken {
+            personalAccessTokenString = AuthAccessToken.shared.getToken().token ?? ""
+        }
     }
 
     func isUsingOAuth() -> Bool {
@@ -89,6 +91,7 @@ struct AccessDetail: View {
             model.oAuthButtonLabel = "Logout"
             model.currentTokenType = TokenType.OAuth
             model.tokenExists = true
+            personalAccessTokenString = ""
         }
 
         model.personalAccessTokenButtonDisabled = true
@@ -167,7 +170,7 @@ struct AccessDetail: View {
 
                 // Personal Token method
                 GroupBox(label: Text("Add your personal access token from GitHub").foregroundColor(.secondary)) {
-                    SecureField("Copy token here", text: $personalAccessTokenString).disabled(self.model.tokenExists).padding(.trailing, 100.0).padding(.top, 2)
+                    SecureField(self.model.personalAccessTokenButtonDisabled ? "" : "Copy token here", text: $personalAccessTokenString).padding(.trailing, 100.0).padding(.top, 2)
 
                     Button {
                         isUsingPersonalAuthToken() ? removeToken() : useAccessToken()
@@ -192,7 +195,7 @@ struct AccessDetail: View {
                 .disabled(self.model.oAuthButtonDisabled)
 
                 Spacer()
-                
+
             }.padding()
             Spacer()
         }.padding()
@@ -204,7 +207,6 @@ struct CardGroupBoxStyle: GroupBoxStyle {
         VStack(alignment: .leading) {
             configuration.label
             configuration.content.frame(width: 600, height: 30, alignment: .leading)
-
         }
         .padding()
         .overlay(
