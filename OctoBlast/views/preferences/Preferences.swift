@@ -206,7 +206,7 @@ struct CardGroupBoxStyle: GroupBoxStyle {
     func makeBody(configuration: Configuration) -> some View {
         VStack(alignment: .leading) {
             configuration.label
-            configuration.content.frame(width: 600, height: 30, alignment: .leading)
+            configuration.content.frame(width: 575, height: 30, alignment: .leading)
         }
         .padding()
         .overlay(
