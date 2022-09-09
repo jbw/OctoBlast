@@ -156,44 +156,70 @@ struct AccessDetail: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
+                // current login method status
                 if self.model.tokenExists {
                     Text(isUsingOAuth() ? "You're authenticated using oAuth" : "You're authenticated using Personal Access Token")
-                        .padding(.trailing, 100.0)
+                        .padding(.trailing, 100.0).foregroundColor(.secondary).font(.callout)
                 } else {
                     Text("You are not authenticated. Choose an method:")
                         .padding(.trailing, 100.0)
                 }
 
-                Text("Add your personal access token from Github")
-                    .font(.title)
-                    .padding(.trailing, 100.0)
+                // Personal Token method
+                GroupBox(label: Text("Add your personal access token from GitHub").foregroundColor(.secondary)) {
+                    SecureField("Copy token here", text: $personalAccessTokenString).disabled(self.model.tokenExists).padding(.trailing, 100.0).padding(.top, 2)
 
-                SecureField("Copy token here", text: $personalAccessTokenString).disabled(self.model.tokenExists).padding(.trailing, 100.0)
+                    Button {
+                        isUsingPersonalAuthToken() ? removeToken() : useAccessToken()
 
-                Button {
-                    isUsingPersonalAuthToken() ? removeToken() : useAccessToken()
-
-                } label: {
-                    Text(self.model.personalAccessTokenLabel)
+                    } label: {
+                        Text(self.model.personalAccessTokenLabel)
+                    }
                 }
+                .groupBoxStyle(CardGroupBoxStyle())
                 .disabled(self.model.personalAccessTokenButtonDisabled)
 
-                Text("Login via Github")
-                    .font(.title)
-                    .padding(.trailing, 100.0)
+                // OAuth method
+                GroupBox(label: Text("Login via GitHub").foregroundColor(.secondary)) {
+                    Button {
+                        isUsingOAuth() ? removeToken() : useOAuthToken()
 
-                Button {
-                    isUsingOAuth() ? removeToken() : useOAuthToken()
-
-                } label: {
-                    Text(self.model.oAuthButtonLabel)
+                    } label: {
+                        Text(self.model.oAuthButtonLabel)
+                    }
                 }
+                .groupBoxStyle(CardGroupBoxStyle())
                 .disabled(self.model.oAuthButtonDisabled)
 
                 Spacer()
+                
             }.padding()
             Spacer()
         }.padding()
+    }
+}
+
+struct CardGroupBoxStyle: GroupBoxStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        VStack(alignment: .leading) {
+            configuration.label
+            configuration.content.frame(width: 600, height: 30, alignment: .leading)
+
+        }
+        .padding()
+        .overlay(
+            RoundedRectangle(cornerRadius: 3)
+                .stroke(.separator, lineWidth: 1.1)
+        )
+    }
+}
+
+struct PlainGroupBoxStyle: GroupBoxStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        VStack(alignment: .leading) {
+            configuration.label
+            configuration.content
+        }
     }
 }
 
@@ -253,6 +279,6 @@ struct AboutDetail: View {
 
 struct Preferences_Previews: PreviewProvider {
     static var previews: some View {
-        AboutDetail()
+        PreferencesView(refreshStatusIcon: {})
     }
 }
