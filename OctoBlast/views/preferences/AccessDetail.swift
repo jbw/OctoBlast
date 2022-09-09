@@ -166,6 +166,23 @@ struct AccessDetail: View {
     }
 }
 
+class ViewModel: ObservableObject {
+    @Published var personalAccessTokenButtonDisabled: Bool =
+        AuthAccessToken.shared.getToken().type == TokenType.OAuth
+    @Published var oAuthButtonDisabled: Bool =
+        AuthAccessToken.shared.getToken().type == TokenType.PersonalAccessToken
+
+    @Published var personalAccessTokenLabel: String =
+        AuthAccessToken.shared.exists() && AuthAccessToken.shared.getToken().type != TokenType.OAuth
+        ? "Remove" : "Save"
+    @Published var oAuthButtonLabel: String =
+        AuthAccessToken.shared.getToken().type == TokenType.OAuth ? "Logout" : "Login"
+
+    @Published var tokenExists: Bool = AuthAccessToken.shared.exists()
+
+    @Published var currentTokenType: TokenType = AuthAccessToken.shared.getToken().type
+}
+
 struct CardGroupBoxStyle: GroupBoxStyle {
     func makeBody(configuration: Configuration) -> some View {
         VStack(alignment: .leading) {
