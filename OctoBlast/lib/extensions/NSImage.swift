@@ -8,6 +8,7 @@
 import SwiftUI
 
 // https://stackoverflow.com/a/50074538
+
 extension NSImage {
     func tint(color: NSColor) -> NSImage {
         let image = copy() as! NSImage
