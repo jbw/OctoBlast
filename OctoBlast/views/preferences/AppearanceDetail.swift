@@ -21,7 +21,7 @@ struct AppearanceDetail: View {
                         of: iconColor,
                         perform: { newValue in
                             UserDefaults.standard.setColor(newValue, forKey: "iconTint")
-                            self.refreshStatusIcon()
+                            refreshStatusIcon()
 
                         }
                     )
@@ -29,7 +29,7 @@ struct AppearanceDetail: View {
                 Button("Reset") {
                     UserDefaults.standard.setColor(.accentColor, forKey: "iconTint")
                     iconColor = .accentColor
-                    self.refreshStatusIcon()
+                    refreshStatusIcon()
                 }
                 Spacer()
             }.padding()

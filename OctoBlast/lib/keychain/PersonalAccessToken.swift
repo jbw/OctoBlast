@@ -60,7 +60,7 @@ class AuthAccessToken {
     }
 
     private var authAccessToken: String? {
-        get { return keychain.get(key) }
+        get { keychain.get(key) }
         set {
             if let newValue = newValue {
                 keychain.set(newValue, forKey: key, withAccess: .accessibleAfterFirstUnlock)

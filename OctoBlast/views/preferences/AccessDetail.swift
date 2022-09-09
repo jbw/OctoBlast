@@ -19,16 +19,19 @@ struct AccessDetail: View {
     init(refreshStatusIcon: @escaping () -> Void) {
         self.refreshStatusIcon = refreshStatusIcon
 
+        // set up initial state from any persisted data e.g. token
+        // todo current these methods need a flag to denote first initial load. we could split these?
         isUsingOAuth() ? useOAuthToken(initial: true) : useAccessToken(initial: true)
+
         if AuthAccessToken.shared.getToken().type == TokenType.PersonalAccessToken {
             personalAccessTokenString = AuthAccessToken.shared.getToken().token ?? ""
         }
     }
 
-    func isUsingOAuth() -> Bool { return model.currentTokenType == TokenType.OAuth }
+    func isUsingOAuth() -> Bool { model.currentTokenType == TokenType.OAuth }
 
     func isUsingPersonalAuthToken() -> Bool {
-        return model.currentTokenType == TokenType.PersonalAccessToken
+        model.currentTokenType == TokenType.PersonalAccessToken
     }
 
     func useOAuthToken(initial: Bool = false) {
@@ -95,7 +98,7 @@ struct AccessDetail: View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
                 // current login method status
-                if self.model.tokenExists {
+                if model.tokenExists {
                     Text(
                         isUsingOAuth()
                             ? "You're authenticated using oAuth"
@@ -113,30 +116,30 @@ struct AccessDetail: View {
                     )
                 ) {
                     SecureField("Copy token here", text: $personalAccessTokenString).disabled(
-                        self.model.tokenExists
+                        model.tokenExists
                     ).padding(.trailing, 100.0).padding(.top, 2)
 
                     Button {
                         isUsingPersonalAuthToken() ? removeToken() : useAccessToken()
-                        self.refreshStatusIcon()
+                        refreshStatusIcon()
 
                     } label: {
-                        Text(self.model.personalAccessTokenLabel)
+                        Text(model.personalAccessTokenLabel)
                     }
                 }.groupBoxStyle(CardGroupBoxStyle()).disabled(
-                    self.model.personalAccessTokenButtonDisabled
+                    model.personalAccessTokenButtonDisabled
                 )
 
                 // OAuth method
                 GroupBox(label: Text("Login via GitHub").foregroundColor(.secondary)) {
                     Button {
                         isUsingOAuth() ? removeToken() : useOAuthToken()
-                        self.refreshStatusIcon()
+                        refreshStatusIcon()
 
                     } label: {
-                        Text(self.model.oAuthButtonLabel)
+                        Text(model.oAuthButtonLabel)
                     }
-                }.groupBoxStyle(CardGroupBoxStyle()).disabled(self.model.oAuthButtonDisabled)
+                }.groupBoxStyle(CardGroupBoxStyle()).disabled(model.oAuthButtonDisabled)
 
                 Spacer()
 

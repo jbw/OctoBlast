@@ -11,13 +11,13 @@ struct PreferencesView: View {
         NavigationView {
             List {
                 NavigationLink(isActive: $isActive) {
-                    AccessDetail(refreshStatusIcon: self.refreshStatusIcon)
+                    AccessDetail(refreshStatusIcon: refreshStatusIcon)
                 } label: {
                     Label("Access", systemImage: "key")
                 }
 
                 NavigationLink {
-                    AppearanceDetail(refreshStatusIcon: self.refreshStatusIcon)
+                    AppearanceDetail(refreshStatusIcon: refreshStatusIcon)
                 } label: {
                     Label("Appearance", systemImage: "paintpalette")
                 }

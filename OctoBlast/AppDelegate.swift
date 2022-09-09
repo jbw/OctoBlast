@@ -63,7 +63,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         )
     }
 
-    func application(_: NSApplication, openFile _: String) -> Bool { return false }
+    func application(_: NSApplication, openFile _: String) -> Bool { false }
 
     // Request for permissions to publish notifications for update alerts
 
@@ -80,7 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     // Declares that we support gentle scheduled update reminders to Sparkle's standard user driver
 
-    var supportsGentleScheduledUpdateReminders: Bool { return true }
+    var supportsGentleScheduledUpdateReminders: Bool { true }
 
     func standardUserDriverWillHandleShowingUpdate(
         _: Bool,
@@ -217,7 +217,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     func fadeOutInMenubarIcon() {
         NSAnimationContext.runAnimationGroup { context in
             context.duration = 1
-            self.statusItem?.button?.animator().alphaValue = 0
+            statusItem?.button?.animator().alphaValue = 0
         } completionHandler: {
             NSAnimationContext.runAnimationGroup { context in context.duration = 1
                 self.statusItem?.button?.animator().alphaValue = 1
@@ -227,13 +227,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     func fadeOut() {
         NSAnimationContext.runAnimationGroup { context in context.duration = 1
-            self.statusItem?.button?.animator().alphaValue = 0
+            statusItem?.button?.animator().alphaValue = 0
         }
     }
 
     func fadeIn() {
         NSAnimationContext.runAnimationGroup { context in context.duration = 1
-            self.statusItem?.button?.animator().alphaValue = 1
+            statusItem?.button?.animator().alphaValue = 1
         }
     }
 
