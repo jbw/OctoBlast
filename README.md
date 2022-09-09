@@ -12,7 +12,7 @@ Gently notifies you about <i>important</i> GitHub notifications
 
 ### Personal access token
 
-Head to preferences, and pop in your a new GitHub personal token from [your developer settings](https://github.com/settings/tokens) with permissions `notifications` and `read:user`.
+Head to preferences, and pop in your new GitHub personal token from [your developer settings](https://github.com/settings/tokens) with permissions `notifications` and `read:user`.
 
 ## Example
 
