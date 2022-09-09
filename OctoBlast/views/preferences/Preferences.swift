@@ -170,7 +170,7 @@ struct AccessDetail: View {
 
                 // Personal Token method
                 GroupBox(label: Text("Add your personal access token from GitHub").foregroundColor(.secondary)) {
-                    SecureField(self.model.personalAccessTokenButtonDisabled ? "" : "Copy token here", text: $personalAccessTokenString).padding(.trailing, 100.0).padding(.top, 2)
+                    SecureField("Copy token here", text: $personalAccessTokenString).disabled(self.model.tokenExists).padding(.trailing, 100.0).padding(.top, 2)
 
                     Button {
                         isUsingPersonalAuthToken() ? removeToken() : useAccessToken()
