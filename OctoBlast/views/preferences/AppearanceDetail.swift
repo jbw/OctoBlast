@@ -9,6 +9,10 @@ import SwiftUI
 struct AppearanceDetail: View {
     var refreshStatusIcon: () -> Void
 
+    init(refreshStatusIcon: @escaping () -> Void) {
+        self.refreshStatusIcon = refreshStatusIcon
+    }
+
     @State private var iconColor: Color = UserDefaults.standard.color(forKey: "iconTint")
 
     var body: some View {

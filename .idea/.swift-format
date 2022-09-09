@@ -6,5 +6,6 @@
     "lineBreakBeforeControlFlowKeywords": true,
     "lineBreakBeforeEachArgument": true,
     "lineLength": 100,
-    "maximumBlankLines": 1
+    "maximumBlankLines": 1,
+    "respectsExistingLineBreaks": false
 }

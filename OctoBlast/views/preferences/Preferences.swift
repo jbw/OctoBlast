@@ -12,7 +12,6 @@ struct PreferencesView: View {
             List {
                 NavigationLink(isActive: $isActive) {
                     AccessDetail(refreshStatusIcon: self.refreshStatusIcon)
-
                 } label: {
                     Label("Access", systemImage: "key")
                 }
@@ -26,13 +25,11 @@ struct PreferencesView: View {
                 NavigationLink {
                 } label: {
                     Label("Notifications", systemImage: "bell")
-
                 }
                 .disabled(true)
 
                 NavigationLink {
                     AdvancedDetail()
-
                 } label: {
                     Label("Advanced", systemImage: "gear")
                 }
