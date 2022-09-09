@@ -53,12 +53,6 @@ struct PreferencesView: View {
     }
 }
 
-struct AdvancedDetail: View {
-    var body: some View {
-        Text("")
-    }
-}
-
 struct Preferences_Previews: PreviewProvider {
     static var previews: some View {
         PreferencesView(refreshStatusIcon: {})
