@@ -24,17 +24,20 @@ struct PreferencesView: View {
                     Label("Appearance", systemImage: "paintpalette")
                 }
 
-                NavigationLink {} label: {
-                    Label("Notfications", systemImage: "bell")
+                NavigationLink {
+                } label: {
+                    Label("Notifications", systemImage: "bell")
 
-                }.disabled(true)
+                }
+                        .disabled(true)
 
                 NavigationLink {
                     AdvancedDetail()
 
                 } label: {
                     Label("Advanced", systemImage: "gear")
-                }.disabled(true)
+                }
+                        .disabled(true)
 
                 NavigationLink {
                     AboutDetail()
@@ -42,10 +45,12 @@ struct PreferencesView: View {
                     Label("About", systemImage: "questionmark")
                 }
 
-            }.listStyle(.sidebar)
+            }
+                    .listStyle(.sidebar)
 
             Text("No selection")
-        }.frame(width: 820, height: 600, alignment: Alignment.top)
+        }
+                .frame(width: 820, height: 600, alignment: Alignment.top)
     }
 }
 
@@ -166,10 +171,10 @@ struct AccessDetail: View {
                 // current login method status
                 if self.model.tokenExists {
                     Text(isUsingOAuth() ? "You're authenticated using oAuth" : "You're authenticated using Personal Access Token")
-                        .padding(.trailing, 100.0).foregroundColor(.secondary).font(.callout)
+                            .padding(.trailing, 100.0).foregroundColor(.secondary).font(.callout)
                 } else {
                     Text("You are not authenticated. Choose an method:")
-                        .padding(.trailing, 100.0)
+                            .padding(.trailing, 100.0)
                 }
 
                 // Personal Token method
@@ -184,8 +189,8 @@ struct AccessDetail: View {
                         Text(self.model.personalAccessTokenLabel)
                     }
                 }
-                .groupBoxStyle(CardGroupBoxStyle())
-                .disabled(self.model.personalAccessTokenButtonDisabled)
+                        .groupBoxStyle(CardGroupBoxStyle())
+                        .disabled(self.model.personalAccessTokenButtonDisabled)
 
                 // OAuth method
                 GroupBox(label: Text("Login via GitHub").foregroundColor(.secondary)) {
@@ -197,14 +202,16 @@ struct AccessDetail: View {
                         Text(self.model.oAuthButtonLabel)
                     }
                 }
-                .groupBoxStyle(CardGroupBoxStyle())
-                .disabled(self.model.oAuthButtonDisabled)
+                        .groupBoxStyle(CardGroupBoxStyle())
+                        .disabled(self.model.oAuthButtonDisabled)
 
                 Spacer()
 
-            }.padding()
+            }
+                    .padding()
             Spacer()
-        }.padding()
+        }
+                .padding()
     }
 }
 
@@ -214,11 +221,11 @@ struct CardGroupBoxStyle: GroupBoxStyle {
             configuration.label
             configuration.content.frame(width: 575, height: 30, alignment: .leading)
         }
-        .padding()
-        .overlay(
-            RoundedRectangle(cornerRadius: 3)
-                .stroke(.separator, lineWidth: 1.1)
-        )
+                .padding()
+                .overlay(
+                        RoundedRectangle(cornerRadius: 3)
+                                .stroke(.separator, lineWidth: 1.1)
+                )
     }
 }
 
@@ -246,11 +253,11 @@ struct AppearanceDetail: View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
                 ColorPicker("Status icon color: ", selection: $iconColor, supportsOpacity: true)
-                    .onChange(of: iconColor, perform: { newValue in
-                        UserDefaults.standard.setColor(newValue, forKey: "iconTint")
-                        self.refreshStatusIcon()
+                        .onChange(of: iconColor, perform: { newValue in
+                            UserDefaults.standard.setColor(newValue, forKey: "iconTint")
+                            self.refreshStatusIcon()
 
-                    })
+                        })
 
                 Button("Reset") {
                     UserDefaults.standard.setColor(.accentColor, forKey: "iconTint")
@@ -258,9 +265,11 @@ struct AppearanceDetail: View {
                     self.refreshStatusIcon()
                 }
                 Spacer()
-            }.padding()
+            }
+                    .padding()
             Spacer()
-        }.padding()
+        }
+                .padding()
     }
 }
 
@@ -276,7 +285,9 @@ struct AboutDetail: View {
             let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
             Text("v\(buildNumber)")
 
-            LaunchAtLogin.Toggle { Text("Launch at login") }
+            LaunchAtLogin.Toggle {
+                Text("Launch at login")
+            }
 
             CheckForUpdatesView(updaterViewModel: updaterViewModel)
 
