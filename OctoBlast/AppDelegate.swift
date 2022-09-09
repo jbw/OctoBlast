@@ -33,7 +33,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         refresh()
     }
 
-    // Handle oAuth callback
+    
+    /**
+     Handle oAuth callback
+     - Parameter urls:
+     */
     func application(_: NSApplication, open urls: [URL]) {
         auth.handleOAuthCallback(url: urls[0], completion: { tokenConfig, _ in
 
@@ -55,6 +59,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     // Request for permissions to publish notifications for update alerts
+
     // This delegate method will be called when Sparkle schedules an update check in the future,
     // which may be a good time to request for update permission. This will be after the user has allowed
     // Sparkle to check for updates automatically. If you need to publish notifications for other reasons,
@@ -66,6 +71,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     // Declares that we support gentle scheduled update reminders to Sparkle's standard user driver
+
     var supportsGentleScheduledUpdateReminders: Bool {
         return true
     }
@@ -139,7 +145,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     func setupAutoRefresh() {
         timer = Timer(timeInterval: 60.0, target: self, selector: #selector(onAutoRefreshAlarm), userInfo: nil, repeats: true)
 
-        guard let _ = timer else { return }
+        guard let _ = timer else {
+            return
+        }
         RunLoop.main.add(timer!, forMode: RunLoop.Mode.default)
     }
 
@@ -269,7 +277,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     @objc func onOpen() {
-        guard let url = URL(string: "https://github.com/notifications") else { return }
+        guard let url = URL(string: "https://github.com/notifications") else {
+            return
+        }
 
         NSWorkspace.shared.open(url)
     }
@@ -281,7 +291,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         })
 
         let window = NSWindow(
-            contentViewController: NSHostingController(rootView: preferencesView)
+                contentViewController: NSHostingController(rootView: preferencesView)
         )
 
         window.title = "Preferences"
