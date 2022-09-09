@@ -149,7 +149,7 @@ struct AccessDetail: View {
         return true
     }
 
-    func personalAcccessTokenButtonDisabled() -> Bool {
+    func personalAccessTokenButtonDisabled() -> Bool {
         if !model.tokenExists {
             return false
         }

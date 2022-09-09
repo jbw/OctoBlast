@@ -37,6 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     /**
      Handle oAuth callback
      - Parameter urls:
+     - Parameter _: 
      */
     func application(_: NSApplication, open urls: [URL]) {
         auth.handleOAuthCallback(url: urls[0], completion: { tokenConfig, _ in
