@@ -33,7 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         refresh()
     }
 
-    
+
     /**
      Handle oAuth callback
      - Parameter urls:
@@ -215,9 +215,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     private func setIconWhenNotified() {
         if let button = statusItem.button {
-            // Grab user defined setting
+            // Grab user defined color setting
             let color = UserDefaults.standard.color(forKey: "iconTint")
-
             let image = NSImage(named: NSImage.Name("StatusIconHighlight"))?.tint(color: NSColor(color))
             image!.size = NSMakeSize(18.0, 18.0)
 
