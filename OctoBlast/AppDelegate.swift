@@ -265,10 +265,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         if token == nil {
             setIcon(count: 0)
             setNotificationCount(count: 0)
+            // todo change icon to denote user not logged in
             return
         }
 
-        let githubAPI = GitHub(config: TokenConfiguration(token))
+        let githubAPI = GitHub(token: token!)
 
         githubAPI.fetch { _, statusCode in
 
