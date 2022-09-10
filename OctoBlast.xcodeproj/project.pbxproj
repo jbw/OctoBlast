@@ -19,7 +19,7 @@
 		71D9DF4C28A05F3600D22910 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 71D9DF4B28A05F3600D22910 /* KeychainSwift */; };
 		71D9DF4F28A2F68700D22910 /* Preferences in Frameworks */ = {isa = PBXBuildFile; productRef = 71D9DF4E28A2F68700D22910 /* Preferences */; };
 		71D9DF5B28AB9C2400D22910 /* Github.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF5A28AB9C2400D22910 /* Github.swift */; };
-		71D9DF5D28AB9C3400D22910 /* PersonalAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF5C28AB9C3400D22910 /* PersonalAccessToken.swift */; };
+		71D9DF5D28AB9C3400D22910 /* AuthAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF5C28AB9C3400D22910 /* AuthAccessToken.swift */; };
 		71D9DF5F28AB9CB900D22910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF5E28AB9CB900D22910 /* AppDelegate.swift */; };
 		71D9DF9028AC3C2D00D22910 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF8F28AC3C2D00D22910 /* Color.swift */; };
 		71D9DF9228AC3C4D00D22910 /* NSImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DF9128AC3C4D00D22910 /* NSImage.swift */; };
@@ -105,7 +105,7 @@
 		71D9DF2A28A040DC00D22910 /* OctoKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OctoKit.xcodeproj; path = ../GitHub/octokit.swift/OctoKit.xcodeproj; sourceTree = "<group>"; };
 		71D9DF4728A04C5600D22910 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		71D9DF5A28AB9C2400D22910 /* Github.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Github.swift; sourceTree = "<group>"; };
-		71D9DF5C28AB9C3400D22910 /* PersonalAccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalAccessToken.swift; sourceTree = "<group>"; };
+		71D9DF5C28AB9C3400D22910 /* AuthAccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAccessToken.swift; sourceTree = "<group>"; };
 		71D9DF5E28AB9CB900D22910 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		71D9DF8F28AC3C2D00D22910 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		71D9DF9128AC3C4D00D22910 /* NSImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSImage.swift; sourceTree = "<group>"; };
@@ -245,7 +245,7 @@
 		71D9DF5828AB9BF000D22910 /* keychain */ = {
 			isa = PBXGroup;
 			children = (
-				71D9DF5C28AB9C3400D22910 /* PersonalAccessToken.swift */,
+				71D9DF5C28AB9C3400D22910 /* AuthAccessToken.swift */,
 			);
 			path = keychain;
 			sourceTree = "<group>";
@@ -500,7 +500,7 @@
 				71D9DF5F28AB9CB900D22910 /* AppDelegate.swift in Sources */,
 				71D9DF9228AC3C4D00D22910 /* NSImage.swift in Sources */,
 				710B558428B586C20093DFA3 /* Updater.swift in Sources */,
-				71D9DF5D28AB9C3400D22910 /* PersonalAccessToken.swift in Sources */,
+				71D9DF5D28AB9C3400D22910 /* AuthAccessToken.swift in Sources */,
 				71D9DF9028AC3C2D00D22910 /* Color.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

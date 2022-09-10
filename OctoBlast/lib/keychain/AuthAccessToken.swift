@@ -1,5 +1,5 @@
 //
-//  PersonalAccessToken.swift
+//  AuthAccessToken.swift
 //  OctoBlast
 //
 //  Created by Jason Watson on 16/08/2022.
