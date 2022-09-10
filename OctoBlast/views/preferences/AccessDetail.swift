@@ -19,18 +19,14 @@ struct AccessDetail: View {
 
         model = AccessSettings(accessToken: accessToken)
 
-        // set up initial state from any persisted data e.g. token
-        // todo currently these methods need a flag to denote first initial load. we could split these?
-        if accessToken.isOAuth() {
-            setOAuthAsActive()
-        }
-
-        if accessToken.isOAuth() {
-            setAccessTokenAsActive()
-        }
-
         if !accessToken.exists() {
             emptyState()
+        }
+        else if accessToken.isOAuth() {
+            setOAuthAsActive()
+        }
+        else if accessToken.isPersonalAccessToken() {
+            setAccessTokenAsActive()
         }
 
     }
