@@ -11,7 +11,7 @@ import SwiftUI
 
 extension Color {
     /// Explicitly extracted Core Graphics color
-    /// for the purpose of reconstruction and persistance.
+    /// for the purpose of reconstruction and persistence.
     var cgColor_: CGColor { NSColor(self).cgColor }
 }
 
