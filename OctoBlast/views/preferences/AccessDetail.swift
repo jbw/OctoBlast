@@ -20,7 +20,7 @@ struct AccessDetail: View {
         self.refreshStatusIcon = refreshStatusIcon
 
         // set up initial state from any persisted data e.g. token
-        // todo current these methods need a flag to denote first initial load. we could split these?
+        // todo currently these methods need a flag to denote first initial load. we could split these?
         isUsingOAuth() ? useOAuthToken(initial: true) : useAccessToken(initial: true)
 
         if AuthAccessToken.shared.getToken().type == TokenType.PersonalAccessToken {
@@ -97,55 +97,82 @@ struct AccessDetail: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
-                // current login method status
-                if model.tokenExists {
-                    Text(
-                        isUsingOAuth()
-                            ? "You're authenticated using oAuth"
-                            : "You're authenticated using Personal Access Token"
-                    ).padding(.trailing, 100.0).foregroundColor(.secondary).font(.callout)
-                }
-                else {
-                    Text("You are not authenticated. Choose an method:").padding(.trailing, 100.0)
-                }
 
-                // Personal Token method
-                GroupBox(
-                    label: Text("Add your personal access token from GitHub").foregroundColor(
-                        .secondary
-                    )
-                ) {
-                    SecureField("Copy token here", text: $personalAccessTokenString).disabled(
-                        model.tokenExists
-                    ).padding(.trailing, 100.0).padding(.top, 2)
-
-                    Button {
-                        isUsingPersonalAuthToken() ? removeToken() : useAccessToken()
-                        refreshStatusIcon()
-
-                    } label: {
-                        Text(model.personalAccessTokenLabel)
-                    }
-                }.groupBoxStyle(CardGroupBoxStyle()).disabled(
-                    model.personalAccessTokenButtonDisabled
-                )
-
-                // OAuth method
-                GroupBox(label: Text("Login via GitHub").foregroundColor(.secondary)) {
-                    Button {
-                        isUsingOAuth() ? removeToken() : useOAuthToken()
-                        refreshStatusIcon()
-
-                    } label: {
-                        Text(model.oAuthButtonLabel)
-                    }
-                }.groupBoxStyle(CardGroupBoxStyle()).disabled(model.oAuthButtonDisabled)
+                showUserAuthTypeMessage()
+                showAuthOptionPersonalAccessToken()
+                showAuthOptionOAuth()
 
                 Spacer()
 
             }.padding()
             Spacer()
         }.padding()
+    }
+
+    private func showAuthOptionOAuth() -> some View {
+        GroupBox(label: Text("Login via GitHub").foregroundColor(.secondary)) {
+            Button {
+                isUsingOAuth() ? removeToken() : useOAuthToken()
+                refreshStatusIcon()
+
+            } label: {
+                Text(model.oAuthButtonLabel)
+            }
+        }
+        .groupBoxStyle(CardGroupBoxStyle())
+        .disabled(model.oAuthButtonDisabled)
+    }
+
+    private func showAuthOptionPersonalAccessToken() -> some View {
+
+        GroupBox(
+            label: Text("Add your personal access token from GitHub")
+                .foregroundColor(.secondary)
+        ) {
+            secureField()
+                .disabled(model.tokenExists)
+                .padding(.trailing, 100.0)
+                .padding(.top, 2)
+
+            button()
+        }
+        .groupBoxStyle(CardGroupBoxStyle())
+        .disabled(model.personalAccessTokenButtonDisabled)
+    }
+
+    private func showUserAuthTypeMessage() -> some View {
+        if model.tokenExists {
+            let text: AttributedString =
+                isUsingOAuth()
+                ? "You're authenticated using oAuth"
+                : "You're authenticated using Personal Access Token"
+
+            return AnyView(
+                Text(text)
+                    .padding(.trailing, 100.0)
+                    .foregroundColor(.secondary)
+                    .font(.callout)
+            )
+        }
+
+        return AnyView(
+            Text("You are not authenticated. Choose an method:").padding(.trailing, 100.0)
+        )
+
+    }
+
+    private func secureField() -> SecureField<Text> {
+        SecureField("Copy token here", text: $personalAccessTokenString)
+    }
+
+    private func button() -> Button<Text> {
+        Button {
+            isUsingPersonalAuthToken() ? removeToken() : useAccessToken()
+            refreshStatusIcon()
+
+        } label: {
+            Text(model.personalAccessTokenLabel)
+        }
     }
 }
 
@@ -172,14 +199,5 @@ struct CardGroupBoxStyle: GroupBoxStyle {
             configuration.label
             configuration.content.frame(width: 575, height: 30, alignment: .leading)
         }.padding().overlay(RoundedRectangle(cornerRadius: 3).stroke(.separator, lineWidth: 1.1))
-    }
-}
-
-struct PlainGroupBoxStyle: GroupBoxStyle {
-    func makeBody(configuration: Configuration) -> some View {
-        VStack(alignment: .leading) {
-            configuration.label
-            configuration.content
-        }
     }
 }
