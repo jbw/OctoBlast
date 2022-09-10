@@ -9,7 +9,6 @@ import Foundation
 import OctoKit
 
 open class GitHub {
-    public var myNotifications: [Any] = []
 
     private var client: Octokit!
     private var config: TokenConfiguration!
@@ -19,7 +18,9 @@ open class GitHub {
         client = Octokit(config)
     }
 
-    public func fetch(cb: @escaping (Bool, Int) -> Void) { getMyNotifications(cb: cb) }
+    public func fetch(completion: @escaping ([NotificationThread], Int) -> Void) {
+        getMyNotifications(completion: completion)
+    }
 
     public func me(completion: @escaping (User?, Error?) -> Void) {
         client.me { response in
@@ -33,35 +34,44 @@ open class GitHub {
         }
     }
 
-    private func getMyNotifications(cb: @escaping (Bool, Int) -> Void) {
-        var newNotifications: [Any] = []
+    private func notificationsFilter(notifications: [NotificationThread]) -> [NotificationThread] {
+        notifications.filter { notification in
+            notification.subject.type == "PullRequest"
+                && (notification.reason == OctoKit.NotificationThread.Reason.reviewRequested
+                    || notification.reason == OctoKit.NotificationThread.Reason.stateChange
+                    || notification.reason == OctoKit.NotificationThread.Reason.author)
+        }
+
+    }
+
+    private func getMyNotifications(
+        page: Int = 1,
+        perPage: Int = 25,
+        completion: @escaping ([NotificationThread], Int) -> Void
+    ) {
+        var newNotifications: [NotificationThread] = []
 
         client.myNotifications(
             URLSession(configuration: URLSessionConfiguration.ephemeral),
             all: false,
             participating: true,
-            page: "1",
-            perPage: "25"
+            page: String(page),
+            perPage: String(perPage)
         ) { response in
             switch response { case let .success(notifications):
-                for notification in notifications {
-                    if notification.subject.type == "PullRequest" {
-                        if notification.reason == OctoKit.NotificationThread.Reason.reviewRequested
-                            || notification.reason == OctoKit.NotificationThread.Reason.stateChange
-                            || notification.reason == OctoKit.NotificationThread.Reason.author
-                        {
-                            newNotifications.append(notification)
-                        }
-                    }
+                let filteredNotifications = self.notificationsFilter(notifications: notifications)
+                for notification in filteredNotifications {
+                    newNotifications.append(notification)
                 }
 
-                self.myNotifications = newNotifications
-                return cb(true, 200)
+                return completion(newNotifications, 200)
 
                 case let .failure(error):
-                    if error.localizedDescription.contains("error 401") { return cb(false, 401) }
+                    if error.localizedDescription.contains("error 401") {
+                        return completion([], 401)
+                    }
 
-                    return cb(false, 500)
+                    return completion([], 500)
             }
         }
     }
