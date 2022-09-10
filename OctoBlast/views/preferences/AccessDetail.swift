@@ -4,7 +4,6 @@
 //
 
 import Foundation
-import OctoKit
 import SwiftUI
 
 struct AccessDetail: View {
