@@ -43,13 +43,13 @@ struct AccessDetail: View {
         }.padding()
     }
 
-    func isUsingOAuth() -> Bool { model.currentTokenType == TokenType.OAuth }
+    private func isUsingOAuth() -> Bool { model.currentTokenType == TokenType.OAuth }
 
-    func isUsingPersonalAuthToken() -> Bool {
+    private func isUsingPersonalAuthToken() -> Bool {
         model.currentTokenType == TokenType.PersonalAccessToken
     }
 
-    func useOAuthToken(initial: Bool = false) {
+    private func useOAuthToken(initial: Bool = false) {
         if !initial {
             let url = auth.oAuth()
             NSWorkspace.shared.open(url)
@@ -63,7 +63,7 @@ struct AccessDetail: View {
         model.oAuthButtonDisabled = false
     }
 
-    func useAccessToken(initial: Bool = false) {
+    private func useAccessToken(initial: Bool = false) {
         if !initial {
             accessToken.setPersonalAccessToken(token: personalAccessTokenString)
             model.personalAccessTokenLabel = "Remove"
@@ -75,7 +75,7 @@ struct AccessDetail: View {
         model.oAuthButtonDisabled = accessToken.exists()
     }
 
-    func removeToken() {
+    private func removeToken() {
         accessToken.remove()
         personalAccessTokenString = ""
 
@@ -89,7 +89,7 @@ struct AccessDetail: View {
         model.oAuthButtonDisabled = false
     }
 
-    func oauthButtonDisabled() -> Bool {
+    private func oauthButtonDisabled() -> Bool {
         if !model.tokenExists { return false }
 
         if accessToken.getToken().type == TokenType.OAuth { return false }
@@ -99,7 +99,7 @@ struct AccessDetail: View {
         return true
     }
 
-    func personalAccessTokenButtonDisabled() -> Bool {
+    private func personalAccessTokenButtonDisabled() -> Bool {
         if !model.tokenExists { return false }
 
         if accessToken.getToken().type == TokenType.OAuth { return true }
