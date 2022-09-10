@@ -280,8 +280,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                     self.setIcon(count: count)
                 }
 
-                case 401: self.authAccessToken.remove()
-                default: print(statusCode)
+                case 401:
+                    print("Can't authenticate with this token. Create a new one.")
+                default:
+                    print(statusCode)
             }
         }
     }
