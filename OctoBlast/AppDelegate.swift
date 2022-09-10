@@ -11,12 +11,13 @@ import Sparkle
 import SwiftUI
 import UserNotifications
 
+// swiftlint:disable:next
 let UPDATE_NOTIFICATION_IDENTIFIER = "UpdateCheck"
 
 class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate,
     SPUUpdaterDelegate, SPUStandardUserDriverDelegate
 {
-    @IBOutlet var updaterController: SPUStandardUpdaterController!
+    @IBOutlet private var updaterController: SPUStandardUpdaterController!
 
     private var authAccessToken: AuthAccessToken! = AuthAccessToken.shared
     private var auth: GithubOAuth! = GithubOAuth.shared
@@ -79,7 +80,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     }
 
     // Declares that we support gentle scheduled update reminders to Sparkle's standard user driver
-
     var supportsGentleScheduledUpdateReminders: Bool { true }
 
     func standardUserDriverWillHandleShowingUpdate(
@@ -181,7 +181,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         let menu = NSMenu()
 
         // set initial icon
-        setIcon(count: 0)
+        setIcon(notificationCount: 0)
 
         let prefs = NSMenuItem(
             title: "Preferences...",
@@ -201,15 +201,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         statusItem.length = NSStatusItem.squareLength
     }
 
-    private func setIcon(count: Int) {
+    private func setIcon(notificationCount: Int) {
         setIconWhenNoNotifications()
 
         DispatchQueue.main.asyncAfter(deadline: .now()) {
-            if count > 0 {
-                self.setIconWhenNotified()
+            if notificationCount == 0 {
+                self.setIconWhenNoNotifications()
             }
             else {
-                self.setIconWhenNoNotifications()
+                self.setIconWhenNotified()
             }
         }
     }
@@ -263,7 +263,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         let token = authAccessToken.getToken().token
 
         if token == nil {
-            setIcon(count: 0)
+            setIcon(notificationCount: 0)
             setNotificationCount(count: 0)
             // todo change icon to denote user not logged in
             return
@@ -271,15 +271,15 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
         let githubAPI = GitHub(token: token!)
 
-        githubAPI.fetch { _, statusCode in
+        githubAPI.fetch { notifications, statusCode in
 
             switch statusCode { case 200:
 
-                let count = githubAPI.myNotifications.count
+                let count = notifications.count
 
                 DispatchQueue.main.async {
                     self.setNotificationCount(count: count)
-                    self.setIcon(count: count)
+                    self.setIcon(notificationCount: count)
                 }
 
                 case 401:
