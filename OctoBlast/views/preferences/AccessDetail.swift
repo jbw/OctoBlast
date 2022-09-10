@@ -22,11 +22,11 @@ struct AccessDetail: View {
         // set up initial state from any persisted data e.g. token
         // todo currently these methods need a flag to denote first initial load. we could split these?
         if accessToken.isOAuth() {
-            useOAuthToken(initial: true)
+            setOAuthAsActive()
         }
 
         if accessToken.isOAuth() {
-            useAccessToken(initial: true)
+            setAccessTokenAsActive()
         }
 
         if !accessToken.exists() {
@@ -54,25 +54,28 @@ struct AccessDetail: View {
         model.personalAccessTokenLabel = "Save"
     }
 
-    private func useOAuthToken(initial: Bool = false) {
-        if !initial {
-            let url = auth.oAuth()
-            NSWorkspace.shared.open(url)
+    private func useOAuthToken() {
+        let url = auth.oAuth()
+        NSWorkspace.shared.open(url)
 
-            model.oAuthButtonLabel = "Logout"
-            model.personalAccessTokenString = ""
-        }
+        setOAuthAsActive()
+    }
 
+    private func setOAuthAsActive() {
+        model.oAuthButtonLabel = "Logout"
+        model.personalAccessTokenString = ""
         model.personalAccessTokenButtonDisabled = true
         model.oAuthButtonDisabled = false
     }
 
     private func useAccessToken(initial: Bool = false) {
-        if !initial {
-            accessToken.setPersonalAccessToken(token: model.personalAccessTokenString)
-            model.personalAccessTokenLabel = "Remove"
-        }
+        accessToken.setPersonalAccessToken(token: model.personalAccessTokenString)
 
+        setAccessTokenAsActive()
+    }
+
+    private func setAccessTokenAsActive() {
+        model.personalAccessTokenLabel = "Remove"
         model.personalAccessTokenButtonDisabled = false
         model.oAuthButtonDisabled = true
     }
@@ -82,7 +85,6 @@ struct AccessDetail: View {
         model.personalAccessTokenString = ""
 
         emptyState()
-
     }
 
     private func oauthButtonDisabled() -> Bool {
