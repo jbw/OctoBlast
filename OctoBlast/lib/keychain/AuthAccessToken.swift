@@ -10,7 +10,8 @@ import KeychainSwift
 enum TokenType: String {
     case OAuth = "oauth"
     case PersonalAccessToken = "pat"
-    case Undefined = "undefined"
+    case Unknown = "unknown"
+    case Empty = "empty"
 }
 
 class AuthAccessToken {
@@ -50,7 +51,7 @@ class AuthAccessToken {
     func isPersonalAccessToken() -> Bool {
         // note: for backwards compatibility we assume Undefined is also a PAT
         // as it was the only option until TokenType and OAuth option existed.
-        getType() == TokenType.PersonalAccessToken || getType() == TokenType.Undefined
+        getType() == TokenType.PersonalAccessToken || getType() == TokenType.Unknown
     }
 
     func isOAuth() -> Bool {
@@ -60,12 +61,12 @@ class AuthAccessToken {
     func getToken() -> (token: String?, type: TokenType) {
         let token = authAccessToken
 
-        if token == nil { return (nil, TokenType.Undefined) }
+        if token == nil { return (nil, TokenType.Empty) }
 
         let split = token!.components(separatedBy: separator)
 
         // note: assuming we have pre TokenType baked in setting string
-        if split.count == 1 { return (split[0], TokenType.Undefined) }
+        if split.count == 1 { return (split[0], TokenType.Unknown) }
 
         let head = split[0]
         let body = split[1]
