@@ -21,11 +21,11 @@ struct AccessDetail: View {
 
         // set up initial state from any persisted data e.g. token
         // todo currently these methods need a flag to denote first initial load. we could split these?
-        if isUsingOAuth() {
+        if accessToken.isOAuth() {
             useOAuthToken(initial: true)
         }
 
-        if isUsingPersonalAuthToken() {
+        if accessToken.isOAuth() {
             useAccessToken(initial: true)
         }
 
@@ -45,12 +45,6 @@ struct AccessDetail: View {
             }.padding()
             Spacer()
         }.padding()
-    }
-
-    private func isUsingOAuth() -> Bool { accessToken.getToken().type == TokenType.OAuth }
-
-    private func isUsingPersonalAuthToken() -> Bool {
-        accessToken.getToken().type == TokenType.PersonalAccessToken
     }
 
     private func defaultState() {
@@ -113,7 +107,7 @@ struct AccessDetail: View {
     private func showAuthOptionOAuth() -> some View {
         GroupBox(label: Text("Login via GitHub").foregroundColor(.secondary)) {
             Button {
-                isUsingOAuth() ? removeToken() : useOAuthToken()
+                accessToken.isOAuth() ? removeToken() : useOAuthToken()
                 refreshCallback()
 
             } label: {
@@ -146,7 +140,7 @@ struct AccessDetail: View {
     private func showUserAuthTypeMessage() -> some View {
         if accessToken.exists() {
             let text: AttributedString =
-                isUsingOAuth()
+                accessToken.isOAuth()
                 ? "You're authenticated using oAuth"
                 : "You're authenticated using Personal Access Token"
 
@@ -170,7 +164,7 @@ struct AccessDetail: View {
 
     private func togglePersonalAccessTokenButton() -> Button<Text> {
         Button {
-            isUsingPersonalAuthToken() ? removeToken() : useAccessToken()
+            accessToken.isPersonalAccessToken() ? removeToken() : useAccessToken()
             refreshCallback()
 
         } label: {
