@@ -264,6 +264,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
         if token == nil {
             setIcon(count: 0)
+            setNotificationCount(count: 0)
             return
         }
 
