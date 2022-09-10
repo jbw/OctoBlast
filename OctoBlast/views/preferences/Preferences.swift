@@ -11,7 +11,7 @@ struct PreferencesView: View {
         NavigationView {
             List {
                 NavigationLink(isActive: $isActive) {
-                    AccessDetail(refreshStatusIcon: refreshStatusIcon)
+                    AccessDetail(refreshCallback: refreshStatusIcon)
                 } label: {
                     Label("Access", systemImage: "key")
                 }

@@ -7,91 +7,25 @@ import Foundation
 import SwiftUI
 
 struct AccessDetail: View {
-    var refreshStatusIcon: () -> Void
 
     @ObservedObject var model = ViewModel()
 
-    private var github: GithubOAuth! = GithubOAuth.shared
-    private var personalAccessToken: AuthAccessToken! = AuthAccessToken.shared
+    private var refreshCallback: () -> Void
+    private var auth: GithubOAuth! = GithubOAuth.shared
+    private var accessToken: AuthAccessToken! = AuthAccessToken.shared
 
     @State private var personalAccessTokenString: String = ""
 
-    init(refreshStatusIcon: @escaping () -> Void) {
-        self.refreshStatusIcon = refreshStatusIcon
+    init(refreshCallback: @escaping () -> Void) {
+        self.refreshCallback = refreshCallback
 
         // set up initial state from any persisted data e.g. token
         // todo currently these methods need a flag to denote first initial load. we could split these?
         isUsingOAuth() ? useOAuthToken(initial: true) : useAccessToken(initial: true)
 
-        if AuthAccessToken.shared.getToken().type == TokenType.PersonalAccessToken {
-            personalAccessTokenString = AuthAccessToken.shared.getToken().token ?? ""
+        if accessToken.getToken().type == TokenType.PersonalAccessToken {
+            personalAccessTokenString = accessToken.getToken().token ?? ""
         }
-    }
-
-    func isUsingOAuth() -> Bool { model.currentTokenType == TokenType.OAuth }
-
-    func isUsingPersonalAuthToken() -> Bool {
-        model.currentTokenType == TokenType.PersonalAccessToken
-    }
-
-    func useOAuthToken(initial: Bool = false) {
-        if !initial {
-            let url = github.oAuth()
-            NSWorkspace.shared.open(url)
-            model.oAuthButtonLabel = "Logout"
-            model.currentTokenType = TokenType.OAuth
-            model.tokenExists = true
-            personalAccessTokenString = ""
-        }
-
-        model.personalAccessTokenButtonDisabled = true
-        model.oAuthButtonDisabled = false
-    }
-
-    func useAccessToken(initial: Bool = false) {
-        if !initial {
-            personalAccessToken.setPersonalAccessToken(token: personalAccessTokenString)
-            model.personalAccessTokenLabel = "Remove"
-            model.currentTokenType = TokenType.PersonalAccessToken
-            model.tokenExists = AuthAccessToken.shared.exists()
-        }
-
-        model.personalAccessTokenButtonDisabled = false
-        model.oAuthButtonDisabled = AuthAccessToken.shared.exists()
-    }
-
-    func removeToken() {
-        personalAccessToken.remove()
-        personalAccessTokenString = ""
-
-        model.tokenExists = AuthAccessToken.shared.exists()
-        model.currentTokenType = TokenType.Undefined
-
-        model.personalAccessTokenLabel = "Save"
-        model.oAuthButtonLabel = "Login"
-
-        model.personalAccessTokenButtonDisabled = false
-        model.oAuthButtonDisabled = false
-    }
-
-    func oauthButtonDisabled() -> Bool {
-        if !model.tokenExists { return false }
-
-        if personalAccessToken.getToken().type == TokenType.OAuth { return false }
-
-        if !model.personalAccessTokenButtonDisabled { return false }
-
-        return true
-    }
-
-    func personalAccessTokenButtonDisabled() -> Bool {
-        if !model.tokenExists { return false }
-
-        if personalAccessToken.getToken().type == TokenType.OAuth { return true }
-
-        if !oauthButtonDisabled() { return false }
-
-        return true
     }
 
     var body: some View {
@@ -109,11 +43,77 @@ struct AccessDetail: View {
         }.padding()
     }
 
+    func isUsingOAuth() -> Bool { model.currentTokenType == TokenType.OAuth }
+
+    func isUsingPersonalAuthToken() -> Bool {
+        model.currentTokenType == TokenType.PersonalAccessToken
+    }
+
+    func useOAuthToken(initial: Bool = false) {
+        if !initial {
+            let url = auth.oAuth()
+            NSWorkspace.shared.open(url)
+            model.oAuthButtonLabel = "Logout"
+            model.currentTokenType = TokenType.OAuth
+            model.tokenExists = true
+            personalAccessTokenString = ""
+        }
+
+        model.personalAccessTokenButtonDisabled = true
+        model.oAuthButtonDisabled = false
+    }
+
+    func useAccessToken(initial: Bool = false) {
+        if !initial {
+            accessToken.setPersonalAccessToken(token: personalAccessTokenString)
+            model.personalAccessTokenLabel = "Remove"
+            model.currentTokenType = TokenType.PersonalAccessToken
+            model.tokenExists = accessToken.exists()
+        }
+
+        model.personalAccessTokenButtonDisabled = false
+        model.oAuthButtonDisabled = accessToken.exists()
+    }
+
+    func removeToken() {
+        accessToken.remove()
+        personalAccessTokenString = ""
+
+        model.tokenExists = accessToken.exists()
+        model.currentTokenType = TokenType.Undefined
+
+        model.personalAccessTokenLabel = "Save"
+        model.oAuthButtonLabel = "Login"
+
+        model.personalAccessTokenButtonDisabled = false
+        model.oAuthButtonDisabled = false
+    }
+
+    func oauthButtonDisabled() -> Bool {
+        if !model.tokenExists { return false }
+
+        if accessToken.getToken().type == TokenType.OAuth { return false }
+
+        if !model.personalAccessTokenButtonDisabled { return false }
+
+        return true
+    }
+
+    func personalAccessTokenButtonDisabled() -> Bool {
+        if !model.tokenExists { return false }
+
+        if accessToken.getToken().type == TokenType.OAuth { return true }
+
+        if !oauthButtonDisabled() { return false }
+
+        return true
+    }
+
     private func showAuthOptionOAuth() -> some View {
         GroupBox(label: Text("Login via GitHub").foregroundColor(.secondary)) {
             Button {
                 isUsingOAuth() ? removeToken() : useOAuthToken()
-                refreshStatusIcon()
+                refreshCallback()
 
             } label: {
                 Text(model.oAuthButtonLabel)
@@ -168,7 +168,7 @@ struct AccessDetail: View {
     private func button() -> Button<Text> {
         Button {
             isUsingPersonalAuthToken() ? removeToken() : useAccessToken()
-            refreshStatusIcon()
+            refreshCallback()
 
         } label: {
             Text(model.personalAccessTokenLabel)
@@ -177,20 +177,27 @@ struct AccessDetail: View {
 }
 
 class ViewModel: ObservableObject {
-    @Published var personalAccessTokenButtonDisabled: Bool =
-        AuthAccessToken.shared.getToken().type == TokenType.OAuth
-    @Published var oAuthButtonDisabled: Bool =
-        AuthAccessToken.shared.getToken().type == TokenType.PersonalAccessToken
 
-    @Published var personalAccessTokenLabel: String =
-        AuthAccessToken.shared.exists() && AuthAccessToken.shared.getToken().type != TokenType.OAuth
-        ? "Remove" : "Save"
-    @Published var oAuthButtonLabel: String =
-        AuthAccessToken.shared.getToken().type == TokenType.OAuth ? "Logout" : "Login"
+    private var accessToken: AuthAccessToken! = AuthAccessToken.shared
 
-    @Published var tokenExists: Bool = AuthAccessToken.shared.exists()
+    @Published var personalAccessTokenButtonDisabled: Bool
+    @Published var oAuthButtonDisabled: Bool
+    @Published var personalAccessTokenLabel: String
+    @Published var oAuthButtonLabel: String
+    @Published var tokenExists: Bool
 
-    @Published var currentTokenType: TokenType = AuthAccessToken.shared.getToken().type
+    @Published var currentTokenType: TokenType
+
+    init() {
+        tokenExists = accessToken.exists()
+        currentTokenType = accessToken.getToken().type
+        personalAccessTokenButtonDisabled = self.accessToken.getToken().type == TokenType.OAuth
+        oAuthButtonDisabled = accessToken.getToken().type == TokenType.PersonalAccessToken
+        oAuthButtonLabel = accessToken.getToken().type == TokenType.OAuth ? "Logout" : "Login"
+        personalAccessTokenLabel =
+            accessToken.exists() && accessToken.getToken().type != TokenType.OAuth
+            ? "Remove" : "Save"
+    }
 }
 
 struct CardGroupBoxStyle: GroupBoxStyle {
