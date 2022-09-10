@@ -3,11 +3,9 @@
 // Copyright (c) 2022 JBW. All rights reserved.
 //
 
-import Foundation
 import SwiftUI
 
 struct AccessDetail: View {
-
     @ObservedObject var model: AccessSettings
 
     private var refreshCallback: () -> Void
@@ -15,13 +13,11 @@ struct AccessDetail: View {
     private var accessToken: AuthAccessToken! = AuthAccessToken.shared
 
     private func getUser(github: GitHub) {
-
         github.me { user, _ in
             model.userId = "@" + user!.login!
             model.fullName = user!.name!
             model.avatarURL = user!.avatarURL!
         }
-
     }
 
     init(refreshCallback: @escaping () -> Void) {
@@ -43,13 +39,11 @@ struct AccessDetail: View {
         else if accessToken.isPersonalAccessToken() {
             setAccessTokenAsActive()
         }
-
     }
 
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
-
                 if accessToken.exists() {
                     userInfo(
                         fullName: model.fullName,
@@ -133,7 +127,6 @@ struct AccessDetail: View {
     }
 
     private func showAuthOptionOAuth() -> some View {
-
         let tokenExists = accessToken.exists() && accessToken.isOAuth()
 
         let text = Text("GitHub.com").foregroundColor(.secondary)
@@ -156,7 +149,6 @@ struct AccessDetail: View {
     }
 
     private func showAuthOptionPersonalAccessToken() -> some View {
-
         let tokenExists = accessToken.exists() && accessToken.isPersonalAccessToken()
         let text = Text("Add your personal access token from GitHub").foregroundColor(.secondary)
 
@@ -186,7 +178,6 @@ struct AccessDetail: View {
     }
 
     private func userInfo(fullName: String, userId: String, avatarURL: String) -> some View {
-
         HStack(alignment: .top) {
 
             HStack(
@@ -226,16 +217,13 @@ struct AccessDetail: View {
         Button {
             accessToken.isPersonalAccessToken() ? removeToken() : useAccessToken()
             refreshCallback()
-
         } label: {
             Text(model.personalAccessTokenLabel)
         }
     }
-
 }
 
 class AccessSettings: ObservableObject {
-
     @Published var personalAccessTokenLabel: String
     @Published var personalAccessTokenButtonDisabled: Bool
     @Published var personalAccessTokenString: String = ""
@@ -248,7 +236,6 @@ class AccessSettings: ObservableObject {
     @Published var avatarURL: String = ""
 
     init(accessToken: AuthAccessToken) {
-
         personalAccessTokenString =
             accessToken.isPersonalAccessToken() ? accessToken.getToken().token ?? "" : ""
 

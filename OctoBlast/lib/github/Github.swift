@@ -8,7 +8,7 @@
 import Foundation
 import OctoKit
 
-class GitHub {
+open class GitHub {
     public var myNotifications: [Any] = []
 
     private var client: Octokit!
@@ -31,8 +31,8 @@ class GitHub {
                     completion(nil, error)
             }
         }
-
     }
+
     private func getMyNotifications(cb: @escaping (Bool, Int) -> Void) {
         var newNotifications: [Any] = []
 

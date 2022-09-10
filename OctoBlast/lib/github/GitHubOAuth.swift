@@ -6,7 +6,7 @@
 import Foundation
 import OctoKit
 
-class GithubOAuth {
+open class GithubOAuth {
     public static let shared: GithubOAuth = .init()
 
     private var token: String = Bundle.main.object(forInfoDictionaryKey: "AUTH_TOKEN") as! String
