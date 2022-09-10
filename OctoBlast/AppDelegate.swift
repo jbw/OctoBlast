@@ -262,7 +262,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     private func refresh() {
         let token = authAccessToken.getToken().token
 
-        if token == nil { setIcon(count: 0) }
+        if token == nil {
+            setIcon(count: 0)
+            return
+        }
 
         let githubAPI = GitHub(config: TokenConfiguration(token))
 
