@@ -81,11 +81,8 @@ struct AccessDetail: View {
         accessToken.remove()
         model.personalAccessTokenString = ""
 
-        model.personalAccessTokenLabel = "Save"
-        model.oAuthButtonLabel = "Login"
+        emptyState()
 
-        model.personalAccessTokenButtonDisabled = false
-        model.oAuthButtonDisabled = false
     }
 
     private func oauthButtonDisabled() -> Bool {
