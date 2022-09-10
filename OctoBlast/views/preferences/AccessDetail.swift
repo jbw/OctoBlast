@@ -189,16 +189,15 @@ class AccessSettings: ObservableObject {
     @Published var oAuthButtonDisabled: Bool
 
     init(accessToken: AuthAccessToken) {
-        if accessToken.getToken().type == TokenType.PersonalAccessToken {
-            personalAccessTokenString = accessToken.getToken().token ?? ""
-        }
 
-        personalAccessTokenButtonDisabled = accessToken.getToken().type == TokenType.OAuth
-        oAuthButtonDisabled = accessToken.getToken().type == TokenType.PersonalAccessToken
-        oAuthButtonLabel = accessToken.getToken().type == TokenType.OAuth ? "Logout" : "Login"
+        personalAccessTokenString =
+            accessToken.isPersonalAccessToken() ? accessToken.getToken().token ?? "" : ""
+
+        personalAccessTokenButtonDisabled = accessToken.isOAuth()
+        oAuthButtonDisabled = accessToken.isPersonalAccessToken()
+        oAuthButtonLabel = accessToken.exists() && accessToken.isOAuth() ? "Logout" : "Login"
         personalAccessTokenLabel =
-            accessToken.exists() && accessToken.getToken().type != TokenType.OAuth
-            ? "Remove" : "Save"
+            accessToken.exists() && accessToken.isPersonalAccessToken() ? "Remove" : "Save"
     }
 }
 

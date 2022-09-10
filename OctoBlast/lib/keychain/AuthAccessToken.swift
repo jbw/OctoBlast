@@ -43,6 +43,20 @@ class AuthAccessToken {
         authAccessToken = TokenType.OAuth.rawValue + separator + token
     }
 
+    func getType() -> TokenType {
+        getToken().type
+    }
+
+    func isPersonalAccessToken() -> Bool {
+        // note: for backwards compatibility we assume Undefined is also a PAT
+        // as it was the only option until TokenType and OAuth option existed.
+        getType() == TokenType.PersonalAccessToken || getType() == TokenType.Undefined
+    }
+
+    func isOAuth() -> Bool {
+        getType() == TokenType.OAuth
+    }
+
     func getToken() -> (token: String?, type: TokenType) {
         let token = authAccessToken
 
@@ -50,6 +64,7 @@ class AuthAccessToken {
 
         let split = token!.components(separatedBy: separator)
 
+        // note: assuming we have pre TokenType baked in setting string
         if split.count == 1 { return (split[0], TokenType.Undefined) }
 
         let head = split[0]
