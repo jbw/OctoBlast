@@ -14,13 +14,25 @@ class GitHub {
     private var client: Octokit!
     private var config: TokenConfiguration!
 
-    public init(config: TokenConfiguration) {
-        self.config = config
+    public init(token: String) {
+        config = TokenConfiguration(token)
         client = Octokit(config)
     }
 
     public func fetch(cb: @escaping (Bool, Int) -> Void) { getMyNotifications(cb: cb) }
 
+    public func me(completion: @escaping (User?, Error?) -> Void) {
+        client.me { response in
+            switch response {
+                case .success(let user):
+                    completion(user, nil)
+                case .failure(let error):
+                    print(error)
+                    completion(nil, error)
+            }
+        }
+
+    }
     private func getMyNotifications(cb: @escaping (Bool, Int) -> Void) {
         var newNotifications: [Any] = []
 
@@ -47,11 +59,8 @@ class GitHub {
                 return cb(true, 200)
 
                 case let .failure(error):
-
-                    print(error.localizedDescription)
                     if error.localizedDescription.contains("error 401") { return cb(false, 401) }
 
-                    // todo pass error back and if is an auth error, delete the token
                     return cb(false, 500)
             }
         }

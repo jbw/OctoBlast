@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import OctoKit
 import SwiftUI
 
 struct AccessDetail: View {
@@ -14,10 +15,25 @@ struct AccessDetail: View {
     private var auth: GithubOAuth! = GithubOAuth.shared
     private var accessToken: AuthAccessToken! = AuthAccessToken.shared
 
+    private func getUser(github: GitHub) {
+
+        github.me { user, _ in
+            model.userId = "@" + user!.login!
+            model.fullName = user!.name!
+            model.avatarURL = user!.avatarURL!
+        }
+
+    }
+
     init(refreshCallback: @escaping () -> Void) {
         self.refreshCallback = refreshCallback
 
         model = AccessSettings(accessToken: accessToken)
+
+        if accessToken.exists() {
+            let github = GitHub(token: accessToken.getToken().token!)
+            getUser(github: github)
+        }
 
         if !accessToken.exists() {
             emptyState()
@@ -34,7 +50,15 @@ struct AccessDetail: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
-                showUserAuthTypeMessage()
+
+                if accessToken.exists() {
+                    userInfo(
+                        fullName: model.fullName,
+                        userId: model.userId,
+                        avatarURL: model.avatarURL
+                    )
+                }
+
                 showAuthOptionPersonalAccessToken()
                 showAuthOptionOAuth()
                 Spacer()
@@ -46,19 +70,29 @@ struct AccessDetail: View {
     private func emptyState() {
         model.personalAccessTokenButtonDisabled = false
         model.oAuthButtonDisabled = false
-        model.oAuthButtonLabel = "Login"
+        model.oAuthButtonLabel = "Sign In"
         model.personalAccessTokenLabel = "Save"
+        model.fullName = ""
+        model.userId = ""
+        model.avatarURL = ""
     }
 
     private func useOAuthToken() {
         let url = auth.oAuth()
         NSWorkspace.shared.open(url)
-
+        refreshUserInfo()
         setOAuthAsActive()
     }
 
+    private func refreshUserInfo() {
+        if accessToken.exists() {
+            let github = GitHub(token: accessToken.getToken().token!)
+            getUser(github: github)
+        }
+    }
+
     private func setOAuthAsActive() {
-        model.oAuthButtonLabel = "Logout"
+        model.oAuthButtonLabel = "Sign Out"
         model.personalAccessTokenString = ""
         model.personalAccessTokenButtonDisabled = true
         model.oAuthButtonDisabled = false
@@ -66,7 +100,7 @@ struct AccessDetail: View {
 
     private func useAccessToken(initial: Bool = false) {
         accessToken.setPersonalAccessToken(token: model.personalAccessTokenString)
-
+        refreshUserInfo()
         setAccessTokenAsActive()
     }
 
@@ -100,11 +134,20 @@ struct AccessDetail: View {
     }
 
     private func showAuthOptionOAuth() -> some View {
-        GroupBox(label: Text("Login via GitHub").foregroundColor(.secondary)) {
+
+        let tokenExists = accessToken.exists() && accessToken.isOAuth()
+
+        let text = Text("GitHub.com").foregroundColor(.secondary)
+
+        let label = Label(
+            title: { text },
+            icon: { tokenExists ? authOptionSelectedIcon() : nil }
+        )
+
+        return GroupBox(label: label) {
             Button {
                 accessToken.isOAuth() ? removeToken() : useOAuthToken()
                 refreshCallback()
-
             } label: {
                 Text(model.oAuthButtonLabel)
             }
@@ -114,13 +157,16 @@ struct AccessDetail: View {
     }
 
     private func showAuthOptionPersonalAccessToken() -> some View {
-        let token = accessToken.getToken()
-        let tokenExists = accessToken.exists() && token.type != TokenType.OAuth
 
-        return GroupBox(
-            label: Text("Add your personal access token from GitHub")
-                .foregroundColor(.secondary)
-        ) {
+        let tokenExists = accessToken.exists() && accessToken.isPersonalAccessToken()
+        let text = Text("Add your personal access token from GitHub").foregroundColor(.secondary)
+
+        let label = Label(
+            title: { text },
+            icon: { tokenExists ? authOptionSelectedIcon() : nil }
+        )
+
+        return GroupBox(label: label) {
             secureField()
                 .disabled(tokenExists)
                 .padding(.trailing, 100.0)
@@ -132,24 +178,44 @@ struct AccessDetail: View {
         .disabled(model.personalAccessTokenButtonDisabled)
     }
 
-    private func showUserAuthTypeMessage() -> some View {
-        if accessToken.exists() {
-            let text: AttributedString =
-                accessToken.isOAuth()
-                ? "You're authenticated using oAuth"
-                : "You're authenticated using Personal Access Token"
+    private func authOptionSelectedIcon() -> some View {
+        let selectedIcon = "checkmark.circle.fill"
+        let fill = Color(.green)
+        let icon = Image(systemName: selectedIcon).foregroundColor(fill)
 
-            return AnyView(
-                Text(text)
-                    .padding(.trailing, 100.0)
+        return icon
+    }
+
+    private func userInfo(fullName: String, userId: String, avatarURL: String) -> some View {
+
+        HStack(alignment: .top) {
+
+            HStack(
+                alignment: .center
+
+            ) {
+                AsyncImage(url: URL(string: avatarURL)) { image in
+                    image.resizable()
+                } placeholder: {
+                    Color.gray
+                }
+                .frame(width: 44, height: 44)
+                .clipShape(Circle())
+
+            }
+            VStack(
+                alignment: .leading,
+                spacing: 2
+            ) {
+                Text(fullName)
                     .foregroundColor(.secondary)
-                    .font(.callout)
-            )
-        }
+                    .font(.title3)
 
-        return AnyView(
-            Text("You are not authenticated. Choose an method:").padding(.trailing, 100.0)
-        )
+                Text(userId)
+                    .foregroundColor(.secondary)
+                    .font(.title3)
+            }
+        }
 
     }
 
@@ -166,6 +232,7 @@ struct AccessDetail: View {
             Text(model.personalAccessTokenLabel)
         }
     }
+
 }
 
 class AccessSettings: ObservableObject {
@@ -177,6 +244,10 @@ class AccessSettings: ObservableObject {
     @Published var oAuthButtonLabel: String
     @Published var oAuthButtonDisabled: Bool
 
+    @Published var userId: String = ""
+    @Published var fullName: String = ""
+    @Published var avatarURL: String = ""
+
     init(accessToken: AuthAccessToken) {
 
         personalAccessTokenString =
@@ -184,7 +255,7 @@ class AccessSettings: ObservableObject {
 
         personalAccessTokenButtonDisabled = accessToken.isOAuth()
         oAuthButtonDisabled = accessToken.isPersonalAccessToken()
-        oAuthButtonLabel = accessToken.exists() && accessToken.isOAuth() ? "Logout" : "Login"
+        oAuthButtonLabel = accessToken.exists() && accessToken.isOAuth() ? "Sign Out" : "Sign In"
         personalAccessTokenLabel =
             accessToken.exists() && accessToken.isPersonalAccessToken() ? "Remove" : "Save"
     }

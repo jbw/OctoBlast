@@ -13,6 +13,8 @@ class GithubOAuth {
     private var secret: String = Bundle.main.object(forInfoDictionaryKey: "AUTH_SECRET") as! String
     private var scopes: [String] = ["read:user", "notifications"]
 
+    private var user: User?
+
     private var oAuthConfig: OAuthConfiguration?
 
     public func oAuth() -> URL {
@@ -30,8 +32,11 @@ class GithubOAuth {
             url: url,
             completion: { tokenConfig in
                 Octokit(tokenConfig).me { response in
-                    switch response { case let .success(user): completion(tokenConfig, user)
-                        case let .failure(error): print("Error: \(error)")
+                    switch response {
+                        case let .success(user):
+                            completion(tokenConfig, user)
+                        case let .failure(error):
+                            print("Error: \(error)")
                     }
                 }
             }
