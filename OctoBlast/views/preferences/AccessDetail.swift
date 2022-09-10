@@ -30,7 +30,7 @@ struct AccessDetail: View {
         }
 
         if !accessToken.exists() {
-            defaultState()
+            emptyState()
         }
 
     }
@@ -47,7 +47,7 @@ struct AccessDetail: View {
         }.padding()
     }
 
-    private func defaultState() {
+    private func emptyState() {
         model.personalAccessTokenButtonDisabled = false
         model.oAuthButtonDisabled = false
         model.oAuthButtonLabel = "Login"
