@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 16
       - run: |
-          npm install semantic-release @semantic-release/changelog
+          npm install semantic-release @semantic-release/changelog semantic-release-export-data
           npx semantic-release --dry-run
         id: get-next-version
         env:
@@ -95,5 +95,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
 
         run: |
-          npm install semantic-release @semantic-release/changelog
+          npm install semantic-release @semantic-release/changelog semantic-release-export-data
           npx semantic-release
