@@ -16,8 +16,15 @@ struct AboutDetail: View {
 
             Text("OctoBlast").font(.system(.title, design: .rounded))
 
-            let buildNumber = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
-            Text("v\(buildNumber)")
+            let versionLocation: URL? = Bundle.main.url(
+                forResource: "version",
+                withExtension: "txt"
+            )
+
+            if versionLocation != nil {
+                let version: String? = try? String(contentsOf: versionLocation!)
+                Text(version ?? "")
+            }
 
             LaunchAtLogin.Toggle { Text("Launch at login") }
 

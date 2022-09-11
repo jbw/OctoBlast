@@ -14,6 +14,7 @@
 		19A3FE7F9C69CBC655D0CD0E /* PreferencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3F8F0421EDC58B1885D38 /* PreferencesView.swift */; };
 		19A3FEC547742C3D72FFE9DA /* AboutDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3FF06910985CD8B58EDC5 /* AboutDetail.swift */; };
 		710B558428B586C20093DFA3 /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710B558328B586C20093DFA3 /* Updater.swift */; };
+		717755E628CE903500D0141C /* version.txt in Resources */ = {isa = PBXBuildFile; fileRef = 717755E528CE903500D0141C /* version.txt */; };
 		71BC7E8028CE3C8200E1DFA6 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71BC7E7F28CE3C8200E1DFA6 /* OctoKit */; };
 		71BC7E8328CE3CC000E1DFA6 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 71BC7E8228CE3CC000E1DFA6 /* Sparkle */; };
 		71BC7E8628CE3D2600E1DFA6 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 71BC7E8528CE3D2600E1DFA6 /* KeychainSwift */; };
@@ -38,6 +39,7 @@
 		19A3FD6695D38705B05DDBE7 /* GitHubOAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitHubOAuth.swift; sourceTree = "<group>"; };
 		19A3FF06910985CD8B58EDC5 /* AboutDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutDetail.swift; sourceTree = "<group>"; };
 		710B558328B586C20093DFA3 /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
+		717755E528CE903500D0141C /* version.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = version.txt; sourceTree = "<group>"; };
 		71D9DEF528A02DBD00D22910 /* OctoBlast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OctoBlast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D9DEF828A02DBD00D22910 /* OctoBlastApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctoBlastApp.swift; sourceTree = "<group>"; };
 		71D9DEFC28A02DBE00D22910 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 				71D9DEFE28A02DBE00D22910 /* Preview Content */,
 				71D9DF5E28AB9CB900D22910 /* AppDelegate.swift */,
 				19A3F68E68F50F75739F3DCE /* .swift-format */,
+				717755E528CE903500D0141C /* version.txt */,
 			);
 			path = OctoBlast;
 			sourceTree = "<group>";
@@ -234,7 +237,7 @@
 			);
 			mainGroup = 71D9DEEC28A02DBD00D22910;
 			packageReferences = (
-				71BC7E7E28CE3C8200E1DFA6 /* XCRemoteSwiftPackageReference "octokit.swift" */,
+				71BC7E7E28CE3C8200E1DFA6 /* XCRemoteSwiftPackageReference "octokit" */,
 				71BC7E8128CE3CC000E1DFA6 /* XCRemoteSwiftPackageReference "Sparkle" */,
 				71BC7E8428CE3D2600E1DFA6 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 				71BC7E8728CE3D6C00E1DFA6 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
@@ -254,6 +257,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				717755E628CE903500D0141C /* version.txt in Resources */,
 				71D9DF0028A02DBE00D22910 /* Preview Assets.xcassets in Resources */,
 				71D9DEFD28A02DBE00D22910 /* Assets.xcassets in Resources */,
 			);
@@ -506,7 +510,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		71BC7E7E28CE3C8200E1DFA6 /* XCRemoteSwiftPackageReference "octokit.swift" */ = {
+		71BC7E7E28CE3C8200E1DFA6 /* XCRemoteSwiftPackageReference "octokit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nerdishbynature/octokit.swift";
 			requirement = {
@@ -551,7 +555,7 @@
 /* Begin XCSwiftPackageProductDependency section */
 		71BC7E7F28CE3C8200E1DFA6 /* OctoKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 71BC7E7E28CE3C8200E1DFA6 /* XCRemoteSwiftPackageReference "octokit.swift" */;
+			package = 71BC7E7E28CE3C8200E1DFA6 /* XCRemoteSwiftPackageReference "octokit" */;
 			productName = OctoKit;
 		};
 		71BC7E8228CE3CC000E1DFA6 /* Sparkle */ = {

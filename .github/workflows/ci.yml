@@ -7,9 +7,27 @@ on:
     branches: ["main", "beta"]
 
 jobs:
+  get-next-version:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+      - run: npx semantic-release --dry-run
+        id: get-next-version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    outputs:
+      new-release-published: ${{ steps.get-next-version.outputs.new-release-published }}
+      new-release-version: ${{ steps.get-next-version.outputs.new-release-version }}
+
   build:
+    needs: next-version
     name: 🛠️ Build
     runs-on: macos-12
+    if: needs.get-next-version.outputs.new-release-published == 'true'
 
     steps:
       - name: Checkout
@@ -27,6 +45,7 @@ jobs:
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
         run: |
+          echo -n ${{ needs.get-next-version.outputs.new-release-version }} > OctoBlast/version.txt
           xcodebuild clean archive -scheme OctoBlast -configuration Release -archivePath build/OctoBlast.xcarchive
           xcodebuild -exportArchive -archivePath build/OctoBlast.xcarchive -exportPath build/OctoBlast -exportOptionsPlist OctoBlast/Info.plist
           zip -r OctoBlast.zip build/OctoBlast
@@ -73,6 +92,7 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
+
         run: |
           npm install semantic-release @semantic-release/changelog
           npx semantic-release
