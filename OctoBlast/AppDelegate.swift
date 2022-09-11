@@ -20,15 +20,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     @IBOutlet private var updaterController: SPUStandardUpdaterController!
 
     private var authAccessToken: AuthAccessToken! = AuthAccessToken.shared
-    private var auth: GithubOAuth! = GithubOAuth.shared
+    private var auth: GitHubOAuth! = GitHubOAuth.shared
 
     private var open: NSMenuItem = .init(
         title: "Open (0)",
         action: #selector(onOpen),
         keyEquivalent: "O"
     )
-
-    private var timer: Timer?
 
     private var statusItem: NSStatusItem!
 
@@ -49,7 +47,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         auth.handleOAuthCallback(
             url: urls[0],
             completion: { tokenConfig, _ in
-
                 // Store token in KeyChain decoded
                 // Token gets base64 encoded again when TokenConfiguration is initialised
                 // So to prevent double encoding we decode and store that
@@ -73,10 +70,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     // Sparkle to check for updates automatically. If you need to publish notifications for other reasons,
     // then you may have a more ideal time to request for notification authorization unrelated to update checking.
     func updater(_: SPUUpdater, willScheduleUpdateCheckAfterDelay _: TimeInterval) {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.badge, .alert, .sound]) {
-            _,
-            _ in  // Examine granted outcome and error if desired...
-        }
+        UNUserNotificationCenter.current()
+            .requestAuthorization(options: [.badge, .alert, .sound]) {
+                _,
+                _ in  // Examine granted outcome and error if desired...
+            }
     }
 
     // Declares that we support gentle scheduled update reminders to Sparkle's standard user driver
@@ -122,9 +120,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         NSApp.dockTile.badgeLabel = ""
 
         // Dismiss active update notifications if the user has given attention to the new update
-        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [
-            UPDATE_NOTIFICATION_IDENTIFIER
-        ])
+        UNUserNotificationCenter.current()
+            .removeDeliveredNotifications(withIdentifiers: [
+                UPDATE_NOTIFICATION_IDENTIFIER
+            ])
     }
 
     func standardUserDriverWillFinishUpdateSession() {
@@ -157,13 +156,12 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound, .badge]) { _, error in
-
             if let error = error { print(error) }
         }
     }
 
     func setupAutoRefresh() {
-        timer = Timer(
+        let timer = Timer(
             timeInterval: 60.0,
             target: self,
             selector: #selector(onAutoRefreshAlarm),
@@ -171,11 +169,13 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             repeats: true
         )
 
-        guard let _ = timer else { return }
-        RunLoop.main.add(timer!, forMode: RunLoop.Mode.default)
+        RunLoop.main.add(timer, forMode: RunLoop.Mode.default)
     }
 
-    @objc func onAutoRefreshAlarm() { refresh() }
+    @objc
+    func onAutoRefreshAlarm() {
+        refresh()
+    }
 
     func setupMenu() {
         let menu = NSMenu()
@@ -241,10 +241,11 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         if let button = statusItem.button {
             // Grab user defined color setting
             let color = UserDefaults.standard.color(forKey: "iconTint")
-            let image = NSImage(named: NSImage.Name("StatusIconHighlight"))?.tint(
-                color: NSColor(color)
-            )
-            image!.size = NSMakeSize(18.0, 18.0)
+            let image = NSImage(named: NSImage.Name("StatusIconHighlight"))?
+                .tint(
+                    color: NSColor(color)
+                )
+            image!.size = NSSize(width: 18, height: 18)
 
             button.image = image
         }
@@ -253,7 +254,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     private func setIconWhenNoNotifications() {
         if let button = statusItem.button {
             let image = NSImage(named: NSImage.Name("StatusIconNoNotifications"))
-            image!.size = NSMakeSize(18.0, 18.0)
+            image!.size = NSSize(width: 18, height: 18)
 
             button.image = image
         }
@@ -272,7 +273,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         let githubAPI = GitHub(token: token!)
 
         githubAPI.fetch { notifications, statusCode in
-
             switch statusCode { case 200:
 
                 let count = notifications.count
@@ -294,18 +294,21 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
 
     private func exitApp() { NSApplication.shared.terminate(self) }
 
-    @objc func onRefresh() {
+    @objc
+    func onRefresh() {
         fadeOutInMenubarIcon()
         refresh()
     }
 
-    @objc func onOpen() {
+    @objc
+    func onOpen() {
         guard let url = URL(string: "https://github.com/notifications") else { return }
 
         NSWorkspace.shared.open(url)
     }
 
-    @objc func onShowPreferences() {
+    @objc
+    func onShowPreferences() {
         let preferencesView = PreferencesView(refreshStatusIcon: {
             // Refresh state when auth settings updated
             self.refresh()
@@ -318,5 +321,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         window.level = .floating
     }
 
-    @objc func onExit() { exitApp() }
+    @objc
+    func onExit() {
+        exitApp()
+    }
 }

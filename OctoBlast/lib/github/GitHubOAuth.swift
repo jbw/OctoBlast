@@ -6,19 +6,29 @@
 import Foundation
 import OctoKit
 
-open class GithubOAuth {
-    public static let shared: GithubOAuth = .init()
+enum GitHubOAuthError: Error {
+    case credsMissing
+}
 
-    private var token: String = Bundle.main.object(forInfoDictionaryKey: "AUTH_TOKEN") as! String
-    private var secret: String = Bundle.main.object(forInfoDictionaryKey: "AUTH_SECRET") as! String
+open class GitHubOAuth {
+    public static let shared: GitHubOAuth = .init()
+
+    let token: String? = ProcessInfo.processInfo.environment["AUTH_TOKEN"]
+    let secret: String? = ProcessInfo.processInfo.environment["AUTH_SECRET"]
+
     private var scopes: [String] = ["read:user", "notifications"]
 
     private var user: User?
 
     private var oAuthConfig: OAuthConfiguration?
 
-    public func oAuth() -> URL {
-        oAuthConfig = OAuthConfiguration(token: token, secret: secret, scopes: scopes)
+    public func oAuth() throws -> URL {
+
+        if token == nil || secret == nil {
+            throw GitHubOAuthError.credsMissing
+        }
+
+        oAuthConfig = OAuthConfiguration(token: token!, secret: secret!, scopes: scopes)
         let url = oAuthConfig!.authenticate()
 
         return url!

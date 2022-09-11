@@ -2,14 +2,13 @@
 // Created by Jason Watson on 09/09/2022.
 // Copyright (c) 2022 JBW. All rights reserved.
 //
-
 import SwiftUI
 
 struct AccessDetail: View {
     @ObservedObject var model: AccessSettings
 
     private var refreshCallback: () -> Void
-    private var auth: GithubOAuth! = GithubOAuth.shared
+    private var auth: GitHubOAuth! = GitHubOAuth.shared
     private var accessToken: AuthAccessToken! = AuthAccessToken.shared
 
     private func getUser(github: GitHub) {
@@ -55,11 +54,9 @@ struct AccessDetail: View {
                 showAuthOptionPersonalAccessToken()
                 showAuthOptionOAuth()
                 Spacer()
-            }
-            .padding()
+            }.padding()
             Spacer()
-        }
-        .padding()
+        }.padding()
     }
 
     private func emptyState() {
@@ -141,7 +138,12 @@ struct AccessDetail: View {
 
         return GroupBox(label: label) {
             Button {
-                accessToken.isOAuth() ? removeToken() : useOAuthToken()
+                if accessToken.isOAuth() {
+                    removeToken()
+                }
+                else {
+                    useOAuthToken()
+                }
                 refreshCallback()
             } label: {
                 Text(model.oAuthButtonLabel)
@@ -182,10 +184,8 @@ struct AccessDetail: View {
 
     private func userInfo(fullName: String, userId: String, avatarURL: String) -> some View {
         HStack(alignment: .top) {
-
             HStack(
                 alignment: .center
-
             ) {
                 AsyncImage(url: URL(string: avatarURL)) { image in
                     image.resizable()
@@ -194,7 +194,6 @@ struct AccessDetail: View {
                 }
                 .frame(width: 44, height: 44)
                 .clipShape(Circle())
-
             }
             VStack(
                 alignment: .leading,
@@ -209,7 +208,6 @@ struct AccessDetail: View {
                     .font(.title3)
             }
         }
-
     }
 
     private func secureField() -> SecureField<Text> {
@@ -218,7 +216,12 @@ struct AccessDetail: View {
 
     private func togglePersonalAccessTokenButton() -> Button<Text> {
         Button {
-            accessToken.isPersonalAccessToken() ? removeToken() : useAccessToken()
+            if accessToken.isPersonalAccessToken() {
+                removeToken()
+            }
+            else {
+                useAccessToken()
+            }
             refreshCallback()
         } label: {
             Text(model.personalAccessTokenLabel)
@@ -255,7 +258,6 @@ struct CardGroupBoxStyle: GroupBoxStyle {
         VStack(alignment: .leading) {
             configuration.label
             configuration.content.frame(width: 575, height: 30, alignment: .leading)
-        }
-        .padding().overlay(RoundedRectangle(cornerRadius: 3).stroke(.separator, lineWidth: 1.1))
+        }.padding().overlay(RoundedRectangle(cornerRadius: 3).stroke(.separator, lineWidth: 1.1))
     }
 }
