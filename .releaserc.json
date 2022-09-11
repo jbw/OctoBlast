@@ -11,12 +11,9 @@
     "@semantic-release/github",
     {
       "assets": [
-        "CHANGELOG.md",
-        {
-          "name": "OctoBlast",
-          "path": "build/OctoBlast/**",
-          "label": "OctoBlast"
-        }
+        { "path": "CHANGELOG.md", "label": "Changelog" },
+        { "path": "build/OctoBlast/OctoBlast.zip" },
+        { "path": "build/OctoBlast" }
       ]
     }
   ],
