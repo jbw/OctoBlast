@@ -73,7 +73,7 @@ struct AccessDetail: View {
     }
 
     private func useOAuthToken() {
-        if let url = try? auth.oAuth(){
+        if let url = try? auth.oAuth() {
             NSWorkspace.shared.open(url)
             refreshUserInfo()
             setOAuthAsActive()
