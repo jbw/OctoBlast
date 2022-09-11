@@ -30,6 +30,13 @@ jobs:
           xcodebuild clean archive -scheme OctoBlast -configuration Release -archivePath build/OctoBlast.xcarchive
           xcodebuild -exportArchive -archivePath build/OctoBlast.xcarchive -exportPath build/OctoBlast -exportOptionsPlist OctoBlast/Info.plist
           zip -r OctoBlast.zip build/OctoBlast
+
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: OctoBlast
+          path: OctoBlast.zip
+
   lint:
     name: 🧶 Lint
     runs-on: ubuntu-latest
@@ -57,6 +64,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: "lts/*"
+
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: OctoBlast
 
       - name: Release
         env:
