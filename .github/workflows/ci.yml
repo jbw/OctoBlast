@@ -14,8 +14,9 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci
-      - run: npx semantic-release --dry-run
+      - run: |
+          npm install semantic-release @semantic-release/changelog
+          npx semantic-release --dry-run
         id: get-next-version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
