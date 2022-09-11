@@ -10,6 +10,7 @@
 		710B557628B57EB80093DFA3 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 710B557528B57EB80093DFA3 /* LaunchAtLogin */; };
 		710B558128B586240093DFA3 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 710B558028B586240093DFA3 /* Sparkle */; };
 		710B558428B586C20093DFA3 /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710B558328B586C20093DFA3 /* Updater.swift */; };
+		712FE64A28CDF504008B43AE /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 712FE64928CDF504008B43AE /* OctoKit */; };
 		71D9DEF928A02DBD00D22910 /* OctoBlastApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71D9DEF828A02DBD00D22910 /* OctoBlastApp.swift */; };
 		71D9DEFD28A02DBE00D22910 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D9DEFC28A02DBE00D22910 /* Assets.xcassets */; };
 		71D9DF0028A02DBE00D22910 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 71D9DEFF28A02DBE00D22910 /* Preview Assets.xcassets */; };
@@ -101,7 +102,6 @@
 		71D9DF1028A02DBE00D22910 /* OctoBlastUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OctoBlastUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D9DF2828A0363500D22910 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		71D9DF2A28A040DC00D22910 /* OctoKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OctoKit.xcodeproj; path = ../GitHub/octokit.swift/OctoKit.xcodeproj; sourceTree = "<group>"; };
-		71D9DF4328A041C200D22910 /* octokit.swift */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = octokit.swift; path = ../GitHub/octokit.swift; sourceTree = "<group>"; };
 		71D9DF4728A04C5600D22910 /* Preferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.swift; sourceTree = "<group>"; };
 		71D9DF5A28AB9C2400D22910 /* Github.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Github.swift; sourceTree = "<group>"; };
 		71D9DF5C28AB9C3400D22910 /* PersonalAccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalAccessToken.swift; sourceTree = "<group>"; };
@@ -115,6 +115,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				712FE64A28CDF504008B43AE /* OctoKit in Frameworks */,
 				710B558128B586240093DFA3 /* Sparkle in Frameworks */,
 				71D9DF4C28A05F3600D22910 /* KeychainSwift in Frameworks */,
 				71D9DF4F28A2F68700D22910 /* Preferences in Frameworks */,
@@ -151,7 +152,6 @@
 		71D9DEEC28A02DBD00D22910 = {
 			isa = PBXGroup;
 			children = (
-				71D9DF4228A041C200D22910 /* Packages */,
 				71D9DEF728A02DBD00D22910 /* OctoBlast */,
 				71D9DEF628A02DBD00D22910 /* Products */,
 				71D9DF2928A040DC00D22910 /* Frameworks */,
@@ -211,14 +211,6 @@
 				71D9DF4128A040DC00D22910 /* OctoKit.framework */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		71D9DF4228A041C200D22910 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				71D9DF4328A041C200D22910 /* octokit.swift */,
-			);
-			name = Packages;
 			sourceTree = "<group>";
 		};
 		71D9DF5528AB9B8700D22910 /* views */ = {
@@ -296,6 +288,7 @@
 				71D9DF4E28A2F68700D22910 /* Preferences */,
 				710B557528B57EB80093DFA3 /* LaunchAtLogin */,
 				710B558028B586240093DFA3 /* Sparkle */,
+				712FE64928CDF504008B43AE /* OctoKit */,
 			);
 			productName = OctoBlast;
 			productReference = 71D9DEF528A02DBD00D22910 /* OctoBlast.app */;
@@ -377,6 +370,7 @@
 				71D9DF4D28A2F68700D22910 /* XCRemoteSwiftPackageReference "Preferences" */,
 				710B557428B57EB80093DFA3 /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
 				710B557F28B586240093DFA3 /* XCRemoteSwiftPackageReference "Sparkle" */,
+				712FE64828CDF504008B43AE /* XCRemoteSwiftPackageReference "octokit" */,
 			);
 			productRefGroup = 71D9DEF628A02DBD00D22910 /* Products */;
 			projectDirPath = "";
@@ -840,6 +834,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		712FE64828CDF504008B43AE /* XCRemoteSwiftPackageReference "octokit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nerdishbynature/octokit.swift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		71D9DF2528A031B300D22910 /* XCRemoteSwiftPackageReference "octokit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/nerdishbynature/octokit.swift";
@@ -884,6 +886,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 710B557F28B586240093DFA3 /* XCRemoteSwiftPackageReference "Sparkle" */;
 			productName = Sparkle;
+		};
+		712FE64928CDF504008B43AE /* OctoKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 712FE64828CDF504008B43AE /* XCRemoteSwiftPackageReference "octokit" */;
+			productName = OctoKit;
 		};
 		71D9DF4528A0432400D22910 /* OctoKit */ = {
 			isa = XCSwiftPackageProductDependency;
