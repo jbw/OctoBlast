@@ -17,11 +17,9 @@ jobs:
       - uses: swift-actions/setup-swift@v1
 
       - name: Build
-        env:
-          scheme: ${{ 'default' }}
         run: |
+          xcode-select --switch /Applications/Xcode_13.0.app/Contents/Developer
           xcodebuild clean
-          # build mac app 
           xcodebuild build -scheme OctoBlast -configuration Release archive -archivePath build/OctoBlast.xcarchive
 
       - name: Setup Node.js
