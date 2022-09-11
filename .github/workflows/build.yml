@@ -1,4 +1,4 @@
-name: Xcode - Build and Analyze
+name: CI
 
 on:
   push:
@@ -8,18 +8,47 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: 🛠️ Build
     runs-on: macos-12
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - uses: swift-actions/setup-swift@v1
+
+      - uses: actions/cache@v3
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
 
       - name: Build
         run: |
-          xcodebuild clean
-          xcodebuild build -scheme OctoBlast -configuration Release archive -archivePath build/OctoBlast.xcarchive
+          xcodebuild clean archive -scheme OctoBlast -configuration Release -archivePath build/OctoBlast.xcarchive
+          xcodebuild -exportArchive -archivePath build/OctoBlast.xcarchive -exportPath build/OctoBlast -exportOptionsPlist OctoBlast/Info.plist
+
+  lint:
+    name: 🧶 Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: SwiftLint
+        uses: norio-nomura/action-swiftlint@3.2.1
+        env:
+          DIFF_BASE: ${{ github.base_ref }}
+          WORKING_DIRECTORY: OctoBlast
+        with:
+          args: --strict
+
+  release:
+    name: 🚀 Release
+    needs: [build, lint]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
