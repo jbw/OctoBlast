@@ -17,9 +17,10 @@ final class UpdaterViewModel: ObservableObject {
             userDriverDelegate: nil
         )
 
-        updaterController.updater.publisher(for: \.canCheckForUpdates).assign(
-            to: &$canCheckForUpdates
-        )
+        updaterController.updater.publisher(for: \.canCheckForUpdates)
+            .assign(
+                to: &$canCheckForUpdates
+            )
     }
 
     func checkForUpdates() { updaterController.checkForUpdates(nil) }
@@ -32,8 +33,9 @@ struct CheckForUpdatesView: View {
     @ObservedObject var updaterViewModel: UpdaterViewModel
 
     var body: some View {
-        Button("Check for Updates…", action: updaterViewModel.checkForUpdates).disabled(
-            !updaterViewModel.canCheckForUpdates
-        )
+        Button("Check for Updates…", action: updaterViewModel.checkForUpdates)
+            .disabled(
+                !updaterViewModel.canCheckForUpdates
+            )
     }
 }

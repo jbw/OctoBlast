@@ -32,8 +32,10 @@ struct AppearanceDetail: View {
                     refreshStatusIcon()
                 }
                 Spacer()
-            }.padding()
+            }
+            .padding()
             Spacer()
-        }.padding()
+        }
+        .padding()
     }
 }

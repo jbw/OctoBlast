@@ -55,9 +55,11 @@ struct AccessDetail: View {
                 showAuthOptionPersonalAccessToken()
                 showAuthOptionOAuth()
                 Spacer()
-            }.padding()
+            }
+            .padding()
             Spacer()
-        }.padding()
+        }
+        .padding()
     }
 
     private func emptyState() {
@@ -252,6 +254,7 @@ struct CardGroupBoxStyle: GroupBoxStyle {
         VStack(alignment: .leading) {
             configuration.label
             configuration.content.frame(width: 575, height: 30, alignment: .leading)
-        }.padding().overlay(RoundedRectangle(cornerRadius: 3).stroke(.separator, lineWidth: 1.1))
+        }
+        .padding().overlay(RoundedRectangle(cornerRadius: 3).stroke(.separator, lineWidth: 1.1))
     }
 }
