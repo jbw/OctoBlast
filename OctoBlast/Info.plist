@@ -20,10 +20,10 @@
                 <key>code</key>
                 <string></string>
             </dict>
-            <dict />
+            <dict/>
         </array>
         <key>LSUIElement</key>
-        <true />
+        <true/>
         <key>SUFeedURL</key>
         <string>https://octoblast.jbw.codes/appcast.xml</string>
         <key>SUPublicEDKey</key>
