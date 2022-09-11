@@ -10,10 +10,7 @@
     ],
     "@semantic-release/github",
     {
-      "assets": [
-        { "path": "CHANGELOG.md", "label": "Changelog" },
-        { "path": "OctoBlast.zip" }
-      ]
+      "assets": [{ "path": "OctoBlast/OctoBlast.zip" }]
     }
   ],
   "branches": [

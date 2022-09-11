@@ -70,6 +70,9 @@ jobs:
         with:
           name: OctoBlast.zip
 
+      - name: ls
+        run: ls -la
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
