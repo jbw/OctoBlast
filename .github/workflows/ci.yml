@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: 🛠️ Build
     runs-on: macos-12
 
     steps:
@@ -28,6 +28,7 @@ jobs:
           xcodebuild -exportArchive -archivePath build/OctoBlast.xcarchive -exportPath build/OctoBlast -exportOptionsPlist OctoBlast/Info.plist
 
   lint:
+    name: 🧶 Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -42,6 +43,7 @@ jobs:
           args: --strict
 
   release:
+    name: 🚀 Release
     needs: [build, lint]
     runs-on: ubuntu-latest
     steps:
