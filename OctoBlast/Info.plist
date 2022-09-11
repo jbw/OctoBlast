@@ -1,22 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key></key>
-			<string></string>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-		</dict>
-		<dict/>
-	</array>
-	<key>LSUIElement</key>
-	<true/>
-	<key>SUFeedURL</key>
-	<string>https://octoblast.jbw.codes/appcast.xml</string>
-	<key>SUPublicEDKey</key>
-	<string>H3MmXOXbmmHJquamhYA/93ludq+ZtAlAW/F1xF0dalQ=</string>
-</dict>
+    <dict>
+        <key>AUTH_TOKEN</key>
+        <string>$(AUTH_TOKEN)</string>
+        <key>AUTH_SECRET</key>
+        <string>$(AUTH_SECRET)</string>
+        <key>CFBundleURLTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleTypeRole</key>
+                <string>Editor</string>
+                <key>CFBundleURLName</key>
+                <string>codes.jbw.octoblast</string>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>octoblast</string>
+                </array>
+                <key>code</key>
+                <string></string>
+            </dict>
+            <dict />
+        </array>
+        <key>LSUIElement</key>
+        <true />
+        <key>SUFeedURL</key>
+        <string>https://octoblast.jbw.codes/appcast.xml</string>
+        <key>SUPublicEDKey</key>
+        <string>H3MmXOXbmmHJquamhYA/93ludq+ZtAlAW/F1xF0dalQ=</string>
+    </dict>
 </plist>
