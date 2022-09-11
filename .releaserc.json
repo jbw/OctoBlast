@@ -13,7 +13,8 @@
       "assets": [
         "CHANGELOG.md",
         {
-          "path": "build/OctoBlast",
+          "name": "OctoBlast",
+          "path": "build/OctoBlast/**",
           "label": "OctoBlast"
         }
       ]
