@@ -16,10 +16,17 @@ jobs:
         uses: actions/checkout@v3
       - uses: swift-actions/setup-swift@v1
 
+      - uses: actions/cache@v3
+        with:
+          path: .build
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          restore-keys: |
+            ${{ runner.os }}-spm-
+
       - name: Build
         run: |
           xcodebuild clean archive -scheme OctoBlast -configuration Release -archivePath build/OctoBlast.xcarchive
-          xcodebuild -exportArchive -archivePath build/OctoBlast.xcarchive -exportPath build/OctoBlast -exportOptionsPlist OctoBlast/Info.plist -method "mac-application"
+          xcodebuild -exportArchive -archivePath build/OctoBlast.xcarchive -exportPath build/OctoBlast -exportOptionsPlist OctoBlast/Info.plist
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
