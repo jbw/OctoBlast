@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ "main", "beta" ]
+    branches: ["main", "beta"]
   pull_request:
-    branches: [ "main", "beta" ]
+    branches: ["main", "beta"]
 
 jobs:
   build:
@@ -23,6 +23,9 @@ jobs:
             ${{ runner.os }}-spm-
 
       - name: Build
+        env:
+          AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+          AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
         run: |
           xcodebuild clean archive -scheme OctoBlast -configuration Release -archivePath build/OctoBlast.xcarchive
           xcodebuild -exportArchive -archivePath build/OctoBlast.xcarchive -exportPath build/OctoBlast -exportOptionsPlist OctoBlast/Info.plist
@@ -44,7 +47,7 @@ jobs:
 
   release:
     name: 🚀 Release
-    needs: [ build, lint ]
+    needs: [build, lint]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
