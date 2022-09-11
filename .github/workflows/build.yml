@@ -18,8 +18,8 @@ jobs:
 
       - name: Build
         run: |
-          xcodebuild clean
-          xcodebuild build -scheme OctoBlast -configuration Release archive -archivePath build/OctoBlast.xcarchive
+          xcodebuild clean archive -scheme OctoBlast -configuration Release -archivePath build/OctoBlast.xcarchive
+          xcodebuild -exportArchive -archivePath build/OctoBlast.xcarchive -exportPath build/OctoBlast -exportOptionsPlist OctoBlast/Info.plist -method "mac-application"
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
