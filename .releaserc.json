@@ -12,8 +12,7 @@
     {
       "assets": [
         { "path": "CHANGELOG.md", "label": "Changelog" },
-        { "path": "build/OctoBlast/OctoBlast.zip" },
-        { "path": "build/OctoBlast" }
+        { "path": "OctoBlast.zip" }
       ]
     }
   ],
