@@ -8,12 +8,11 @@
 import SwiftUI
 
 // https://stackoverflow.com/a/70851523
+
 extension Color {
     /// Explicitly extracted Core Graphics color
-    /// for the purpose of reconstruction and persistance.
-    var cgColor_: CGColor {
-        NSColor(self).cgColor
-    }
+    /// for the purpose of reconstruction and persistence.
+    var cgColor_: CGColor { NSColor(self).cgColor }
 }
 
 extension UserDefaults {
