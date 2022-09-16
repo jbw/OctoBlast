@@ -1,0 +1,34 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>OctoBlast</title>
+        <item>
+            <title>0.2.1</title>
+            <pubDate>Fri, 16 Sep 2022 21:17:02 +0100</pubDate>
+            <sparkle:version>0.2.1</sparkle:version>
+            <sparkle:shortVersionString>0.2.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.3</sparkle:minimumSystemVersion>
+            <enclosure url="https://octoblast.jbw.codes/OctoBlast-0.2.1.zip" length="4402856" type="application/octet-stream" sparkle:edSignature="NaNvq/sj8+dr/7Ygc9mNv27CBSqueNfdnYL2UYO//dI1uOTNSfj5EduzWZ6IzTKirBi7YutWm0GGhTYCYUT9DQ=="/>
+            <sparkle:deltas>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.2.1-0.1.6.delta" sparkle:deltaFrom="0.1.6" length="784914" type="application/octet-stream" sparkle:edSignature="RBXsk7bKIxtymd3atntNd62CdE63/bEABaTO5qqwLSlnE33hFhTMbPEsmK/P8bkaKE6LehybvbzRFO4AR69sDg=="/>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.2.1-0.1.5.delta" sparkle:deltaFrom="0.1.5" length="786390" type="application/octet-stream" sparkle:edSignature="AYCA/rtEG1OcmUE0yrWji0pVjJp6haETr4WibgerCFpnPbGk9YMuMgHwaDXLXOixsSSyeyVmGXoyWEGK+8E6CQ=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
+            <title>0.1.6</title>
+            <pubDate>Thu, 25 Aug 2022 21:24:29 +0100</pubDate>
+            <sparkle:version>0.1.6</sparkle:version>
+            <sparkle:shortVersionString>0.1.6</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.3</sparkle:minimumSystemVersion>
+            <enclosure url="https://octoblast.jbw.codes/OctoBlast-0.1.6.zip" length="1913541" type="application/octet-stream" sparkle:edSignature="JAeEnbjrmK9GVLXNgXZ04gO5D59pZNUDZ3qc7zljmCYXf5zMqCUnX2dWXlw8QO22o9c59cHarRRTCf7f5QT3AQ=="/>
+        </item>
+        <item>
+            <title>0.1.5</title>
+            <pubDate>Thu, 25 Aug 2022 21:24:17 +0100</pubDate>
+            <sparkle:version>0.1.5</sparkle:version>
+            <sparkle:shortVersionString>0.1.5</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.3</sparkle:minimumSystemVersion>
+            <enclosure url="https://octoblast.jbw.codes/OctoBlast-0.1.5.zip" length="1914514" type="application/octet-stream" sparkle:edSignature="wKfwYhUwnsUXt8AyGGDXfKwEDxlP9dhqmsL6UT7mIlMpOUJOl9XAg+5H5ZfH5+IGuiFXYJYQNVmnd4cr+ltwBA=="/>
+        </item>
+    </channel>
+</rss>
