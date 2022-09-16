@@ -46,16 +46,14 @@ jobs:
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
         run: |
-          echo -n ${{ needs.get-next-version.outputs.new-release-version }} > OctoBlast/version.txt
-          xcodebuild clean archive -scheme OctoBlast -configuration Release -archivePath build/OctoBlast.xcarchive
-          xcodebuild -exportArchive -archivePath build/OctoBlast.xcarchive -exportPath build/OctoBlast -exportOptionsPlist OctoBlast/Info.plist
-          zip -r OctoBlast.zip build/OctoBlast
+          export OCTOBLAST_VERSION=${{ needs.get-next-version.outputs.new-release-version }}
+          ./releases/build.sh
 
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v3.1.0
         with:
           name: OctoBlast.zip
-          path: OctoBlast.zip
+          path: build/OctoBlast/OctoBlast.zip
 
   lint:
     name: 🧶 Lint
@@ -74,6 +72,7 @@ jobs:
 
   release:
     name: 🚀 Release
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: [build, lint]
     runs-on: ubuntu-latest
     steps:
