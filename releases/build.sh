@@ -1,6 +1,6 @@
 set -e
 rm -rf build
-
+mkdir -p releases
 echo $OCTOBLAST_VERSION >OctoBlast/version.txt
 sed -i .bak 's/CURRENT_PROJECT_VERSION.*;/CURRENT_PROJECT_VERSION = '$OCTOBLAST_VERSION';/g' OctoBlast.xcodeproj/project.pbxproj
 sed -i .bak 's/MARKETING_VERSION.*;/MARKETING_VERSION = '$OCTOBLAST_VERSION';/g' OctoBlast.xcodeproj/project.pbxproj
