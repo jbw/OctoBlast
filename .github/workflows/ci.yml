@@ -72,7 +72,8 @@ jobs:
 
   release:
     name: 🚀 Release
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && needs.get-next-version.outputs.new-release-published == 'true'
+
     needs: [build, lint, get-next-version]
     runs-on: ubuntu-latest
     steps:
@@ -87,7 +88,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: OctoBlast.zip
+          name: OctoBlast-${{ needs.get-next-version.outputs.new-release-version }}.zip
 
       - name: Release
         env:
