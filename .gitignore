@@ -11,3 +11,5 @@ DerivedData/
 .idea
 OctoBlast/builds/
 OctoBlast/Secrets.xcconfig
+env-vars.sh
+OctoBlast/templates/ApiConfig.generated.swift
