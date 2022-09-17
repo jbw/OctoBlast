@@ -15,6 +15,8 @@
 		19A3FEC547742C3D72FFE9DA /* AboutDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19A3FF06910985CD8B58EDC5 /* AboutDetail.swift */; };
 		710B558428B586C20093DFA3 /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710B558328B586C20093DFA3 /* Updater.swift */; };
 		717755E628CE903500D0141C /* version.txt in Resources */ = {isa = PBXBuildFile; fileRef = 717755E528CE903500D0141C /* version.txt */; };
+		718D781028D615F300A61EE9 /* ApiConfig.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 718D780F28D615F300A61EE9 /* ApiConfig.stencil */; };
+		718D781928D624B900A61EE9 /* ApiConfig.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718D781828D624B900A61EE9 /* ApiConfig.generated.swift */; };
 		71BC7E8028CE3C8200E1DFA6 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71BC7E7F28CE3C8200E1DFA6 /* OctoKit */; };
 		71BC7E8328CE3CC000E1DFA6 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 71BC7E8228CE3CC000E1DFA6 /* Sparkle */; };
 		71BC7E8628CE3D2600E1DFA6 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 71BC7E8528CE3D2600E1DFA6 /* KeychainSwift */; };
@@ -40,6 +42,8 @@
 		19A3FF06910985CD8B58EDC5 /* AboutDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutDetail.swift; sourceTree = "<group>"; };
 		710B558328B586C20093DFA3 /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
 		717755E528CE903500D0141C /* version.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = version.txt; sourceTree = "<group>"; };
+		718D780F28D615F300A61EE9 /* ApiConfig.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ApiConfig.stencil; sourceTree = "<group>"; };
+		718D781828D624B900A61EE9 /* ApiConfig.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiConfig.generated.swift; sourceTree = "<group>"; };
 		71D9DEF528A02DBD00D22910 /* OctoBlast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OctoBlast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D9DEF828A02DBD00D22910 /* OctoBlastApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctoBlastApp.swift; sourceTree = "<group>"; };
 		71D9DEFC28A02DBE00D22910 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -77,6 +81,15 @@
 			path = "auto-update";
 			sourceTree = "<group>";
 		};
+		718D780E28D615D200A61EE9 /* templates */ = {
+			isa = PBXGroup;
+			children = (
+				718D781828D624B900A61EE9 /* ApiConfig.generated.swift */,
+				718D780F28D615F300A61EE9 /* ApiConfig.stencil */,
+			);
+			path = templates;
+			sourceTree = "<group>";
+		};
 		71D9DEEC28A02DBD00D22910 = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +110,7 @@
 		71D9DEF728A02DBD00D22910 /* OctoBlast */ = {
 			isa = PBXGroup;
 			children = (
+				718D780E28D615D200A61EE9 /* templates */,
 				71D9DF5728AB9BEA00D22910 /* lib */,
 				71D9DF5528AB9B8700D22910 /* views */,
 				71D9DF2828A0363500D22910 /* Info.plist */,
@@ -190,6 +204,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 71D9DF1A28A02DBE00D22910 /* Build configuration list for PBXNativeTarget "OctoBlast" */;
 			buildPhases = (
+				718D780928D6146500A61EE9 /* API Config Build */,
 				71D9DEF128A02DBD00D22910 /* Sources */,
 				71D9DEF228A02DBD00D22910 /* Frameworks */,
 				71D9DEF328A02DBD00D22910 /* Resources */,
@@ -219,7 +234,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1340;
-				LastUpgradeCheck = 1340;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = JBW;
 				TargetAttributes = {
 					71D9DEF428A02DBD00D22910 = {
@@ -258,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				717755E628CE903500D0141C /* version.txt in Resources */,
+				718D781028D615F300A61EE9 /* ApiConfig.stencil in Resources */,
 				71D9DF0028A02DBE00D22910 /* Preview Assets.xcassets in Resources */,
 				71D9DEFD28A02DBE00D22910 /* Assets.xcassets in Resources */,
 			);
@@ -283,6 +299,24 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
 		};
+		718D780928D6146500A61EE9 /* API Config Build */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "API Config Build";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ -f ./env-vars.sh ]\nthen\nsource ./env-vars.sh\nfi\n\n./sourcery/sourcery --templates ./OctoBlast/templates/ --output ./OctoBlast/templates/ --sources ./OctoBlast/ --args authToken=$AUTH_TOKEN,authSecret=$AUTH_SECRET\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -297,6 +331,7 @@
 				710B558428B586C20093DFA3 /* Updater.swift in Sources */,
 				71D9DF5D28AB9C3400D22910 /* AuthAccessToken.swift in Sources */,
 				71D9DF9028AC3C2D00D22910 /* Color.swift in Sources */,
+				718D781928D624B900A61EE9 /* ApiConfig.generated.swift in Sources */,
 				19A3F3CA497740AAEF0DEAEA /* GitHubOAuth.swift in Sources */,
 				19A3FE7F9C69CBC655D0CD0E /* PreferencesView.swift in Sources */,
 				19A3F6AB67E939634942FA30 /* AppearanceDetail.swift in Sources */,
@@ -342,6 +377,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -402,6 +438,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -432,7 +469,8 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 0.1.6;
+				CURRENT_PROJECT_VERSION = 0.3.2;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"OctoBlast/Preview Content\"";
 				DEVELOPMENT_TEAM = RQGBAF842V;
 				ENABLE_PREVIEWS = YES;
@@ -446,7 +484,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
-				MARKETING_VERSION = 0.1.6;
+				MARKETING_VERSION = 0.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = codes.jbw.OctoBlast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -464,7 +502,8 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 0.1.6;
+				CURRENT_PROJECT_VERSION = 0.3.2;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"OctoBlast/Preview Content\"";
 				DEVELOPMENT_TEAM = RQGBAF842V;
 				ENABLE_PREVIEWS = YES;
@@ -478,7 +517,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
-				MARKETING_VERSION = 0.1.6;
+				MARKETING_VERSION = 0.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = codes.jbw.OctoBlast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

@@ -13,8 +13,8 @@ enum GitHubOAuthError: Error {
 open class GitHubOAuth {
     public static let shared: GitHubOAuth = .init()
 
-    let token: String? = ProcessInfo.processInfo.environment["AUTH_TOKEN"]
-    let secret: String? = ProcessInfo.processInfo.environment["AUTH_SECRET"]
+    let token: String? =  APIConfig.authToken
+    let secret: String? = APIConfig.authSecret
 
     private var scopes: [String] = ["read:user", "notifications"]
 
