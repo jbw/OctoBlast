@@ -16,7 +16,7 @@
 		710B558428B586C20093DFA3 /* Updater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710B558328B586C20093DFA3 /* Updater.swift */; };
 		717755E628CE903500D0141C /* version.txt in Resources */ = {isa = PBXBuildFile; fileRef = 717755E528CE903500D0141C /* version.txt */; };
 		718D781028D615F300A61EE9 /* ApiConfig.stencil in Resources */ = {isa = PBXBuildFile; fileRef = 718D780F28D615F300A61EE9 /* ApiConfig.stencil */; };
-		718D781228D6171600A61EE9 /* ApiConfig.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718D781128D6171600A61EE9 /* ApiConfig.generated.swift */; };
+		718D781528D621E100A61EE9 /* ApiConfig.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 718D781428D621E100A61EE9 /* ApiConfig.generated.swift */; };
 		71BC7E8028CE3C8200E1DFA6 /* OctoKit in Frameworks */ = {isa = PBXBuildFile; productRef = 71BC7E7F28CE3C8200E1DFA6 /* OctoKit */; };
 		71BC7E8328CE3CC000E1DFA6 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 71BC7E8228CE3CC000E1DFA6 /* Sparkle */; };
 		71BC7E8628CE3D2600E1DFA6 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 71BC7E8528CE3D2600E1DFA6 /* KeychainSwift */; };
@@ -43,7 +43,7 @@
 		710B558328B586C20093DFA3 /* Updater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updater.swift; sourceTree = "<group>"; };
 		717755E528CE903500D0141C /* version.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = version.txt; sourceTree = "<group>"; };
 		718D780F28D615F300A61EE9 /* ApiConfig.stencil */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ApiConfig.stencil; sourceTree = "<group>"; };
-		718D781128D6171600A61EE9 /* ApiConfig.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiConfig.generated.swift; sourceTree = "<group>"; };
+		718D781428D621E100A61EE9 /* ApiConfig.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiConfig.generated.swift; sourceTree = "<group>"; };
 		71D9DEF528A02DBD00D22910 /* OctoBlast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OctoBlast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		71D9DEF828A02DBD00D22910 /* OctoBlastApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OctoBlastApp.swift; sourceTree = "<group>"; };
 		71D9DEFC28A02DBE00D22910 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -84,7 +84,7 @@
 		718D780E28D615D200A61EE9 /* templates */ = {
 			isa = PBXGroup;
 			children = (
-				718D781128D6171600A61EE9 /* ApiConfig.generated.swift */,
+				718D781428D621E100A61EE9 /* ApiConfig.generated.swift */,
 				718D780F28D615F300A61EE9 /* ApiConfig.stencil */,
 			);
 			path = templates;
@@ -330,7 +330,7 @@
 				710B558428B586C20093DFA3 /* Updater.swift in Sources */,
 				71D9DF5D28AB9C3400D22910 /* AuthAccessToken.swift in Sources */,
 				71D9DF9028AC3C2D00D22910 /* Color.swift in Sources */,
-				718D781228D6171600A61EE9 /* ApiConfig.generated.swift in Sources */,
+				718D781528D621E100A61EE9 /* ApiConfig.generated.swift in Sources */,
 				19A3F3CA497740AAEF0DEAEA /* GitHubOAuth.swift in Sources */,
 				19A3FE7F9C69CBC655D0CD0E /* PreferencesView.swift in Sources */,
 				19A3F6AB67E939634942FA30 /* AppearanceDetail.swift in Sources */,
