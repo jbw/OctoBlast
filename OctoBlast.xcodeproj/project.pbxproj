@@ -314,7 +314,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ -f ./env-vars.sh ]\nthen\nsource ./env-vars.sh\nfi\n\n./sourcery/bin/sourcery --templates ./OctoBlast/templates/ --output ./OctoBlast/templates/ --sources ./OctoBlast/ --args authToken=$AUTH_TOKEN,authSecret=$AUTH_SECRET\n";
+			shellScript = "if [ -f ./env-vars.sh ]\nthen\nsource ./env-vars.sh\nfi\n\n./sourcery/sourcery --templates ./OctoBlast/templates/ --output ./OctoBlast/templates/ --sources ./OctoBlast/ --args authToken=$AUTH_TOKEN,authSecret=$AUTH_SECRET\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -468,7 +468,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 0.1.6;
+				CURRENT_PROJECT_VERSION = 0.3.2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"OctoBlast/Preview Content\"";
 				DEVELOPMENT_TEAM = RQGBAF842V;
@@ -483,7 +483,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
-				MARKETING_VERSION = 0.1.6;
+				MARKETING_VERSION = 0.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = codes.jbw.OctoBlast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -501,7 +501,7 @@
 				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 0.1.6;
+				CURRENT_PROJECT_VERSION = 0.3.2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"OctoBlast/Preview Content\"";
 				DEVELOPMENT_TEAM = RQGBAF842V;
@@ -516,7 +516,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 12.3;
-				MARKETING_VERSION = 0.1.6;
+				MARKETING_VERSION = 0.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = codes.jbw.OctoBlast;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
