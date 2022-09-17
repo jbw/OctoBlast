@@ -204,7 +204,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 71D9DF1A28A02DBE00D22910 /* Build configuration list for PBXNativeTarget "OctoBlast" */;
 			buildPhases = (
-				718D780928D6146500A61EE9 /* ShellScript */,
+				718D780928D6146500A61EE9 /* API Config Build */,
 				71D9DEF128A02DBD00D22910 /* Sources */,
 				71D9DEF228A02DBD00D22910 /* Frameworks */,
 				71D9DEF328A02DBD00D22910 /* Resources */,
@@ -299,7 +299,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILT_PRODUCTS_DIR}/LaunchAtLogin_LaunchAtLogin.bundle/Contents/Resources/copy-helper-swiftpm.sh\"\n";
 		};
-		718D780928D6146500A61EE9 /* ShellScript */ = {
+		718D780928D6146500A61EE9 /* API Config Build */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -308,6 +308,7 @@
 			);
 			inputPaths = (
 			);
+			name = "API Config Build";
 			outputFileListPaths = (
 			);
 			outputPaths = (
