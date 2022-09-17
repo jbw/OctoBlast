@@ -1,0 +1,6 @@
+
+
+public struct APIConfig {
+  static let authToken = "{{ argument.authToken }}"
+  static let authSecret = "{{ argument.authSecret }}"
+}
