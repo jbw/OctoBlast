@@ -104,5 +104,6 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           source: OctoBlast-${{ needs.get-next-version.outputs.new-release-version }}.zip
           target: "${ secrets.SSH_TARGET }}OctoBlast-${{ needs.get-next-version.outputs.new-release-version }}.zip"
