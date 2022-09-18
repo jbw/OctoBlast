@@ -1,12 +1,11 @@
+<div align="center">
 # OctoBlast
 
-<p align="center">
 Gently notifies you about <i>important</i> GitHub notifications
-</p>
 
-<p align="center">
-  <img src="docs/images/icon.png" />
-</p>
+<img src="docs/images/icon.png" />
+
+</div>
 
 ## Setup
 
