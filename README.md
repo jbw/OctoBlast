@@ -7,6 +7,10 @@ Gently notifies you about <i>important</i> GitHub notifications
 
 </div>
 
+## Install
+
+https://github.com/jbw/OctoBlast/releases/latest
+
 ## Setup
 
 ### Personal access token
