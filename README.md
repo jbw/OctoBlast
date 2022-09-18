@@ -1,4 +1,5 @@
 <div align="center">
+
 # OctoBlast
 
 Gently notifies you about <i>important</i> GitHub notifications
