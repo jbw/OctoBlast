@@ -3,6 +3,27 @@
     <channel>
         <title>OctoBlast</title>
         <item>
+            <title>0.2.2</title>
+            <pubDate>Sun, 18 Sep 2022 13:28:21 +0100</pubDate>
+            <sparkle:version>0.2.2</sparkle:version>
+            <sparkle:shortVersionString>0.2.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.3</sparkle:minimumSystemVersion>
+            <enclosure url="https://octoblast.jbw.codes/OctoBlast-0.2.2.zip" length="4357965" type="application/octet-stream" sparkle:edSignature="f9vtODFw3sumrmTlEeSswDLe/aSvJ6acRgNS2AhxVN8niRaoELMrZ+mJJaxgiLuvn1FfHa/0HSnM4UJV61VbCg=="/>
+            <sparkle:deltas>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.2.2-0.2.1.delta" sparkle:deltaFrom="0.2.1" length="120838" type="application/octet-stream" sparkle:edSignature="SrxTILYn5NIcqkNTjS5sOWDAQQS8+/LtGJUWh78VWmWj1ur+RDwbRDF7OT3qtML6qMcw7pGrel+eTxF0aOOhCg=="/>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.2.2-0.1.6.delta" sparkle:deltaFrom="0.1.6" length="591934" type="application/octet-stream" sparkle:edSignature="Utqv+2PBLziVgYRXBkSF4uH/t9hIcZQqFmjw/8JFA/bxdUM2GjI+qW7lwJFznscUfja1fUqW/y1XbRNBFHHJBg=="/>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.2.2-0.1.5.delta" sparkle:deltaFrom="0.1.5" length="592422" type="application/octet-stream" sparkle:edSignature="q2guP0c1e3s8paWcunjLjxV91Ym8PdGCV3msjCVSbFkwY9MKZv5/JEgc0GiVjmHjEoKbVbQeGrxHbCFIlx0EAQ=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
+            <title>0.2.1</title>
+            <pubDate>Sun, 18 Sep 2022 13:28:14 +0100</pubDate>
+            <sparkle:version>0.2.1</sparkle:version>
+            <sparkle:shortVersionString>0.2.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.3</sparkle:minimumSystemVersion>
+            <enclosure url="https://octoblast.jbw.codes/OctoBlast-0.2.1.zip" length="4368263" type="application/octet-stream" sparkle:edSignature="iAJ2HCEVhXfnwvdwkMPuBuo1qMeakW+6cjy28n7pnguCpbzXXJH1F2rLlV4JsJEDvwFOzbEj55jaLdmQlkoJAw=="/>
+        </item>
+        <item>
             <title>0.1.6</title>
             <pubDate>Thu, 25 Aug 2022 21:24:29 +0100</pubDate>
             <sparkle:version>0.1.6</sparkle:version>
