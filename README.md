@@ -38,6 +38,5 @@ You can change the color of the status menu icon.
   <img src="docs/images/prefs-about.png" />
 </p>
 
-## Download
-
-https://github.com/jbw/OctoBlast/releases
+[license-badge]: https://img.shields.io/github/license/jbw/OctoBlast?color=lightgray&style=flat-square
+[license]: https://github.com/jbw/OctoBlast/blob/main/LICENSE
