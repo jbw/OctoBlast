@@ -10,7 +10,7 @@ Gently notifies you about <i>important</i> GitHub notifications
 
 ## Install
 
-https://github.com/jbw/OctoBlast/releases/latest
+Grab the latest release [here](https://github.com/jbw/OctoBlast/releases/latest).
 
 ## Setup
 
