@@ -4,7 +4,7 @@
 
 Gently notifies you about <i>important</i> GitHub notifications
 
-<img src="docs/images/icon.png" />
+<img src="docs/images/header.png" />
 
 </div>
 
