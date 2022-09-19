@@ -4,7 +4,7 @@
 
 Gently notifies you about <i>important</i> GitHub notifications
 
-<img src="https://raw.githubusercontent.com/jbw/OctoBlast/readme/docs/images/header.png" />
+<img src="docs/images/header.png" />
 
 </div>
 
