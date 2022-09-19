@@ -24,31 +24,23 @@ Head to preferences, and pop in your new GitHub personal token from [your develo
 
 ### OAuth
 
-Simply press 'Sign In' button and follow the instructions.
+Simply press the 'Sign In' button and follow the instructions.
 
-## New notifications indicator
-
-Icon color indicates you have new notifications.
-
-<p align="center">  
-  <img src="docs/images/example.png" />
-</p>
+---
 
 ## Customization
 
+<p align="center">  
+  <img src="docs/images/features.png" />
+</p>
+
+### Status indicator
+
+The icon color indicates you have new notifications.
+
+### Color
+
 You can change the color of the status menu icon in Preferences -> Appearance.
-
-<p align="center">
-  <img src="docs/images/example2.png" />
-</p>
-
-### Preferences
-
-Select launch on login and check for updates.
-
-<p align="center">
-  <img src="docs/images/prefs-about.png" />
-</p>
 
 [license-badge]: https://img.shields.io/github/license/jbw/OctoBlast?color=lightgray&style=flat-square
 [license]: https://github.com/jbw/OctoBlast/blob/main/LICENSE
