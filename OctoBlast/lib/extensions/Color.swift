@@ -27,4 +27,14 @@ extension UserDefaults {
         let color = CGColor(colorSpace: CGColorSpace(name: CGColorSpace.sRGB)!, components: array)!
         return Color(color)
     }
+    
+    func setShowNotificationCount(_ showNotificationCount: Bool, forKey key: String){
+        set(showNotificationCount, forKey: key)
+    }
+    
+    func notificationCount(forKey key: String) -> Bool{
+        guard let showShowNotificationCount = object(forKey: key) as? Bool else { return false }
+        
+        return showShowNotificationCount
+    }
 }

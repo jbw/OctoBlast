@@ -217,10 +217,14 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         }
     }
     
+    private func hideNotificationCount(){
+        self.statusItem.button?.title = ""
+    }
+    
     private func setIconNotificationCountWhenNoNotifications()
     {
-        if !UserDefaults.standard.bool(forKey: "showNotificationCount"){
-            self.statusItem.button?.title = ""
+        if !UserDefaults.standard.notificationCount(forKey: "showNotificationCount"){
+            self.hideNotificationCount()
             return
         }
         
@@ -235,9 +239,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     
     private func setIconNotificationCountWhenNotified(count: Int)
     {
-        if !UserDefaults.standard.bool(forKey: "showNotificationCount"){
-            self.statusItem.button?.title = ""
-
+        if !UserDefaults.standard.notificationCount(forKey: "showNotificationCount"){
+            self.hideNotificationCount()
             return
         }
         

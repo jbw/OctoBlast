@@ -13,7 +13,7 @@ struct AppearanceDetail: View {
 
     @State private var iconColor: Color = UserDefaults.standard.color(forKey: "iconTint")
 
-    @State private var showNotificationCount: Bool = UserDefaults.standard.bool(forKey: "showNotificationCount")
+    @State private var showNotificationCount: Bool = UserDefaults.standard.notificationCount(forKey: "showNotificationCount")
     
     var body: some View {
         HStack {
@@ -38,7 +38,7 @@ struct AppearanceDetail: View {
                     .onChange(
                         of: showNotificationCount,
                         perform: { newValue in
-                            UserDefaults.standard.setValue(newValue, forKey: "showNotificationCount")
+                            UserDefaults.standard.setShowNotificationCount(newValue, forKey: "showNotificationCount")
                             refreshStatusIcon()
                         }
                     )
