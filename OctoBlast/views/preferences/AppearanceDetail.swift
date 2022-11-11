@@ -18,20 +18,22 @@ struct AppearanceDetail: View {
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
-                ColorPicker("Status icon color: ", selection: $iconColor, supportsOpacity: true)
-                    .onChange(
-                        of: iconColor,
-                        perform: { newValue in
-                            UserDefaults.standard.setColor(newValue, forKey: "iconTint")
-                            refreshStatusIcon()
-
-                        }
-                    )
-
-                Button("Reset") {
-                    UserDefaults.standard.setColor(.accentColor, forKey: "iconTint")
-                    iconColor = .accentColor
-                    refreshStatusIcon()
+                HStack {
+                    ColorPicker("Status icon color", selection: $iconColor, supportsOpacity: true)
+                        .onChange(
+                            of: iconColor,
+                            perform: { newValue in
+                                UserDefaults.standard.setColor(newValue, forKey: "iconTint")
+                                refreshStatusIcon()
+                                
+                            }
+                        )
+                    
+                    Button("Reset") {
+                        UserDefaults.standard.setColor(.accentColor, forKey: "iconTint")
+                        iconColor = .accentColor
+                        refreshStatusIcon()
+                    }
                 }
                 
                 Toggle("Show notification count", isOn: $showNotificationCount)
