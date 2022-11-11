@@ -13,6 +13,8 @@ struct AppearanceDetail: View {
 
     @State private var iconColor: Color = UserDefaults.standard.color(forKey: "iconTint")
 
+    @State private var showNotificationCount: Bool = UserDefaults.standard.bool(forKey: "showNotificationCount")
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
@@ -31,6 +33,16 @@ struct AppearanceDetail: View {
                     iconColor = .accentColor
                     refreshStatusIcon()
                 }
+                
+                Toggle("Show notification count", isOn: $showNotificationCount)
+                    .onChange(
+                        of: showNotificationCount,
+                        perform: { newValue in
+                            UserDefaults.standard.setValue(newValue, forKey: "showNotificationCount")
+                            refreshStatusIcon()
+                        }
+                    )
+                
                 Spacer()
             }
             .padding()

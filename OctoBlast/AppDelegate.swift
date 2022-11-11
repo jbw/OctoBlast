@@ -33,6 +33,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     func applicationDidFinishLaunching(_: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
+
         setupMenu()
         setupAutoRefresh()
         refresh()
@@ -198,20 +199,55 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         menu.addItem(exit)
 
         statusItem.menu = menu
-        statusItem.length = NSStatusItem.squareLength
     }
 
     private func setIcon(notificationCount: Int) {
         setIconWhenNoNotifications()
 
         DispatchQueue.main.asyncAfter(deadline: .now()) {
+
             if notificationCount == 0 {
                 self.setIconWhenNoNotifications()
+                self.setIconNotificationCountWhenNoNotifications()
             }
             else {
                 self.setIconWhenNotified()
+                self.setIconNotificationCountWhenNotified(count: notificationCount)
             }
         }
+    }
+    
+    private func setIconNotificationCountWhenNoNotifications()
+    {
+        if !UserDefaults.standard.bool(forKey: "showNotificationCount"){
+            self.statusItem.button?.title = ""
+            return
+        }
+        
+        let inactiveColor = NSColor(red: 106, green: 106, blue: 106, alpha: 0.3)
+        let inactiveAttr = [ NSAttributedString.Key.foregroundColor: inactiveColor]
+        let inactiveAttrString = NSAttributedString(string: " \(0)", attributes: inactiveAttr)
+        
+        self.statusItem.button?.font = .systemFont(ofSize: 12)
+        self.statusItem.button?.attributedTitle = inactiveAttrString
+
+    }
+    
+    private func setIconNotificationCountWhenNotified(count: Int)
+    {
+        if !UserDefaults.standard.bool(forKey: "showNotificationCount"){
+            self.statusItem.button?.title = ""
+
+            return
+        }
+        
+        let inactiveColor = NSColor(red: 106, green: 106, blue: 106, alpha: 0.3)
+        let inactiveAttr = [ NSAttributedString.Key.foregroundColor: inactiveColor]
+        let inactiveAttrString = NSAttributedString(string: " \(count)", attributes: inactiveAttr)
+        
+        self.statusItem.button?.font = .systemFont(ofSize: 12)
+        self.statusItem.button?.attributedTitle = inactiveAttrString
+
     }
 
     func fadeOutInMenubarIcon() {
@@ -248,15 +284,19 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             image!.size = NSSize(width: 18, height: 18)
 
             button.image = image
+
         }
     }
 
     private func setIconWhenNoNotifications() {
         if let button = statusItem.button {
+          
             let image = NSImage(named: NSImage.Name("StatusIconNoNotifications"))
             image!.size = NSSize(width: 18, height: 18)
 
             button.image = image
+
+    
         }
     }
 
