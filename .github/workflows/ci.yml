@@ -25,7 +25,7 @@ jobs:
       new-release-version: ${{ steps.get-next-version.outputs.new-release-version }}
 
   build:
-    needs: get-next-version
+    needs: [get-next-version, lint]
     name: 🛠️ Build
     runs-on: macos-12
     if: needs.get-next-version.outputs.new-release-published == 'true'
