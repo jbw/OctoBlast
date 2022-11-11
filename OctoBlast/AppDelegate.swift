@@ -241,8 +241,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
             return
         }
         
-        let inactiveColor = NSColor(red: 106, green: 106, blue: 106, alpha: 0.3)
-        let inactiveAttr = [ NSAttributedString.Key.foregroundColor: inactiveColor]
+        let color = UserDefaults.standard.color(forKey: "iconTint")
+        let inactiveAttr = [ NSAttributedString.Key.foregroundColor: NSColor(color)]
         let inactiveAttrString = NSAttributedString(string: " \(count)", attributes: inactiveAttr)
         
         self.statusItem.button?.font = .systemFont(ofSize: 12)
