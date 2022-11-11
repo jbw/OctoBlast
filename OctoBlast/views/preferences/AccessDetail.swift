@@ -13,10 +13,14 @@ struct AccessDetail: View {
 
     private func getUser(github: GitHub) {
         github.me { user, _ in
-            model.userId = "@" + user!.login!
-            model.fullName = user!.name!
-            model.avatarURL = user!.avatarURL!
+            DispatchQueue.main.async {
+                
+                model.userId = "@" + user!.login!
+                model.fullName = user!.name!
+                model.avatarURL = user!.avatarURL!
+            }
         }
+    
     }
 
     init(refreshCallback: @escaping () -> Void) {
@@ -24,6 +28,7 @@ struct AccessDetail: View {
 
         model = AccessSettings(accessToken: accessToken)
 
+        
         if accessToken.exists() {
             let github = GitHub(token: accessToken.getToken().token!)
             getUser(github: github)

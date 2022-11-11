@@ -13,24 +13,38 @@ struct AppearanceDetail: View {
 
     @State private var iconColor: Color = UserDefaults.standard.color(forKey: "iconTint")
 
+    @State private var showNotificationCount: Bool = UserDefaults.standard.notificationCount(forKey: "showNotificationCount")
+    
     var body: some View {
         HStack {
             VStack(alignment: .leading, spacing: 16) {
-                ColorPicker("Status icon color: ", selection: $iconColor, supportsOpacity: true)
+                HStack {
+                    ColorPicker("Status icon color", selection: $iconColor, supportsOpacity: true)
+                        .onChange(
+                            of: iconColor,
+                            perform: { newValue in
+                                UserDefaults.standard.setColor(newValue, forKey: "iconTint")
+                                refreshStatusIcon()
+                                
+                            }
+                        )
+                    
+                    Button("Reset") {
+                        UserDefaults.standard.setColor(.accentColor, forKey: "iconTint")
+                        iconColor = .accentColor
+                        refreshStatusIcon()
+                    }
+                }
+                
+                Toggle("Show notification count", isOn: $showNotificationCount)
                     .onChange(
-                        of: iconColor,
+                        of: showNotificationCount,
                         perform: { newValue in
-                            UserDefaults.standard.setColor(newValue, forKey: "iconTint")
+                            UserDefaults.standard.setShowNotificationCount(newValue, forKey: "showNotificationCount")
                             refreshStatusIcon()
-
                         }
                     )
-
-                Button("Reset") {
-                    UserDefaults.standard.setColor(.accentColor, forKey: "iconTint")
-                    iconColor = .accentColor
-                    refreshStatusIcon()
-                }
+                
                 Spacer()
             }
             .padding()
