@@ -2,10 +2,7 @@ set -e
 rm -rf build
 mkdir -p releases
 
-# set env var with default value
-export OCTOBLAST_VERSION=${OCTOBLAST_VERSION:-0.0.1}
-
-echo $OCTOBLAST_VERSION >OctoBlast/version.txt
+echo ${OCTOBLAST_VERSION:-1.0.0} >OctoBlast/version.txt
 sed -i .bak 's/CURRENT_PROJECT_VERSION.*;/CURRENT_PROJECT_VERSION = '$OCTOBLAST_VERSION';/g' OctoBlast.xcodeproj/project.pbxproj
 sed -i .bak 's/MARKETING_VERSION.*;/MARKETING_VERSION = '$OCTOBLAST_VERSION';/g' OctoBlast.xcodeproj/project.pbxproj
 xcodebuild clean
