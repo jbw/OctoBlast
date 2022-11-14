@@ -3,6 +3,21 @@
     <channel>
         <title>OctoBlast</title>
         <item>
+            <title>0.3.1</title>
+            <pubDate>Mon, 14 Nov 2022 17:00:37 +0000</pubDate>
+            <sparkle:version>0.3.1</sparkle:version>
+            <sparkle:shortVersionString>0.3.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.3</sparkle:minimumSystemVersion>
+            <enclosure url="https://octoblast.jbw.codes/OctoBlast-0.3.1.zip" length="4183429" type="application/octet-stream" sparkle:edSignature="LmkBuhcObm3jnrHw4ky3Gnhb8AIGmGzynqQ2AdS7oOj4h+KDKNd39BqiVhdmBQv0kRnDsLTu6EJr5iWBSz42Dw=="/>
+            <sparkle:deltas>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.3.1-0.3.0.delta" sparkle:deltaFrom="0.3.0" length="48390" type="application/octet-stream" sparkle:edSignature="VHhcbiX86iBp2kZa3/m4F9PfWyinCrUueDW++X1oDZlJv2y1tZ7sSYCMU0WKiAnBuqa5ayOYbLsmLVnd6Qy+Aw=="/>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.3.1-0.2.2.delta" sparkle:deltaFrom="0.2.2" length="574294" type="application/octet-stream" sparkle:edSignature="TpeRJVu2Ev5D4NjqbvdImZQeJDHoGGifYV46RwLcHDul4/Z2mO5DzzXJUYhT8P7U7FQYyAG1UGPOcHj9Ho0qCA=="/>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.3.1-0.2.1.delta" sparkle:deltaFrom="0.2.1" length="579286" type="application/octet-stream" sparkle:edSignature="FmxLeuCRSAfcDKXqSruHDQiSOpl89D/y/YuBWZ3PDkAwWDvu9OZ4lq4cRdWPylHf0+b+AVdTgAMMqrelLnrpAw=="/>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.3.1-0.1.6.delta" sparkle:deltaFrom="0.1.6" length="1121254" type="application/octet-stream" sparkle:edSignature="Gs00D1lFOSkf8x/zzv/e5rJeXIUjxlKf6QcRKQk7leBZbfM/Inj6Y+HWYrfQIv1h5pWm5KNYMJjVP07mQLuYBQ=="/>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.3.1-0.1.5.delta" sparkle:deltaFrom="0.1.5" length="1120702" type="application/octet-stream" sparkle:edSignature="owInfaXxZwr1z2Fg41AI33IDW76JYUXYDmmXYe7BBXMZxLTty6J2x0I3LBm19CzM1bqXftm48rjRfD27Wd18Bg=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>0.3.0</title>
             <pubDate>Fri, 11 Nov 2022 13:03:46 +0000</pubDate>
             <sparkle:version>0.3.0</sparkle:version>
