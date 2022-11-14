@@ -30,7 +30,6 @@ jobs:
     needs: [get-next-version, lint]
     name: 🛠️ Build
     runs-on: macos-latest
-    if: needs.get-next-version.outputs.new-release-published == 'true'
 
     steps:
       - name: Checkout
