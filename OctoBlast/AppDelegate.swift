@@ -33,7 +33,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
     func applicationDidFinishLaunching(_: Notification) {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
-
         setupMenu()
         setupAutoRefresh()
         refresh()
@@ -74,7 +73,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         UNUserNotificationCenter.current()
             .requestAuthorization(options: [.badge, .alert, .sound]) {
                 _,
-                _ in  // Examine granted outcome and error if desired...
+                    _ in // Examine granted outcome and error if desired...
             }
     }
 
@@ -123,7 +122,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         // Dismiss active update notifications if the user has given attention to the new update
         UNUserNotificationCenter.current()
             .removeDeliveredNotifications(withIdentifiers: [
-                UPDATE_NOTIFICATION_IDENTIFIER
+                UPDATE_NOTIFICATION_IDENTIFIER,
             ])
     }
 
@@ -140,7 +139,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         if response.notification.request.identifier == UPDATE_NOTIFICATION_IDENTIFIER,
-            response.actionIdentifier == UNNotificationDefaultActionIdentifier
+           response.actionIdentifier == UNNotificationDefaultActionIdentifier
         {
             // If the notification is clicked on, make sure we bring the update in focus
             // If the app is terminated while the notification is clicked on,
@@ -205,52 +204,47 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         setIconWhenNoNotifications()
 
         DispatchQueue.main.asyncAfter(deadline: .now()) {
-
             if notificationCount == 0 {
                 self.setIconWhenNoNotifications()
                 self.setIconNotificationCountWhenNoNotifications()
-            }
-            else {
+            } else {
                 self.setIconWhenNotified()
                 self.setIconNotificationCountWhenNotified(count: notificationCount)
             }
         }
     }
-    
-    private func hideNotificationCount(){
-        self.statusItem.button?.title = ""
+
+    private func hideNotificationCount() {
+        statusItem.button?.title = ""
     }
-    
-    private func setIconNotificationCountWhenNoNotifications()
-    {
-        if !UserDefaults.standard.notificationCount(forKey: "showNotificationCount"){
-            self.hideNotificationCount()
+
+    private func setIconNotificationCountWhenNoNotifications() {
+        if !UserDefaults.standard.notificationCount(forKey: "showNotificationCount") {
+            hideNotificationCount()
             return
         }
-        
+
         let inactiveColor = NSColor(red: 106, green: 106, blue: 106, alpha: 0.3)
-        let inactiveAttr = [ NSAttributedString.Key.foregroundColor: inactiveColor]
+        let inactiveAttr = [NSAttributedString.Key.foregroundColor: inactiveColor]
         let inactiveAttrString = NSAttributedString(string: " \(0)", attributes: inactiveAttr)
-        
-        self.statusItem.button?.font = .systemFont(ofSize: 12)
-        self.statusItem.button?.attributedTitle = inactiveAttrString
 
+        statusItem.button?.font = .systemFont(ofSize: 12)
+
+        statusItem.button?.attributedTitle = inactiveAttrString
     }
-    
-    private func setIconNotificationCountWhenNotified(count: Int)
-    {
-        if !UserDefaults.standard.notificationCount(forKey: "showNotificationCount"){
-            self.hideNotificationCount()
+
+    private func setIconNotificationCountWhenNotified(count: Int) {
+        if !UserDefaults.standard.notificationCount(forKey: "showNotificationCount") {
+            hideNotificationCount()
             return
         }
-        
-        let color = UserDefaults.standard.color(forKey: "iconTint")
-        let inactiveAttr = [ NSAttributedString.Key.foregroundColor: NSColor(color)]
-        let inactiveAttrString = NSAttributedString(string: " \(count)", attributes: inactiveAttr)
-        
-        self.statusItem.button?.font = .systemFont(ofSize: 12)
-        self.statusItem.button?.attributedTitle = inactiveAttrString
 
+        let color = UserDefaults.standard.color(forKey: "iconTint")
+        let inactiveAttr = [NSAttributedString.Key.foregroundColor: NSColor(color)]
+        let inactiveAttrString = NSAttributedString(string: " \(count)", attributes: inactiveAttr)
+
+        statusItem.button?.font = .systemFont(ofSize: 12)
+        statusItem.button?.attributedTitle = inactiveAttrString
     }
 
     func fadeOutInMenubarIcon() {
@@ -285,21 +279,17 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                     color: NSColor(color)
                 )
             image!.size = NSSize(width: 18, height: 18)
-
+            button.imagePosition = .imageLeft
             button.image = image
-
         }
     }
 
     private func setIconWhenNoNotifications() {
         if let button = statusItem.button {
-          
             let image = NSImage(named: NSImage.Name("StatusIconNoNotifications"))
             image!.size = NSSize(width: 18, height: 18)
-
+            button.imagePosition = .imageLeft
             button.image = image
-
-    
         }
     }
 
@@ -325,10 +315,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
                     self.setIcon(notificationCount: count)
                 }
 
-                case 401:
-                    print("Can't authenticate with this token. Create a new one.")
-                default:
-                    print(statusCode)
+            case 401:
+                print("Can't authenticate with this token. Create a new one.")
+            default:
+                print(statusCode)
             }
         }
     }
