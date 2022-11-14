@@ -47,7 +47,7 @@ jobs:
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
         run: |
-          export OCTOBLAST_VERSION=${{ needs.get-next-version.outputs.new-release-version }}
+          export OCTOBLAST_VERSION=${{ needs.get-next-version.outputs.new-release-version:-1.0.0 }} 
           ./releases/build.sh
 
       - name: Upload a Build Artifact
