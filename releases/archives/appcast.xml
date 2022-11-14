@@ -3,6 +3,20 @@
     <channel>
         <title>OctoBlast</title>
         <item>
+            <title>0.3.0</title>
+            <pubDate>Fri, 11 Nov 2022 13:03:46 +0000</pubDate>
+            <sparkle:version>0.3.0</sparkle:version>
+            <sparkle:shortVersionString>0.3.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>12.3</sparkle:minimumSystemVersion>
+            <enclosure url="https://octoblast.jbw.codes/OctoBlast-0.3.0.zip" length="4183883" type="application/octet-stream" sparkle:edSignature="cppmytqazwBtwFxoNA95NRC1o9tQz1J1si3Cs600s0j62bW3eEQTW2Z7euFSP7nDLkxo+QJG4vAhNYXtmq0SBA=="/>
+            <sparkle:deltas>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.3.0-0.2.2.delta" sparkle:deltaFrom="0.2.2" length="573862" type="application/octet-stream" sparkle:edSignature="xh9+HJi4ut3gVd1iRVLa7SsVvznTK30LWImwLtEygc4N6MCnKY0P6cL6fZGex0xVbIyuFW2lU3+UFrS8cPsHAA=="/>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.3.0-0.2.1.delta" sparkle:deltaFrom="0.2.1" length="578134" type="application/octet-stream" sparkle:edSignature="J4yLhQ1tBZrdzMhdl9xaLxk/Z9+AhvJhKV2XOoDtpqYolTTE8rHuPTepVwZV9qgBecBFiFzm3zMBIzrViQGtCA=="/>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.3.0-0.1.6.delta" sparkle:deltaFrom="0.1.6" length="1120850" type="application/octet-stream" sparkle:edSignature="L6bagyNOHs94PNWqfBlIpGfBlIPdjUcE83lhSr0SDfOfIHA4390ZmbYYgE0KAS/g0avnQ1LPVYRuJvQno5wmBQ=="/>
+                <enclosure url="https://octoblast.jbw.codes/OctoBlast0.3.0-0.1.5.delta" sparkle:deltaFrom="0.1.5" length="1119710" type="application/octet-stream" sparkle:edSignature="BaqP2ACFn1pDs5TBHDtYYi6MTetSrZIeIpDcZ1yQF8O4/C0gGSH4Ga/llVfwBApyxMJUhJ4SyLGYw+iwNptkBQ=="/>
+            </sparkle:deltas>
+        </item>
+        <item>
             <title>0.2.2</title>
             <pubDate>Sun, 18 Sep 2022 13:28:21 +0100</pubDate>
             <sparkle:version>0.2.2</sparkle:version>
