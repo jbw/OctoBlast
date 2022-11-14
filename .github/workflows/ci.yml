@@ -4,7 +4,9 @@ on:
   push:
     branches: ["main", "beta"]
   pull_request:
-    branches: ["main", "beta"]
+    types:
+      - opened
+      - synchronize
 
 jobs:
   get-next-version:
@@ -28,7 +30,6 @@ jobs:
     needs: [get-next-version, lint]
     name: 🛠️ Build
     runs-on: macos-12
-    if: needs.get-next-version.outputs.new-release-published == 'true'
 
     steps:
       - name: Checkout
@@ -46,7 +47,7 @@ jobs:
           AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
           AUTH_SECRET: ${{ secrets.AUTH_SECRET }}
         run: |
-          export OCTOBLAST_VERSION=${{ needs.get-next-version.outputs.new-release-version }}
+          export OCTOBLAST_VERSION=${{ needs.get-next-version.outputs.new-release-version }} 
           ./releases/build.sh
 
       - name: Upload a Build Artifact

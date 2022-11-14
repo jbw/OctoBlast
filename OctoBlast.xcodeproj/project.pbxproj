@@ -577,8 +577,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin";
 			requirement = {
-				branch = main;
-				kind = branch;
+				minimumVersion = 4.2.0;
+				kind = upToNextMajorVersion;
 			};
 		};
 		71BC7E8A28CE3D7C00E1DFA6 /* XCRemoteSwiftPackageReference "Preferences" */ = {
