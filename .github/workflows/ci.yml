@@ -27,7 +27,7 @@ jobs:
   build:
     needs: [get-next-version, lint]
     name: 🛠️ Build
-    runs-on: macos-12
+    runs-on: macos-latest
     if: needs.get-next-version.outputs.new-release-published == 'true'
 
     steps:
