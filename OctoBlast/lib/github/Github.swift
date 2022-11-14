@@ -9,7 +9,6 @@ import Foundation
 import OctoKit
 
 open class GitHub {
-
     private var client: Octokit!
     private var config: TokenConfiguration!
 
@@ -25,11 +24,11 @@ open class GitHub {
     public func me(completion: @escaping (User?, Error?) -> Void) {
         client.me { response in
             switch response {
-                case .success(let user):
-                    completion(user, nil)
-                case .failure(let error):
-                    print(error)
-                    completion(nil, error)
+            case let .success(user):
+                completion(user, nil)
+            case let .failure(error):
+                print(error)
+                completion(nil, error)
             }
         }
     }
@@ -41,7 +40,6 @@ open class GitHub {
                     || notification.reason == OctoKit.NotificationThread.Reason.stateChange
                     || notification.reason == OctoKit.NotificationThread.Reason.author)
         }
-
     }
 
     private func getMyNotifications(
@@ -66,12 +64,12 @@ open class GitHub {
 
                 return completion(newNotifications, 200)
 
-                case let .failure(error):
-                    if error.localizedDescription.contains("error 401") {
-                        return completion([], 401)
-                    }
+            case let .failure(error):
+                if error.localizedDescription.contains("error 401") {
+                    return completion([], 401)
+                }
 
-                    return completion([], 500)
+                return completion([], 500)
             }
         }
     }

@@ -17,32 +17,32 @@ struct AboutDetail: View {
             Text("OctoBlast").font(.system(.title, design: .rounded))
 
             Image(nsImage: NSImage(named: NSImage.Name("AppIcon"))!)
-            
+
             Text("[@jasonwatson](https://twitter.com/jasonwatson) (Jason Watson)")
                 .font(.system(.body, design: .rounded))
                 .onHover { isHovered in
                     self.hover = isHovered
                     DispatchQueue.main.async {
-                        if (self.hover) {
+                        if self.hover {
                             NSCursor.pointingHand.push()
                         } else {
                             NSCursor.pop()
                         }
                     }
                 }
-            
+
             Text("[https://octoblast.jbw.codes](https://octoblast.jbw.codes)")
                 .onHover { isHovered in
                     self.hover = isHovered
                     DispatchQueue.main.async {
-                        if (self.hover) {
+                        if self.hover {
                             NSCursor.pointingHand.push()
                         } else {
                             NSCursor.pop()
                         }
                     }
                 }
-            
+
             let versionLocation: URL? = Bundle.main.url(
                 forResource: "version",
                 withExtension: "txt"

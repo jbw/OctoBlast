@@ -80,8 +80,7 @@ class AuthAccessToken {
         set {
             if let newValue = newValue {
                 keychain.set(newValue, forKey: key, withAccess: .accessibleAfterFirstUnlock)
-            }
-            else {
+            } else {
                 keychain.delete(key)
             }
         }

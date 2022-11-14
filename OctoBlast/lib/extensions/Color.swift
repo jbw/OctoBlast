@@ -17,24 +17,24 @@ extension Color {
 
 extension UserDefaults {
     func setColor(_ color: Color, forKey key: String) {
-        let cgColor = color.cgColor_
-        let array = cgColor.components ?? []
+        let cgColor: CGColor = color.cgColor_
+        let array: [CGFloat] = cgColor.components ?? []
         set(array, forKey: key)
     }
 
     func color(forKey key: String) -> Color {
-        guard let array = object(forKey: key) as? [CGFloat] else { return .accentColor }
+        guard let array: [CGFloat] = object(forKey: key) as? [CGFloat] else { return .accentColor }
         let color = CGColor(colorSpace: CGColorSpace(name: CGColorSpace.sRGB)!, components: array)!
         return Color(color)
     }
-    
-    func setShowNotificationCount(_ showNotificationCount: Bool, forKey key: String){
+
+    func setShowNotificationCount(_ showNotificationCount: Bool, forKey key: String) {
         set(showNotificationCount, forKey: key)
     }
-    
-    func notificationCount(forKey key: String) -> Bool{
-        guard let showShowNotificationCount = object(forKey: key) as? Bool else { return false }
-        
+
+    func notificationCount(forKey key: String) -> Bool {
+        guard let showShowNotificationCount: Bool = object(forKey: key) as? Bool else { return false }
+
         return showShowNotificationCount
     }
 }

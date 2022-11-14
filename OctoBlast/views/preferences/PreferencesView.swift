@@ -22,8 +22,7 @@ struct PreferencesView: View {
                     Label("Appearance", systemImage: "paintpalette")
                 }
 
-                NavigationLink {
-                } label: {
+                NavigationLink {} label: {
                     Label("Notifications", systemImage: "bell")
                 }.disabled(true)
 

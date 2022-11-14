@@ -13,7 +13,7 @@ enum GitHubOAuthError: Error {
 open class GitHubOAuth {
     public static let shared: GitHubOAuth = .init()
 
-    let token: String? =  APIConfig.authToken
+    let token: String? = APIConfig.authToken
     let secret: String? = APIConfig.authSecret
 
     private var scopes: [String] = ["read:user", "notifications"]
@@ -23,7 +23,6 @@ open class GitHubOAuth {
     private var oAuthConfig: OAuthConfiguration?
 
     public func oAuth() throws -> URL {
-
         if token == nil || secret == nil {
             throw GitHubOAuthError.credsMissing
         }
@@ -45,10 +44,10 @@ open class GitHubOAuth {
                     Octokit(tokenConfig)
                         .me { response in
                             switch response {
-                                case let .success(user):
-                                    completion(tokenConfig, user)
-                                case let .failure(error):
-                                    print("Error: \(error)")
+                            case let .success(user):
+                                completion(tokenConfig, user)
+                            case let .failure(error):
+                                print("Error: \(error)")
                             }
                         }
                 }

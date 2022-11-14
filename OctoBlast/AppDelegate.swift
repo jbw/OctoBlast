@@ -15,7 +15,7 @@ import UserNotifications
 let UPDATE_NOTIFICATION_IDENTIFIER = "UpdateCheck"
 
 class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDelegate,
-    SPUUpdaterDelegate, SPUStandardUserDriverDelegate
+                   SPUUpdaterDelegate, SPUStandardUserDriverDelegate
 {
     @IBOutlet private var updaterController: SPUStandardUpdaterController!
 
@@ -73,7 +73,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         UNUserNotificationCenter.current()
             .requestAuthorization(options: [.badge, .alert, .sound]) {
                 _,
-                    _ in // Examine granted outcome and error if desired...
+                _ in // Examine granted outcome and error if desired...
             }
     }
 
@@ -122,7 +122,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         // Dismiss active update notifications if the user has given attention to the new update
         UNUserNotificationCenter.current()
             .removeDeliveredNotifications(withIdentifiers: [
-                UPDATE_NOTIFICATION_IDENTIFIER,
+                UPDATE_NOTIFICATION_IDENTIFIER
             ])
     }
 
@@ -229,7 +229,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, UNUserNotificationCenterDele
         let inactiveAttrString = NSAttributedString(string: " \(0)", attributes: inactiveAttr)
 
         statusItem.button?.font = .systemFont(ofSize: 12)
-
         statusItem.button?.attributedTitle = inactiveAttrString
     }
 

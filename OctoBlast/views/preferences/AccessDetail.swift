@@ -14,13 +14,11 @@ struct AccessDetail: View {
     private func getUser(github: GitHub) {
         github.me { user, _ in
             DispatchQueue.main.async {
-                
                 model.userId = "@" + user!.login!
                 model.fullName = user!.name!
                 model.avatarURL = user!.avatarURL!
             }
         }
-    
     }
 
     init(refreshCallback: @escaping () -> Void) {
@@ -28,7 +26,6 @@ struct AccessDetail: View {
 
         model = AccessSettings(accessToken: accessToken)
 
-        
         if accessToken.exists() {
             let github = GitHub(token: accessToken.getToken().token!)
             getUser(github: github)
@@ -36,11 +33,9 @@ struct AccessDetail: View {
 
         if !accessToken.exists() {
             emptyState()
-        }
-        else if accessToken.isOAuth() {
+        } else if accessToken.isOAuth() {
             setOAuthAsActive()
-        }
-        else if accessToken.isPersonalAccessToken() {
+        } else if accessToken.isPersonalAccessToken() {
             setAccessTokenAsActive()
         }
     }
@@ -96,7 +91,7 @@ struct AccessDetail: View {
         model.oAuthButtonDisabled = false
     }
 
-    private func useAccessToken(initial: Bool = false) {
+    private func useAccessToken(initial _: Bool = false) {
         accessToken.setPersonalAccessToken(token: model.personalAccessTokenString)
         refreshUserInfo()
         setAccessTokenAsActive()
@@ -145,8 +140,7 @@ struct AccessDetail: View {
             Button {
                 if accessToken.isOAuth() {
                     removeToken()
-                }
-                else {
+                } else {
                     useOAuthToken()
                 }
                 refreshCallback()
@@ -223,8 +217,7 @@ struct AccessDetail: View {
         Button {
             if accessToken.isPersonalAccessToken() {
                 removeToken()
-            }
-            else {
+            } else {
                 useAccessToken()
             }
             refreshCallback()
